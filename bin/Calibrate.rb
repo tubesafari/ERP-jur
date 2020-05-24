@@ -9,4 +9,14 @@ module MusicMaster
     protected
 
     # Give additional command line options banner
- 
+    #
+    # Return::
+    # * _String_: Options banner
+    def getOptionsBanner
+      return ''
+    end
+
+    # Complete options with the specific ones of this binary
+    #
+    # Parameters::
+    # * *ioOptionParser
