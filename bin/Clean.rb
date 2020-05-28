@@ -1,10 +1,11 @@
+
 #!env ruby
 
 require 'MusicMaster/Launcher'
 
 module MusicMaster
 
-  class Calibrate < Launcher
+  class Clean < Launcher
 
     protected
 
@@ -39,13 +40,13 @@ module MusicMaster
     # * _Symbol_: Rake target to execute
     def getRakeTarget
       initialize_RakeProcesses
-      generateRakeFor_CalibrateRecordings
+      generateRakeFor_CleanRecordings
 
-      return :CalibrateRecordings
+      return :CleanRecordings
     end
 
   end
 
 end
 
-exit MusicMaster::Calibrate.new.execute(ARGV)
+exit MusicMaster::Clean.new.execute(ARGV)
