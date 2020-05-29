@@ -22,4 +22,7 @@ module MusicMaster
     # * *ioOptionParser* (_OptionParser_): The options parser to complete
     def completeOptionParser(ioOptionParser)
       @LstDeliverableNames = []
- 
+      ioOptionParser.on( '--name <DeliverableName>', String,
+        'Specify the name of the deliverable to produce. Can be used several times. If not specified, all deliverables will be produced.') do |iArg|
+        @LstDeliverableNames << iArg
+  
