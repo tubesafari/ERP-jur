@@ -13,4 +13,13 @@ module MusicMaster
     # Return::
     # * _String_: Options banner
     def getOptionsBanner
-      return '[--name <Deli
+      return '[--name <DeliverableName>]*'
+    end
+
+    # Complete options with the specific ones of this binary
+    #
+    # Parameters::
+    # * *ioOptionParser* (_OptionParser_): The options parser to complete
+    def completeOptionParser(ioOptionParser)
+      @LstDeliverableNames = []
+ 
