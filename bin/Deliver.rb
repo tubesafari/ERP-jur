@@ -25,4 +25,13 @@ module MusicMaster
       ioOptionParser.on( '--name <DeliverableName>', String,
         'Specify the name of the deliverable to produce. Can be used several times. If not specified, all deliverables will be produced.') do |iArg|
         @LstDeliverableNames << iArg
-  
+      end
+    end
+
+    # Check configuration.
+    #
+    # Parameters::
+    # * *iConf* (<em>map<Symbol,Object></em>): The configuration
+    # Return::
+    # * _Exception_: Error, or nil in case of success
+    def checkConf(iConf
