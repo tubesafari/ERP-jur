@@ -40,4 +40,8 @@ module MusicMaster
       # Check that all formats referenced correspond to a given format
       if ((iConf[:Deliver] != nil) and
           (iConf[:Deliver][:Deliverables] != nil))
-        iConf[:Deliver][:Deliverables].each do |iDeliverableName, iDeli
+        iConf[:Deliver][:Deliverables].each do |iDeliverableName, iDeliverableConf|
+          if (iDeliverableConf[:Format] != nil)
+            raise "Unknown format #{iDeliverableConf[:Format]} needed to deliver #{iDeliverableName}" if (iConf[:Deliver][:Formats][iDeliverableConf[:Format]] == nil)
+          end
+          rai
