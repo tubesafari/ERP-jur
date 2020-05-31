@@ -34,4 +34,10 @@ module MusicMaster
     # * *iConf* (<em>map<Symbol,Object></em>): The configuration
     # Return::
     # * _Exception_: Error, or nil in case of success
-    def checkConf(iConf
+    def checkConf(iConf)
+      rError = nil
+
+      # Check that all formats referenced correspond to a given format
+      if ((iConf[:Deliver] != nil) and
+          (iConf[:Deliver][:Deliverables] != nil))
+        iConf[:Deliver][:Deliverables].each do |iDeliverableName, iDeli
