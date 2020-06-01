@@ -53,4 +53,17 @@ module MusicMaster
 
     # Initialize Rake processes and return the task to be built
     #
-    # 
+    # Return::
+    # * _Symbol_: Rake target to execute
+    def getRakeTarget
+      initialize_RakeProcesses(:LstDeliverableNames => @LstDeliverableNames)
+      generateRakeFor_Deliver
+
+      return :Deliver
+    end
+
+  end
+
+end
+
+exit 
