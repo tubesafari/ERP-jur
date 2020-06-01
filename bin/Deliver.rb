@@ -44,4 +44,13 @@ module MusicMaster
           if (iDeliverableConf[:Format] != nil)
             raise "Unknown format #{iDeliverableConf[:Format]} needed to deliver #{iDeliverableName}" if (iConf[:Deliver][:Formats][iDeliverableConf[:Format]] == nil)
           end
-          rai
+          raise "No mix specified for deliverable #{iDeliverableName}" if (iDeliverableConf[:Mix] == nil)
+        end
+      end
+
+      return rError
+    end
+
+    # Initialize Rake processes and return the task to be built
+    #
+    # 
