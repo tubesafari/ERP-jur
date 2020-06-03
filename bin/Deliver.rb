@@ -66,4 +66,4 @@ module MusicMaster
 
 end
 
-exit 
+exit MusicMaster::Deliver.new.execute(ARGV)
