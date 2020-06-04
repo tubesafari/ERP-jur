@@ -19,4 +19,13 @@ module MusicMaster
     # Complete options with the specific ones of this binary
     #
     # Parameters::
-    # * *ioOptionParser* (_OptionParser_): The options parser to co
+    # * *ioOptionParser* (_OptionParser_): The options parser to complete
+    def completeOptionParser(ioOptionParser)
+    end
+
+    # Check configuration.
+    #
+    # Parameters::
+    # * *iConf* (<em>map<Symbol,Object></em>): The configuration
+    # Return::
+    # * _Exception_: Error, or nil in case o
