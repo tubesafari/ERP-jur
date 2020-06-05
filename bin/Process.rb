@@ -28,4 +28,15 @@ module MusicMaster
     # Parameters::
     # * *iConf* (<em>map<Symbol,Object></em>): The configuration
     # Return::
-    # * _Exception_: Error, or nil in case o
+    # * _Exception_: Error, or nil in case of success
+    def checkConf(iConf)
+      return nil
+    end
+
+    # Initialize Rake processes and return the task to be built
+    #
+    # Return::
+    # * _Symbol_: Rake target to execute
+    def getRakeTarget
+      initialize_RakeProcesses
+      generateR
