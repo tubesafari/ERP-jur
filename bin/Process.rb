@@ -39,4 +39,13 @@ module MusicMaster
     # * _Symbol_: Rake target to execute
     def getRakeTarget
       initialize_RakeProcesses
-      generateR
+      generateRakeFor_ProcessSourceFiles
+
+      return :ProcessSourceFiles
+    end
+
+  end
+
+end
+
+exit MusicMaster::Process.new.execute(ARGV)
