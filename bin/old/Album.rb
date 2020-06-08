@@ -12,4 +12,11 @@ require 'MusicMaster/ConfLoader'
 
 module MusicMaster
 
-  # Execute the a
+  # Execute the album
+  #
+  # Parameters::
+  # * *iConf* (<em>map<Symbol,Object></em>): Configuration of the album
+  def self.execute(iConf)
+    lTracksDir = iConf[:TracksDir]
+    if (!File.exists?(lTracksDir))
+      log_err "Missing directo
