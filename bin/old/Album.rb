@@ -19,4 +19,8 @@ module MusicMaster
   def self.execute(iConf)
     lTracksDir = iConf[:TracksDir]
     if (!File.exists?(lTracksDir))
-      log_err "Missing directo
+      log_err "Missing directory #{lTracksDir}"
+      raise RuntimeError.new("Missing directory #{lTracksDir}")
+    else
+      iConf[:Tracks].each_with_index do |iTrackInfo, iIdxTrack|
+        log_info "===== Mastering Track #{iIdxTrack}: #{iTrackInfo[:TrackID]} vers
