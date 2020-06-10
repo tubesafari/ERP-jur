@@ -23,4 +23,8 @@ module MusicMaster
       raise RuntimeError.new("Missing directory #{lTracksDir}")
     else
       iConf[:Tracks].each_with_index do |iTrackInfo, iIdxTrack|
-        log_info "===== Mastering Track #{iIdxTrack}: #{iTrackInfo[:TrackID]} vers
+        log_info "===== Mastering Track #{iIdxTrack}: #{iTrackInfo[:TrackID]} version #{iTrackInfo[:Version]} ====="
+        lAlbumFile = "#{@MusicMasterConf[:Album][:Dir]}/#{iIdxTrack}_#{iTrackInfo[:TrackID]}.wav"
+        lCancel = false
+        if (File.exists?(lAlbumFile))
+          puts "File #{lAlbumFile} already 
