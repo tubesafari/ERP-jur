@@ -27,4 +27,9 @@ module MusicMaster
         lAlbumFile = "#{@MusicMasterConf[:Album][:Dir]}/#{iIdxTrack}_#{iTrackInfo[:TrackID]}.wav"
         lCancel = false
         if (File.exists?(lAlbumFile))
-          puts "File #{lAlbumFile} already 
+          puts "File #{lAlbumFile} already exists. Overwrite it by mastering a new one ? [y='yes']"
+          lCancel = ($stdin.gets.chomp != 'y')
+        end
+        if (!lCancel)
+          # Find the last Master file for this Track
+          lMasterFiles = Dir.glob("#{lTracksDir}/#{iTrackInfo[:TrackID]}*/#{iTrackInfo[:Ve
