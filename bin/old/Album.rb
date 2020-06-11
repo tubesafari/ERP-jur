@@ -32,4 +32,7 @@ module MusicMaster
         end
         if (!lCancel)
           # Find the last Master file for this Track
-          lMasterFiles = Dir.glob("#{lTracksDir}/#{iTrackInfo[:TrackID]}*/#{iTrackInfo[:Ve
+          lMasterFiles = Dir.glob("#{lTracksDir}/#{iTrackInfo[:TrackID]}*/#{iTrackInfo[:Version]}/#{iConf[:TracksFilesSubDir]}#{@MusicMasterConf[:Master][:Dir]}/*.wav")
+          if (lMasterFiles.empty?)
+            log_err "No Master files found for Track #{iTrackInfo[:TrackID]} version #{iTrackInfo[:Version]}"
+          el
