@@ -38,4 +38,9 @@ module MusicMaster
           else
             # Find the last one
             lFinalMasterFileName = lMasterFiles.sort[-1]
-            log_info "Found final Master file from Track #{iTrackInfo[:TrackID]} version #{iTrackInfo[:Version]} in #{lFinalMasterFileName
+            log_info "Found final Master file from Track #{iTrackInfo[:TrackID]} version #{iTrackInfo[:Version]} in #{lFinalMasterFileName}"
+            # Copy it
+            log_info "Copying Master file to #{lAlbumFile} ..."
+            FileUtils::cp(lFinalMasterFileName, lAlbumFile)
+            if (iTrackInfo[:AdditionalMastering] != nil)
+              lMasterTempDir = "#{@MusicMasterConf[:Album][:TempDir]}/
