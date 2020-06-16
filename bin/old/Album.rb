@@ -43,4 +43,9 @@ module MusicMaster
             log_info "Copying Master file to #{lAlbumFile} ..."
             FileUtils::cp(lFinalMasterFileName, lAlbumFile)
             if (iTrackInfo[:AdditionalMastering] != nil)
-              lMasterTempDir = "#{@MusicMasterConf[:Album][:TempDir]}/
+              lMasterTempDir = "#{@MusicMasterConf[:Album][:TempDir]}/#{iTrackInfo[:TrackID]}.#{iTrackInfo[:Version]}"
+              FileUtils::mkdir_p(lMasterTempDir)
+              MusicMaster::applyProcesses(iTrackInfo[:AdditionalMastering], lAlbumFile, lMasterTempDir)
+            end
+            # Done.
+     
