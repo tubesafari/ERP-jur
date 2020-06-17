@@ -62,4 +62,11 @@ rErrorCode = 0
 lConfFile = ARGV[0]
 if (lConfFile == nil)
   log_err 'Usage: Album <ConfFile>'
-  
+  rErrorCode = 1
+elsif (!File.exists?(lConfFile))
+  log_err "File #{lConfFile} does not exist."
+  rErrorCode = 2
+else
+  MusicMaster::parsePlugins
+  FileUtils::mkdir_p(@MusicMasterConf[:Album][:Dir])
+  FileUtils::mkdir_p(@MusicMasterConf[:Album][
