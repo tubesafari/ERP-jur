@@ -48,4 +48,18 @@ module MusicMaster
               MusicMaster::applyProcesses(iTrackInfo[:AdditionalMastering], lAlbumFile, lMasterTempDir)
             end
             # Done.
-     
+            log_info "Setting file #{iIdxTrack} for Track #{iTrackInfo[:TrackID]} from #{lAlbumFile}"          
+          end
+        end
+        log_info ''
+      end
+    end
+  end
+
+end
+
+rErrorCode = 0
+lConfFile = ARGV[0]
+if (lConfFile == nil)
+  log_err 'Usage: Album <ConfFile>'
+  
