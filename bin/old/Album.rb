@@ -69,4 +69,13 @@ elsif (!File.exists?(lConfFile))
 else
   MusicMaster::parsePlugins
   FileUtils::mkdir_p(@MusicMasterConf[:Album][:Dir])
-  FileUtils::mkdir_p(@MusicMasterConf[:Album][
+  FileUtils::mkdir_p(@MusicMasterConf[:Album][:TempDir])
+  lConf = nil
+  File.open(lConfFile, 'r') do |iFile|
+    lConf = eval(iFile.read)
+  end
+  MusicMaster::execute(lConf)
+  log_info "===== Album finished in #{@MusicMasterConf[:Album][:Dir]}"
+end
+
+exit rErrorCode
