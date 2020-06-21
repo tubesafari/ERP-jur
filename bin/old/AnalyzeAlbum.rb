@@ -7,4 +7,14 @@
 require 'fileutils'
 require 'MusicMaster/Common'
 require 'rUtilAnts/Logging'
-RUtilAnts::Logging::ins
+RUtilAnts::Logging::install_logger_on_object
+require 'MusicMaster/ConfLoader'
+
+module MusicMaster
+
+  # Execute the album
+  #
+  # Parameters::
+  # * *iConf* (<em>map<Symbol,Object></em>): Configuration of the album
+  def self.execute(iConf)
+    lTracksDir = iConf[:Tra
