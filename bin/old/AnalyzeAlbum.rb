@@ -17,4 +17,11 @@ module MusicMaster
   # Parameters::
   # * *iConf* (<em>map<Symbol,Object></em>): Configuration of the album
   def self.execute(iConf)
-    lTracksDir = iConf[:Tra
+    lTracksDir = iConf[:TracksDir]
+    if (!File.exists?(lTracksDir))
+      log_err "Missing directory #{lTracksDir}"
+      raise RuntimeError.new("Missing directory #{lTracksDir}")
+    else
+      # Analyze results, per Track
+      lAnalyzeResults = []
+      iConf[:Tracks].each_with_index do |i
