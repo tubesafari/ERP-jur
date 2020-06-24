@@ -28,4 +28,12 @@ module MusicMaster
         lTrackFileName = "#{@MusicMasterConf[:Album][:Dir]}/#{iIdxTrack}_#{iTrackInfo[:TrackID]}.wav"
         wsk(lTrackFileName, 'Dummy.wav', 'Analyze')
         File.unlink('Dummy.wav')
-        File.open('analyze.result', 'rb'
+        File.open('analyze.result', 'rb') do |iFile|
+          lAnalyzeResults << Marshal.load(iFile.read)
+        end
+        File.unlink('analyze.result')
+      end
+      # Display analyze results
+      log_info ''
+      log_info '===== Analyze results:'
+      
