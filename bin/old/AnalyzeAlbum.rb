@@ -36,4 +36,8 @@ module MusicMaster
       # Display analyze results
       log_info ''
       log_info '===== Analyze results:'
-      
+      iConf[:Tracks].each_with_index do |iTrackInfo, iIdxTrack|
+        lStrDBRMSValues = lAnalyzeResults[iIdxTrack][:DBRMSValues].map do |iValue|
+          next sprintf('%.2f', iValue)
+        end
+        log_info "[#{iIdxTrack} - #{iTrackInfo[:TrackID]}]: RMS=(#{lStrD
