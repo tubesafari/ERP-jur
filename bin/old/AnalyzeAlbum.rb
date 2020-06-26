@@ -50,4 +50,13 @@ end
 rErrorCode = 0
 lConfFile = ARGV[0]
 if (lConfFile == nil)
-  log_
+  log_err 'Usage: AnalyzeAlbum <ConfFile>'
+  rErrorCode = 1
+elsif (!File.exists?(lConfFile))
+  log_err "File #{lConfFile} does not exist."
+  rErrorCode = 2
+else
+  lConf = nil
+  File.open(lConfFile, 'r') do |iFile|
+    lConf = eval(iFile.read)
+ 
