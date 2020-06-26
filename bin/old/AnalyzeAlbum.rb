@@ -40,4 +40,14 @@ module MusicMaster
         lStrDBRMSValues = lAnalyzeResults[iIdxTrack][:DBRMSValues].map do |iValue|
           next sprintf('%.2f', iValue)
         end
-        log_info "[#{iIdxTrack} - #{iTrackInfo[:TrackID]}]: RMS=(#{lStrD
+        log_info "[#{iIdxTrack} - #{iTrackInfo[:TrackID]}]: RMS=(#{lStrDBRMSValues.join('db, ')}db) Max=#{sprintf('%.2f', lAnalyzeResults[iIdxTrack][:DBAbsMaxValue])}db Length=#{sprintf('%.2f', lAnalyzeResults[iIdxTrack][:DataLength])}s"
+      end
+    end
+  end
+
+end
+
+rErrorCode = 0
+lConfFile = ARGV[0]
+if (lConfFile == nil)
+  log_
