@@ -58,3 +58,22 @@
     'Wave 44k 16b' => {
       # By default :FileFormat is :Wave
       :FileFormat => :Wave,
+      :SampleRate => 44100,
+      :BitDepth => 16,
+      :Dither => true
+    },
+
+    'MP3 48k 320kbps' => {
+      :FileFormat => :MP3,
+      :SampleRate => 48000,
+      :BitRate => 320
+    },
+
+    'MP3 44k 128kbps' => {
+      :FileFormat => :MP3,
+      :SampleRate => 44100,
+      :BitRate => 128
+    }
+
+  }
+}
