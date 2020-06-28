@@ -59,4 +59,8 @@ else
   lConf = nil
   File.open(lConfFile, 'r') do |iFile|
     lConf = eval(iFile.read)
- 
+  end
+  MusicMaster::execute(lConf)
+end
+
+exit rErrorCode
