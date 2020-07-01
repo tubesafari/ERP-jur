@@ -25,4 +25,15 @@ module MusicMaster
     # Return::
     # * _String_: Directory to store analysis results of recorded files to
     def getAnalyzedRecordedDir
-      return @MusicMasterConf[:Director
+      return @MusicMasterConf[:Directories][:AnalyzeRecord]
+    end
+
+    # Get the directory in which files are cleaned
+    #
+    # Return::
+    # * _String_: Directory to clean files to
+    def getCleanedDir
+      return @MusicMasterConf[:Directories][:Clean]
+    end
+
+    # Get the directory in
