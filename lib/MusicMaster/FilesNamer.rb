@@ -17,4 +17,12 @@ module MusicMaster
     # Return::
     # * _String_: Directory to store static audio files to
     def getWaveDir
-      return @MusicMasterConf[:Direct
+      return @MusicMasterConf[:Directories][:Wave]
+    end
+
+    # Get the directory in which recorded files are analyzed
+    #
+    # Return::
+    # * _String_: Directory to store analysis results of recorded files to
+    def getAnalyzedRecordedDir
+      return @MusicMasterConf[:Director
