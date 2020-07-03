@@ -36,4 +36,12 @@ module MusicMaster
       return @MusicMasterConf[:Directories][:Clean]
     end
 
-    # Get the directory in
+    # Get the directory in which files are calibrated
+    #
+    # Return::
+    # * _String_: Directory to calibrate files to
+    def getCalibratedDir
+      return @MusicMasterConf[:Directories][:Calibrate]
+    end
+
+    # Get the directory in which Wave files are proc
