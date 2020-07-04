@@ -44,4 +44,12 @@ module MusicMaster
       return @MusicMasterConf[:Directories][:Calibrate]
     end
 
-    # Get the directory in which Wave files are proc
+    # Get the directory in which Wave files are processed
+    #
+    # Return::
+    # * _String_: Directory to process files to
+    def getProcessesWaveDir
+      return @MusicMasterConf[:Directories][:ProcessWave]
+    end
+
+    # Get the directory in which recorded files are processe
