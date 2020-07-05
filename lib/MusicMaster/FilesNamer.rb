@@ -52,4 +52,15 @@ module MusicMaster
       return @MusicMasterConf[:Directories][:ProcessWave]
     end
 
-    # Get the directory in which recorded files are processe
+    # Get the directory in which recorded files are processed
+    #
+    # Return::
+    # * _String_: Directory to process files to
+    def getProcessesRecordDir
+      return @MusicMasterConf[:Directories][:ProcessRecord]
+    end
+
+    # Get the directory in which mix files are processed
+    #
+    # Return::
+    # * _String_: Directory to mix
