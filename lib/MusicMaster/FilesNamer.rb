@@ -63,4 +63,13 @@ module MusicMaster
     # Get the directory in which mix files are processed
     #
     # Return::
-    # * _String_: Directory to mix
+    # * _String_: Directory to mix files to
+    def getMixDir
+      return @MusicMasterConf[:Directories][:Mix]
+    end
+
+    # Get the directory in which final mix files are linked
+    #
+    # Return::
+    # * _String_: Directory storing links to final mix files
+    def g
