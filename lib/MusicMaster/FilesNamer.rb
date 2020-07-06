@@ -81,4 +81,11 @@ module MusicMaster
     # Return::
     # * _String_: Directory to deliver files to
     def getDeliverDir
-      return @MusicMasterCon
+      return @MusicMasterConf[:Directories][:Deliver]
+    end
+
+    # Get the recorded file name of a given list of tracks on a given environment
+    #
+    # Parameters::
+    # * *iEnv* (_Symbol_): The environment
+    # * *iLstTracks* (<em>list<Integer></em>): The list of tracks being rec
