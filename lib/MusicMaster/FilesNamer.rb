@@ -72,4 +72,13 @@ module MusicMaster
     #
     # Return::
     # * _String_: Directory storing links to final mix files
-    def g
+    def getFinalMixDir
+      return @MusicMasterConf[:Directories][:FinalMix]
+    end
+
+    # Get the directory in which files are delivered
+    #
+    # Return::
+    # * _String_: Directory to deliver files to
+    def getDeliverDir
+      return @MusicMasterCon
