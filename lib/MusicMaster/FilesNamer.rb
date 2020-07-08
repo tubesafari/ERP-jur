@@ -88,4 +88,11 @@ module MusicMaster
     #
     # Parameters::
     # * *iEnv* (_Symbol_): The environment
-    # * *iLstTracks* (<em>list<Integer></em>): The list of tracks being rec
+    # * *iLstTracks* (<em>list<Integer></em>): The list of tracks being recorded
+    # Return::
+    # * _String_: Name of the Wave file
+    def getRecordedFileName(iEnv, iLstTracks)
+      return "#{getRecordedDir}/#{iEnv}.#{iLstTracks.sort.join('.')}.wav"
+    end
+
+    # Get the recorded silence file name on a
