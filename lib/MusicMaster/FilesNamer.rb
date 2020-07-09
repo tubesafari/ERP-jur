@@ -103,3 +103,9 @@ module MusicMaster
     # * _String_: Name of the Wave file
     def getRecordedSilenceFileName(iEnv)
       return "#{getRecordedDir}/#{iEnv}.Silence.wav"
+    end
+
+    # Get the recorded calibration file name, recording from a recording environment in order to be compared later with a reference environment.
+    #
+    # Parameters::
+    # * *iEnvReference* (_Symbol_): The reference environment
