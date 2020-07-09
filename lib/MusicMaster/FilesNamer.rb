@@ -95,4 +95,11 @@ module MusicMaster
       return "#{getRecordedDir}/#{iEnv}.#{iLstTracks.sort.join('.')}.wav"
     end
 
-    # Get the recorded silence file name on a
+    # Get the recorded silence file name on a given recording environment
+    #
+    # Parameters::
+    # * *iEnv* (_Symbol_): The environment
+    # Return::
+    # * _String_: Name of the Wave file
+    def getRecordedSilenceFileName(iEnv)
+      return "#{getRecordedDir}/#{iEnv}.Silence.wav"
