@@ -109,3 +109,8 @@ module MusicMaster
     #
     # Parameters::
     # * *iEnvReference* (_Symbol_): The reference environment
+    # * *iEnvRecording* (_Symbol_): The recording environment
+    # Return::
+    # * _String_: Name of the Wave file
+    def getRecordedCalibrationFileName(iEnvReference, iEnvRecording)
+      return "#{getRecordedDir}/Calibrat
