@@ -113,4 +113,13 @@ module MusicMaster
     # Return::
     # * _String_: Name of the Wave file
     def getRecordedCalibrationFileName(iEnvReference, iEnvRecording)
-      return "#{getRecordedDir}/Calibrat
+      return "#{getRecordedDir}/Calibration.#{iEnvRecording}.#{iEnvReference}.wav"
+    end
+
+    # Get the calibrated recorded file name
+    #
+    # Parameters::
+    # * *iRecordedBaseName* (_String_): Base name of the recorded track
+    # Return::
+    # * _String_: Name of the Wave file
+    def getCalibrate
