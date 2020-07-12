@@ -122,4 +122,11 @@ module MusicMaster
     # * *iRecordedBaseName* (_String_): Base name of the recorded track
     # Return::
     # * _String_: Name of the Wave file
-    def getCalibrate
+    def getCalibratedFileName(iRecordedBaseName)
+      return "#{getCalibratedDir}/#{iRecordedBaseName}.Calibrated.wav"
+    end
+
+    # Get the name of a source wave file
+    #
+    # Parameters::
+    # * *iFileName* (_String_): Name of the Wave file used to generate th
