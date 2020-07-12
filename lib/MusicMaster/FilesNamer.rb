@@ -129,4 +129,12 @@ module MusicMaster
     # Get the name of a source wave file
     #
     # Parameters::
-    # * *iFileName* (_String_): Name of the Wave file used to generate th
+    # * *iFileName* (_String_): Name of the Wave file used to generate this source wave file
+    # Return::
+    # * _String_: Name of the Wave file
+    def getWaveSourceFileName(iFileName)
+      if (File.exists?(iFileName))
+        # Use the original one
+        return iFileName
+      else
+        # We will 
