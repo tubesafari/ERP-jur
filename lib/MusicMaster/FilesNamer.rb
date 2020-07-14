@@ -145,4 +145,12 @@ module MusicMaster
     # Get the name of an analysis file taken from a recorded file
     #
     # Parameters::
-    # * *iBaseName* (_String_): Base name of the recorded file (without extensio
+    # * *iBaseName* (_String_): Base name of the recorded file (without extension)
+    # Return::
+    # * _String_: The analysis file name
+    def getRecordedAnalysisFileName(iBaseName)
+      return "#{getAnalyzedRecordedDir}/#{iBaseName}.analyze"
+    end
+
+    # Get the name of a FFT profike file taken from a recorded file
+    #
