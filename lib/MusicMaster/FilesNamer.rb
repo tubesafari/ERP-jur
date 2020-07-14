@@ -137,4 +137,12 @@ module MusicMaster
         # Use the original one
         return iFileName
       else
-        # We will 
+        # We will generate a new one
+        return "#{getWaveDir}/#{File.basename(iFileName)}"
+      end
+    end
+
+    # Get the name of an analysis file taken from a recorded file
+    #
+    # Parameters::
+    # * *iBaseName* (_String_): Base name of the recorded file (without extensio
