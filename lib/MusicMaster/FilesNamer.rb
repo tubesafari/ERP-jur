@@ -154,3 +154,17 @@ module MusicMaster
 
     # Get the name of a FFT profike file taken from a recorded file
     #
+    # Parameters::
+    # * *iBaseName* (_String_): Base name of the recorded file (without extension)
+    # Return::
+    # * _String_: The FFT profile file name
+    def getRecordedFFTProfileFileName(iBaseName)
+      return "#{getAnalyzedRecordedDir}/#{iBaseName}.fftprofile"
+    end
+
+    # Get the name of the file generated after removing silences from it.
+    #
+    # Parameters::
+    # * *iBaseName* (_String_): Base name of the file
+    # Return::
+    # * _String_: The generated file name
