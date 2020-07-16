@@ -168,3 +168,11 @@ module MusicMaster
     # * *iBaseName* (_String_): Base name of the file
     # Return::
     # * _String_: The generated file name
+    def getSilenceRemovedFileName(iBaseName)
+      return "#{getCleanedDir}/#{iBaseName}.01.SilenceRemover.wav"
+    end
+
+    # Get the name of the file generated after applying a cut from it.
+    #
+    # Parameters::
+    # * *iBaseNa
