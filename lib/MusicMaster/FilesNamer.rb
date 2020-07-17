@@ -175,4 +175,8 @@ module MusicMaster
     # Get the name of the file generated after applying a cut from it.
     #
     # Parameters::
-    # * *iBaseNa
+    # * *iBaseName* (_String_): Base name of the file
+    # * *iCutInfo* (<em>[String,String]</em>): The cut information, used to extract only a part of the file (begin and end markers, in seconds or samples)
+    # Return::
+    # * _String_: The generated file name
+    def getC
