@@ -179,4 +179,11 @@ module MusicMaster
     # * *iCutInfo* (<em>[String,String]</em>): The cut information, used to extract only a part of the file (begin and end markers, in seconds or samples)
     # Return::
     # * _String_: The generated file name
-    def getC
+    def getCutFileName(iBaseName, iCutInfo)
+      return "#{getCleanedDir}/#{iBaseName}.02.Cut.#{iCutInfo.join('_')}.wav"
+    end
+
+    # Get the name of the file generated after applying a DC remover from it.
+    #
+    # Parameters::
+    # * *iBaseNa
