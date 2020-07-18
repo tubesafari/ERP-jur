@@ -186,4 +186,11 @@ module MusicMaster
     # Get the name of the file generated after applying a DC remover from it.
     #
     # Parameters::
-    # * *iBaseNa
+    # * *iBaseName* (_String_): Base name of the file
+    # Return::
+    # * _String_: The generated file name
+    def getDCRemovedFileName(iBaseName)
+      return "#{getCleanedDir}/#{iBaseName}.03.DCShifter.wav"
+    end
+
+    # Get the name of the file generated af
