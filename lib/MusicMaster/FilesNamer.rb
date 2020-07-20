@@ -200,4 +200,12 @@ module MusicMaster
     # Return::
     # * _String_: The generated file name
     def getNoiseGateFileName(iBaseName)
-      return "#{getCleanedDir}/#{iBaseName}.04.NoiseGat
+      return "#{getCleanedDir}/#{iBaseName}.04.NoiseGate.wav"
+    end
+
+    # Get the name of a file to be processed
+    #
+    # Parameters::
+    # * *iDir* (_String_): Directory where to store the processed file
+    # * *iBaseName* (_String_): Base name of the processed file source
+    # * *iIdxProcess* (_Integer_): Index of
