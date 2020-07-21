@@ -208,4 +208,7 @@ module MusicMaster
     # Parameters::
     # * *iDir* (_String_): Directory where to store the processed file
     # * *iBaseName* (_String_): Base name of the processed file source
-    # * *iIdxProcess* (_Integer_): Index of
+    # * *iIdxProcess* (_Integer_): Index of the process
+    # * *iProcessName* (_String_): Name of the process to apply
+    # * *iProcessParams* (<em>map<Symbol,Object></em>): Process parameters
+    def getProcessedFileName(iDir, iBaseName, iIdxProcess, iProcessN
