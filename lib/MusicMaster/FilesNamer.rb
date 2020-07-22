@@ -211,4 +211,8 @@ module MusicMaster
     # * *iIdxProcess* (_Integer_): Index of the process
     # * *iProcessName* (_String_): Name of the process to apply
     # * *iProcessParams* (<em>map<Symbol,Object></em>): Process parameters
-    def getProcessedFileName(iDir, iBaseName, iIdxProcess, iProcessN
+    def getProcessedFileName(iDir, iBaseName, iIdxProcess, iProcessName, iProcessParams)
+      # If the base name contains already an ID, integrate it in the new ID
+      lMatch = iBaseName.match(/^(.*)\.([[:xdigit:]]{32,32})$/)
+      if (lMatch == nil)
+        return "#{iDir}/#{iBaseName}.#{iIdxProcess}.#{iProces
