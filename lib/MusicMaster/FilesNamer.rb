@@ -215,4 +215,10 @@ module MusicMaster
       # If the base name contains already an ID, integrate it in the new ID
       lMatch = iBaseName.match(/^(.*)\.([[:xdigit:]]{32,32})$/)
       if (lMatch == nil)
-        return "#{iDir}/#{iBaseName}.#{iIdxProcess}.#{iProces
+        return "#{iDir}/#{iBaseName}.#{iIdxProcess}.#{iProcessName}.#{iProcessParams.unique_id}.wav"
+      else
+        lNewBaseName = lMatch[1]
+        lNewProcessParams = {
+          :__InheritedID__ => lMatch[2]
+        }.merge(iProcessParams)
+        return "#{iDir}/#{lNewBaseName}.#{iIdxProcess}.#{i
