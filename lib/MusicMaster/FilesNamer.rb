@@ -221,4 +221,12 @@ module MusicMaster
         lNewProcessParams = {
           :__InheritedID__ => lMatch[2]
         }.merge(iProcessParams)
-        return "#{iDir}/#{lNewBaseName}.#{iIdxProcess}.#{i
+        return "#{iDir}/#{lNewBaseName}.#{iIdxProcess}.#{iProcessName}.#{lNewProcessParams.unique_id}.wav"
+      end
+    end
+
+    # Get the name of a file to be mixed
+    #
+    # Parameters::
+    # * *iDir* (_String_): Directory where to store the mixed file
+    # * *iMixName* (_String_): Name of the 
