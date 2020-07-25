@@ -229,4 +229,10 @@ module MusicMaster
     #
     # Parameters::
     # * *iDir* (_String_): Directory where to store the mixed file
-    # * *iMixName* (_String_): Name of the 
+    # * *iMixName* (_String_): Name of the mix
+    # * *iMixTracksConf* (<em>map<Symbol,Object></em>): Mix tracks' parameters
+    def getMixFileName(iDir, iMixName, iMixTracksConf)
+      return "#{iDir}/#{iMixName}.#{iMixTracksConf.unique_id}.wav"
+    end
+
+    # Get the name of a final mix fi
