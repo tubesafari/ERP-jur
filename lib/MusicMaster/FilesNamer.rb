@@ -235,4 +235,14 @@ module MusicMaster
       return "#{iDir}/#{iMixName}.#{iMixTracksConf.unique_id}.wav"
     end
 
-    # Get the name of a final mix fi
+    # Get the name of a final mix file (the symbolic link)
+    #
+    # Parameters::
+    # * *iMixName* (_String_): Name of the mix
+    def getFinalMixFileName(iMixName)
+      return "#{getFinalMixDir}/#{iMixName}.wav"
+    end
+
+  end
+
+end
