@@ -14,4 +14,9 @@ module MusicMaster
 
       # Deliver a file.
       # The delivered file can be a shortcut to the source one.
+      #
+      # Parameters::
+      # * *iSrcFileName* (_String_): The source file to deliver from
+      # * *iDstFileName* (_String_): The destination file to be delivered
+      # * *iFormatConf* (<em>map<Symbol,Object></em>): The format configuration
   
