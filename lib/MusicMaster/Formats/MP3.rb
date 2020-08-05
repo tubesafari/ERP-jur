@@ -21,4 +21,12 @@ module MusicMaster
       # * *iFormatConf* (<em>map<Symbol,Object></em>): The format configuration
       # * *iMetadata* (<em>map<Symbol,Object></em>): The metadata that can be used while delivering the file
       def deliver(iSrcFileName, iDstFileName, iFormatConf, iMetadata)
-        # TODO: Implement it using an external tool, and make regression tes
+        # TODO: Implement it using an external tool, and make regression testing
+        lTranslatedParams = []
+        iParams.each do |iParam, iValue|
+          case iParam
+          when :SampleRate
+            lTranslatedParams << "Sample rate: #{iValue} Hz"
+          when :BitRate
+            lTranslatedParams << "Bit rate: #{iValue} kbps"
+    
