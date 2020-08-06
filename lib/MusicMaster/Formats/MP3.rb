@@ -29,4 +29,8 @@ module MusicMaster
             lTranslatedParams << "Sample rate: #{iValue} Hz"
           when :BitRate
             lTranslatedParams << "Bit rate: #{iValue} kbps"
-    
+          else
+            log_warn "Unknown MP3 format parameter: #{iParam} (value #{iValue.inspect}). Ignoring it."
+          end
+        end
+        puts "Convert file #{iSrcFileName} into file #{iDstFileName} in MP3 format with following paramet
