@@ -1,15 +1,16 @@
+
 module MusicMaster
 
   module Formats
 
-    class MP3
+    class Test
 
       # Give the file extension
       #
       # Return::
       # * _String_: The file extension (without .)
       def getFileExt
-        return 'mp3'
+        return 'test.rb'
       end
 
       # Deliver a file.
@@ -21,21 +22,15 @@ module MusicMaster
       # * *iFormatConf* (<em>map<Symbol,Object></em>): The format configuration
       # * *iMetadata* (<em>map<Symbol,Object></em>): The metadata that can be used while delivering the file
       def deliver(iSrcFileName, iDstFileName, iFormatConf, iMetadata)
-        # TODO: Implement it using an external tool, and make regression testing
-        lTranslatedParams = []
-        iParams.each do |iParam, iValue|
-          case iParam
-          when :SampleRate
-            lTranslatedParams << "Sample rate: #{iValue} Hz"
-          when :BitRate
-            lTranslatedParams << "Bit rate: #{iValue} kbps"
-          else
-            log_warn "Unknown MP3 format parameter: #{iParam} (value #{iValue.inspect}). Ignoring it."
-          end
+        log_debug "Deliver for test purposes file #{iDstFileName}"
+        File.open(iDstFileName, 'w') do |oFile|
+          oFile.write({
+            :SrcFileName => iSrcFileName,
+            :DstFileName => iDstFileName,
+            :FormatConf => iFormatConf,
+            :Metadata => iMetadata
+          }.inspect)
         end
-        puts "Convert file #{iSrcFileName} into file #{iDstFileName} in MP3 format with following parameters: #{lTranslatedParams.join(', ')}"
-        puts 'Press Enter when done.'
-        $stdin.gets
       end
 
     end
