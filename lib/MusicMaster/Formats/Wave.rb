@@ -68,3 +68,9 @@ module MusicMaster
           raise "Error while executing SSRC command \"#{lCmd}\": error code #{$?.exitstatus}" if (!system(lCmd)) or ($?.exitstatus != 0)
         end
       end
+
+    end
+
+  end
+
+end
