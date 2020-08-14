@@ -21,4 +21,7 @@ module MusicMaster
       # * *iOutputFileName* (_String_): File name to write
       # * *iTempDir* (_String_): Temporary directory that can be used
       # * *iParams* (<em>map<Symbol,Object></em>): Parameters
-      def execut
+      def execute(iInputFileName, iOutputFileName, iTempDir, iParams)
+        # Create the file that will store the Function for WSK
+        lFunctionFile = "#{iTempDir}/#{File.basename(iInputFileName)[0..-5]}.fct.rb"
+        lFunction = WSK::Functions
