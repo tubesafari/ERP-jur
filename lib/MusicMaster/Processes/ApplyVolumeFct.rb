@@ -27,4 +27,11 @@ module MusicMaster
         lFunction = WSK::Functions::Function.new
         lFunction.set(iParams[:Function])
         lFunction.write_to_file(lFunctionFile)
-        wsk(iInputFileName, iOutputFileName, 'ApplyVolumeFct', "--function \"#{lFunctionFile}\" --begin \"#{iParams[:Begin]}\" --end \"#{i
+        wsk(iInputFileName, iOutputFileName, 'ApplyVolumeFct', "--function \"#{lFunctionFile}\" --begin \"#{iParams[:Begin]}\" --end \"#{iParams[:End]}\" --unitdb #{(iParams[:DBUnits]) ? '1' : '0'}")
+      end
+
+    end
+
+  end
+
+end
