@@ -158,3 +158,88 @@ module MusicMaster
               # The volume transformation will be a ratio
               lDiffProfileFunction.divide_by_function(lProfileFunction)
             end
+
+            dumpDebugFct(iInputFileName, lDiffProfileFunction, 'RawDiffProfileDB', lDBUnits, iTempDir)
+
+            # Apply damping for attack and release times
+            log_info 'Damp differing function with attack and release ...'
+            lAttackDuration = Rational(readDuration(iParams[:AttackDuration], lHeader.SampleRate))
+            lAttackSlope = iParams[:AttackDamping].to_f.to_r/lAttackDuration
+            lReleaseDuration = Rational(readDuration(iParams[:ReleaseDuration], lHeader.SampleRate))
+            lReleaseSlope = iParams[:ReleaseDamping].to_f.to_r/lReleaseDuration
+            if (lDBUnits)
+              lAttackSlope = -lAttackSlope
+              lReleaseSlope = -lReleaseSlope
+            end
+            # Take care of look-aheads
+            if ((iParams[:AttackLookAhead] == true) or
+                (iParams[:ReleaseLookAhead] == true))
+              # Look-Aheads are implemented by applying damping on the reverted function
+              lDiffProfileFunction.invert_abscisses
+              if (iParams[:AttackLookAhead] == false)
+                lDiffProfileFunction.apply_damping(nil, -lReleaseSlope)
+              elsif (iParams[:ReleaseLookAhead] == false)
+                lDiffProfileFunction.apply_damping(lAttackSlope, nil)
+              else
+                lDiffProfileFunction.apply_damping(lAttackSlope, -lReleaseSlope)
+              end
+              lDiffProfileFunction.invert_abscisses
+            end
+            if (iParams[:AttackLookAhead] == true)
+              if (iParams[:ReleaseLookAhead] == false)
+                lDiffProfileFunction.apply_damping(lReleaseSlope, nil)
+              end
+            elsif (iParams[:ReleaseLookAhead] == true)
+              if (iParams[:AttackLookAhead] == false)
+                lDiffProfileFunction.apply_damping(nil, -lAttackSlope)
+              end
+            else
+              lDiffProfileFunction.apply_damping(lReleaseSlope, -lAttackSlope)
+            end
+
+            #dumpDebugFct(iInputFileName, lDiffProfileFunction, 'DampedDiffProfileDB', lDBUnits, iTempDir)
+
+            # Eliminate glitches in the function.
+            # This is done by deleting intermediate abscisses that are too close to each other
+
+            log_info 'Smooth differing function ...'
+            lDiffProfileFunction.remove_noise_abscisses(Rational(readDuration(iParams[:MinChangeDuration], lHeader.SampleRate)))
+
+            dumpDebugFct(iInputFileName, lDiffProfileFunction, 'SmoothedDiffProfileDB', lDBUnits, iTempDir)
+
+            # Save the volume transformation file
+            lDiffProfileFunction.write_to_file(lTempVolTransformFile)
+          end
+
+          # Apply the volume transformation to the Wave file
+          lStrUnitDB = 0
+          if (lDBUnits)
+            lStrUnitDB = 1
+          end
+          wsk(iInputFileName, iOutputFileName, 'ApplyVolumeFct', "--function \"#{lTempVolTransformFile}\" --begin 0 --end -1 --unitdb #{lStrUnitDB}")
+        end
+      end
+
+      # Dump a function into a Wave file.
+      # This is used for debugging purposes only.
+      #
+      # Parameters::
+      # * *iInputFileName* (_String_): Name of the input file
+      # * *iFunction* (<em>WSK::Functions::Function</em>): The function to dump
+      # * *iName* (_String_): Name given to this function
+      # * *iDBUnits* (_Boolean_): Is the function in DB units ?
+      # * *iTempDir* (_String_): Temporary directory to use
+      def dumpDebugFct(iInputFileName, iFunction, iName, iDBUnits, iTempDir)
+        lBaseFileName = File.basename(iInputFileName)[0..-5]
+        # Clone the function to round it first
+        lRoundedFunction = WSK::Functions::Function.new
+        lRoundedFunction.set(iFunction.function_data.clone)
+        lRoundedFunction.write_to_file("#{iTempDir}/_#{lBaseFileName}_#{iName}.fct.rb", :Floats => true)
+        wsk(iInputFileName, "#{iTempDir}/_#{lBaseFileName}_#{iName}.wav", 'DrawFct', "--function \"#{iTempDir}/_#{lBaseFileName}_#{iName}.fct.rb\" --unitdb #{iDBUnits ? '1' : '0'}")
+      end
+
+    end
+
+  end
+
+end
