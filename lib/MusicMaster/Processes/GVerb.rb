@@ -12,4 +12,15 @@ module MusicMaster
       # * *iTempDir* (_String_): Temporary directory that can be used
       # * *iParams* (<em>map<Symbol,Object></em>): Parameters
       def execute(iInputFileName, iOutputFileName, iTempDir, iParams)
-        # TODO: Use a real GVerb library, and implement regre
+        # TODO: Use a real GVerb library, and implement regression too
+        puts "===> Apply GVerb from Audacity to file #{iInputFileName} and write file #{iOutputFileName}"
+        puts "===> Parameters: #{iParams.inspect}"
+        puts 'Press Enter when done.'
+        $stdin.gets
+      end
+
+    end
+
+  end
+
+end
