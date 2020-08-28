@@ -14,4 +14,8 @@ module MusicMaster
       def execute(iInputFileName, iOutputFileName, iTempDir, iParams)
         require 'rational'
         # First, analyze
-     
+        lAnalyzeResultFileName = "#{iTempDir}/#{File.basename(iInputFileName)}.analyze"
+        if (File.exists?(lAnalyzeResultFileName))
+          log_warn "File #{lAnalyzeResultFileName} already exists. Will not overwrite it."
+        else
+  
