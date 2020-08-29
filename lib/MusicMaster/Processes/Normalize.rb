@@ -18,4 +18,9 @@ module MusicMaster
         if (File.exists?(lAnalyzeResultFileName))
           log_warn "File #{lAnalyzeResultFileName} already exists. Will not overwrite it."
         else
-  
+          wsk(iInputFileName, "#{iTempDir}/Dummy.wav", 'Analyze')
+          File.unlink("#{iTempDir}/Dummy.wav")
+          FileUtils::mv('analyze.result', lAnalyzeResultFileName)
+        end
+        lAnalyzeResult = nil
+        File.open(lAnalyzeResultFileName, 'r
