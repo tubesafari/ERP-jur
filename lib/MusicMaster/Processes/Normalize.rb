@@ -28,4 +28,8 @@ module MusicMaster
         end
         lMaxDataValue = lAnalyzeResult[:MaxValues].sort[-1]
         lMinDataValue = lAnalyzeResult[:MinValues].sort[0]
-        lMaxPossibleValue =
+        lMaxPossibleValue = (2**(lAnalyzeResult[:SampleSize]-1)) - 1
+        lMinPossibleValue = -(2**(lAnalyzeResult[:SampleSize]-1))
+        lCoeffNormalizeMax = Rational(lMaxPossibleValue, lMaxDataValue)
+        lCoeffNormalizeMin = Rational(lMinPossibleValue, lMinDataValue)
+        lCoeff = lCoeffNor
