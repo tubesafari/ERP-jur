@@ -23,4 +23,9 @@ module MusicMaster
           FileUtils::mv('analyze.result', lAnalyzeResultFileName)
         end
         lAnalyzeResult = nil
-        File.open(lAnalyzeResultFileName, 'r
+        File.open(lAnalyzeResultFileName, 'rb') do |iFile|
+          lAnalyzeResult = Marshal.load(iFile.read)
+        end
+        lMaxDataValue = lAnalyzeResult[:MaxValues].sort[-1]
+        lMinDataValue = lAnalyzeResult[:MinValues].sort[0]
+        lMaxPossibleValue =
