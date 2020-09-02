@@ -32,4 +32,8 @@ module MusicMaster
         lMinPossibleValue = -(2**(lAnalyzeResult[:SampleSize]-1))
         lCoeffNormalizeMax = Rational(lMaxPossibleValue, lMaxDataValue)
         lCoeffNormalizeMin = Rational(lMinPossibleValue, lMinDataValue)
-        lCoeff = lCoeffNor
+        lCoeff = lCoeffNormalizeMax
+        if (lCoeffNormalizeMin < lCoeff)
+          lCoeff = lCoeffNormalizeMin
+        end
+        log_info "Maximal value: #{lMaxDataValue}/#{lMaxPossibleValue}. Minimal value: #{lMinDataValue}/#{lMinPossibleValue}. Volume co
