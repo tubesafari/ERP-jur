@@ -36,4 +36,12 @@ module MusicMaster
         if (lCoeffNormalizeMin < lCoeff)
           lCoeff = lCoeffNormalizeMin
         end
-        log_info "Maximal value: #{lMaxDataValue}/#{lMaxPossibleValue}. Minimal value: #{lMinDataValue}/#{lMinPossibleValue}. Volume co
+        log_info "Maximal value: #{lMaxDataValue}/#{lMaxPossibleValue}. Minimal value: #{lMinDataValue}/#{lMinPossibleValue}. Volume correction: #{lCoeff}."
+        wsk(iInputFileName, iOutputFileName, 'Multiply', "--coeff \"#{lCoeff.numerator}/#{lCoeff.denominator}\"")
+      end
+
+    end
+
+  end
+
+end
