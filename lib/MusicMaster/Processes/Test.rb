@@ -24,3 +24,12 @@ module MusicMaster
           :Params => iParams
         }
         File.open('Process_Test.rb', 'w') do |oFile|
+          oFile.write(lProcesses.inspect)
+        end
+      end
+
+    end
+
+  end
+
+end
