@@ -449,3 +449,267 @@ module MusicMaster
             if (!lLstProcesses.empty?)
               # Generate the Dependencies task, and make it depend on the target creating the processing chain
               lDependenciesTask = "Dependencies_ProcessRecord_#{lRecordedBaseName}".to_sym
+
+              desc "Create the targets needed to process tracks [#{iLstTracks.join(', ')}]"
+              task lDependenciesTask => lFinalBeforeMixTarget do |iTask|
+                lRecordedBaseName2 = iTask.name.match(/^Dependencies_ProcessRecord_(.*)$/)[1]
+                # Make the final task depend on the processed file
+                Rake::Task[@Context[:Processes][lRecordedBaseName2][:FinalTask]].prerequisites.replace([
+                  iTask.name,
+                  Rake::Task[iTask.prerequisites.first].data[:FileName]
+                ])
+              end
+
+              # Make the final task depend on the Dependencies task only for the beginning
+              lFinalTask = "ProcessRecord_#{iLstTracks.join('_')}".to_sym
+              lLstProcessTasks << lFinalTask
+
+              desc "Apply processes to recording #{lRecordedBaseName}"
+              task lFinalTask => lDependenciesTask
+
+              @Context[:Processes][lRecordedBaseName] = {
+                :LstProcesses => lLstProcesses,
+                :FinalTask => lFinalTask
+              }
+            end
+          end
+        end
+      end
+
+      # 2. Handle Wave files
+      lWaveFilesConf = @RecordConf[:WaveFiles]
+      if (lWaveFilesConf != nil)
+        lGlobalProcesses_Before = lWaveFilesConf[:GlobalProcesses_Before] || []
+        lGlobalProcesses_After = lWaveFilesConf[:GlobalProcesses_After] || []
+        lLstWaveInfo = lWaveFilesConf[:FilesList]
+        if (lLstWaveInfo != nil)
+          lLstWaveInfo.each do |iWaveInfo|
+            lWaveProcesses = iWaveInfo[:Processes] || []
+            if (iWaveInfo[:Position] != nil)
+              lWaveProcesses << {
+                :Name => 'SilenceInserter',
+                :Begin => iWaveInfo[:Position],
+                :End => 0
+              }
+            end
+            # Optimize the list
+            lLstProcesses = optimizeProcesses(lGlobalProcesses_Before + lWaveProcesses + lGlobalProcesses_After)
+            lFinalBeforeMixTarget = "FinalBeforeMix_Wave_#{iWaveInfo[:Name]}"
+
+            desc "Get final wave file name for Wave #{iWaveInfo[:Name]}"
+            task lFinalBeforeMixTarget do |iTask|
+              lWaveName = iTask.name.match(/^FinalBeforeMix_Wave_(.*)$/)[1]
+              # By default, use the original Wave file
+              lFinalFileName = getWaveSourceFileName(lWaveName)
+              if (@Context[:WaveProcesses][lWaveName] != nil)
+                # Generate rake tasks for processing the clean recorded file.
+                lFinalFileName = generateRakeForProcesses(@Context[:WaveProcesses][lWaveName][:LstProcesses], lFinalFileName, getProcessesWaveDir)
+              end
+              iTask.data = {
+                :FileName => lFinalFileName
+              }
+            end
+
+            if (!lLstProcesses.empty?)
+              # Generate the Dependencies task, and make it depend on the target creating the processing chain
+              lDependenciesTask = "Dependencies_ProcessWave_#{iWaveInfo[:Name]}".to_sym
+
+              desc "Create the targets needed to process Wave #{iWaveInfo[:Name]}"
+              task lDependenciesTask => lFinalBeforeMixTarget do |iTask|
+                lWaveName = iTask.name.match(/^Dependencies_ProcessWave_(.*)$/)[1]
+                # Make the final task depend on the processed file
+                Rake::Task[@Context[:WaveProcesses][lWaveName][:FinalTask]].prerequisites.replace([
+                  iTask.name,
+                  Rake::Task[iTask.prerequisites.first].data[:FileName]
+                ])
+              end
+
+              # Make the final task depend on the Dependencies task only for the beginning
+              lFinalTask = "ProcessWave_#{iWaveInfo[:Name]}".to_sym
+              lLstProcessTasks << lFinalTask
+
+              desc "Apply processes to Wave #{iWaveInfo[:Name]}"
+              task lFinalTask => lDependenciesTask
+
+              @Context[:WaveProcesses][iWaveInfo[:Name]] = {
+                :LstProcesses => lLstProcesses,
+                :FinalTask => lFinalTask
+              }
+            end
+          end
+        end
+      end
+
+      # 3. Generate global task
+
+      desc 'Process source files'
+      task :ProcessSourceFiles => lLstProcessTasks
+
+      @Context[:RakeSetupFor_ProcessSourceFiles] = true
+    end
+
+    # Generate rake targets for the mix
+    def generateRakeFor_Mix
+      if (!@Context[:RakeSetupFor_ProcessSourceFiles])
+        generateRakeFor_ProcessSourceFiles
+      end
+
+      lMixConf = @RecordConf[:Mix]
+      if (lMixConf != nil)
+
+        # Create a map of all possible TrackIDs, with their corresponding target containing the file name as part of its data
+        # map< Object, Symbol >
+        lFinalSources = {}
+        lRecordingsConf = @RecordConf[:Recordings]
+        if (lRecordingsConf != nil)
+          lTracksConf = lRecordingsConf[:Tracks]
+          if (lTracksConf != nil)
+            lTracksConf.each do |iLstTracks, iTrackInfo|
+              associateSourceTarget(iLstTracks, iTrackInfo, "FinalBeforeMix_Recording_#{File.basename(getRecordedFileName(iTrackInfo[:Env], iLstTracks))[0..-5]}".to_sym, lFinalSources)
+            end
+          end
+        end
+        lWaveConf = @RecordConf[:WaveFiles]
+        if (lWaveConf != nil)
+          lFilesList = lWaveConf[:FilesList]
+          if (lFilesList != nil)
+            lFilesList.each do |iWaveInfo|
+              associateSourceTarget(iWaveInfo[:Name], iWaveInfo, "FinalBeforeMix_Wave_#{iWaveInfo[:Name]}".to_sym, lFinalSources)
+            end
+          end
+        end
+        lMixConf.each do |iMixName, iMixInfo|
+          associateSourceTarget(iMixName, iMixInfo, "FinalMix_#{iMixName}".to_sym, lFinalSources)
+        end
+        log_debug "List of mix final sources:\n#{lFinalSources.pretty_inspect}"
+
+        # Use this info to generate needed targets
+        lLstTargets = []
+        lMixConf.keys.sort.each do |iMixName|
+          lLstTargets << generateRakeForMix(iMixName, lFinalSources) if (@Context[:LstMixNames].empty?) or (@Context[:LstMixNames].include?(iMixName))
+        end
+
+        desc 'Produce all mixes'
+        task :Mix => lLstTargets
+
+        @Context[:FinalMixSources] = lFinalSources
+      end
+
+      @Context[:RakeSetupFor_Mix] = true
+    end
+
+    # Generate rake targets for the deliverables
+    def generateRakeFor_Deliver
+      if (!@Context[:RakeSetupFor_Mix])
+        generateRakeFor_Mix
+      end
+      lLstTargets = []
+      lDeliverConf = @RecordConf[:Deliver]
+      if (lDeliverConf != nil)
+        lDeliverablesConf = lDeliverConf[:Deliverables]
+        if (lDeliverablesConf != nil)
+          # Use this info to generate needed targets
+          lDeliverablesConf.keys.sort.each do |iDeliverableName|
+            lLstTargets << generateRakeForDeliver(iDeliverableName) if (@Context[:LstDeliverableNames].empty?) or (@Context[:LstDeliverableNames].include?(iDeliverableName))
+          end
+        end
+      end
+
+      desc 'Produce all deliverables'
+      task :Deliver => lLstTargets
+
+    end
+
+    private
+
+    # Associate a given name and associated info to a given target.
+    # Take the map to complete as a parameter.
+    #
+    # Parameters::
+    # * *iInitialID* (_Object_): Initial ID to be associated
+    # * *iInfo* (<em>map<Symbol,Object></em>): Info associated to the initial ID, that can be used to get aliases
+    # * *iTargetName* (_Symbol_): Target to associate the ID and its aliases to
+    # * *oFinalSources* (<em>map<Object,Symbol></em>): The map to complete with the associations
+    def associateSourceTarget(iInitialID, iInfo, iTargetName, oFinalSources)
+      # Get aliases
+      lNames = [ iInitialID ]
+      if (iInfo[:Alias] != nil)
+        if (iInfo[:Alias].is_a?(Array))
+          lNames.concat(iInfo[:Alias])
+        else
+          lNames << iInfo[:Alias]
+        end
+      end
+      lNames.each do |iName|
+        oFinalSources[iName] = iTargetName
+      end
+    end
+
+    # Generate rake targets to clean a recorded file
+    #
+    # Parameters::
+    # * *iBaseName* (_String_): The base name (without extension) of the recorded file
+    # * *iEnv* (_Symbol_): The environment in which this file has been recorded
+    # * *iCutInfo* (<em>[String,String]</em>): The cut information, used to extract only a part of the file (begin and end markers, in seconds or samples) [optional = nil]
+    # Return::
+    # * _Symbol_: Name of the entering task for this generation process
+    def generateRakeForCleaningRecordedFile(iBaseName, iEnv, iCutInfo = nil)
+      # 1. Create all needed analysis files
+      lRecordedSilenceFileName = getRecordedSilenceFileName(iEnv)
+      lRecordedSilenceBaseName = File.basename(lRecordedSilenceFileName)[0..-5]
+
+      lAnalyzeSilenceFileName = getRecordedAnalysisFileName(lRecordedSilenceBaseName)
+      if (!Rake::Task.task_defined?(lAnalyzeSilenceFileName))
+
+        desc "Generate analysis of silence file for environment #{iEnv}"
+        file lAnalyzeSilenceFileName => lRecordedSilenceFileName do |iTask|
+          analyzeFile(iTask.prerequisites[0], iTask.name)
+        end
+
+      end
+      lFFTProfileSilenceFileName = getRecordedFFTProfileFileName(lRecordedSilenceBaseName)
+      if (!Rake::Task.task_defined?(lFFTProfileSilenceFileName))
+
+        desc "Generate FFT profile of silence file for environment #{iEnv}"
+        file lFFTProfileSilenceFileName => lRecordedSilenceFileName do |iTask|
+          fftProfileFile(iTask.prerequisites[0], iTask.name)
+        end
+
+      end
+      lAnalyzeRecordedFileName = getRecordedAnalysisFileName(iBaseName)
+      lRecordedFileName = "#{getRecordedDir}/#{iBaseName}.wav"
+
+      desc "Generate analysis of file #{lRecordedFileName}"
+      file lAnalyzeRecordedFileName => lRecordedFileName do |iTask|
+        analyzeFile(iTask.prerequisites[0], iTask.name)
+      end
+
+      # 2. Remove silences from the beginning and the end
+      lSilenceRemovedFileName = getSilenceRemovedFileName(iBaseName)
+
+      desc "Remove silences from beginning and end of file #{lRecordedFileName}"
+      file lSilenceRemovedFileName => [ lRecordedFileName, lAnalyzeRecordedFileName, lFFTProfileSilenceFileName, lAnalyzeSilenceFileName ] do |iTask|
+        iRecordedFileName, iAnalyzeRecordedFileName, iFFTProfileSilenceFileName, iAnalyzeSilenceFileName = iTask.prerequisites
+
+        # Get DC offset from the recorded file
+        _, lDCOffsets = getDCOffsets(iAnalyzeRecordedFileName)
+        # Get thresholds (without DC offsets) from the silence file
+        lSilenceThresholds = getThresholds(iAnalyzeSilenceFileName, :margin => @MusicMasterConf[:Clean][:MarginSilenceThresholds])
+        # Get the thresholds with the recorded DC offset, and prepare them to be given to wsk
+        lLstStrSilenceThresholdsWithDC = shiftThresholdsByDCOffset(lSilenceThresholds, lDCOffsets).map { |iSilenceThresholdInfo| iSilenceThresholdInfo.join(',') }
+
+        # Call wsk
+        wsk(iRecordedFileName, iTask.name, 'SilenceRemover', "--silencethreshold \"#{lLstStrSilenceThresholdsWithDC.join('|')}\" --attack 0 --release #{@MusicMasterConf[:Clean][:SilenceMin]} --noisefft \"#{iFFTProfileSilenceFileName}\"")
+      end
+
+      # Cut the file if needed
+      lFramedFileName = nil
+      if (iCutInfo == nil)
+        lFramedFileName = lSilenceRemovedFileName
+      else
+        lFramedFileName = getCutFileName(iBaseName, iCutInfo)
+
+        desc "Extract sample [#{iCutInfo.join(', ')}] from file #{lSilenceRemovedFileName}"
+        file lFramedFileName => lSilenceRemovedFileName do |iTask|
+          wsk(iTask.prerequisites.first, iTask.name, 'Cut', "--begin \"#{iCutInfo[0]}\" --end \"#{iCutInfo[1]}\"")
+        end
