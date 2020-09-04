@@ -182,3 +182,270 @@ module MusicMaster
 
         lLstGlobalRecordTasks << :Record
       end
+
+      # 2. Wave files
+      lWaveFilesConf = @RecordConf[:WaveFiles]
+      if (lWaveFilesConf != nil)
+        # Generate wave files rules
+        lLstWaveFiles = []
+        lWaveFilesConf[:FilesList].map { |iFileInfo| iFileInfo[:Name] }.each do |iFileName|
+          lWaveFileName = getWaveSourceFileName(iFileName)
+          if (!File.exists?(iFileName))
+
+            desc "Generate wave file #{iFileName}"
+            file lWaveFileName do |iTask|
+              puts "Create Wave file #{iTask.name}, and press Enter when done."
+              $stdin.gets
+            end
+
+          end
+          lLstWaveFiles << lWaveFileName
+        end
+
+        desc 'Generate all wave files'
+        task :GenerateWaveFiles => lLstWaveFiles
+
+        lLstGlobalRecordTasks << :GenerateWaveFiles
+      end
+
+      desc 'Generate source files (both recording and Wave files)'
+      task :GenerateSourceFiles => lLstGlobalRecordTasks
+
+      @Context[:RakeSetupFor_GenerateSourceFiles] = true
+    end
+
+    # Generate rake targets for cleaning recorded files
+    def generateRakeFor_CleanRecordings
+      if (!@Context[:RakeSetupFor_GenerateSourceFiles])
+        generateRakeFor_GenerateSourceFiles
+      end
+
+      # List of cleaning tasks
+      # list< Symbol >
+      lLstCleanTasks = []
+      lRecordingsConf = @RecordConf[:Recordings]
+      if (lRecordingsConf != nil)
+        lTracksConf = lRecordingsConf[:Tracks]
+        if (lTracksConf != nil)
+          # Look for recorded files
+          lTracksConf.each do |iLstTracks, iRecordingConf|
+            lEnv = iRecordingConf[:Env]
+            lRecordedFileName = getRecordedFileName(lEnv, iLstTracks)
+            lRecordedBaseName = File.basename(lRecordedFileName[0..-5])
+            # Clean the recorded file itself
+            lLstCleanTasks << generateRakeForCleaningRecordedFile(lRecordedBaseName, lEnv)
+          end
+          # Look for calibration files
+          @Context[:EnvsToCalibrate].each do |iEnvToCalibratePair, iNil|
+            iEnv1, iEnv2 = iEnvToCalibratePair
+            # Read the cutting values if any from the conf
+            lCutInfo = nil
+            if (lRecordingsConf[:EnvCalibration] != nil)
+              lRecordingsConf[:EnvCalibration].each do |iEnvPair, iCalibrationInfo|
+                if (iEnvPair.sort == iEnvToCalibratePair)
+                  # Found it
+                  lCutInfo = iCalibrationInfo[:CompareCuts]
+                  break
+                end
+              end
+            end
+            # Clean the calibration files
+            lReferenceFileName = getRecordedCalibrationFileName(iEnv1, iEnv2)
+            lLstCleanTasks << generateRakeForCleaningRecordedFile(File.basename(lReferenceFileName)[0..-5], iEnv2, lCutInfo)
+            lRecordingFileName = getRecordedCalibrationFileName(iEnv2, iEnv1)
+            lLstCleanTasks << generateRakeForCleaningRecordedFile(File.basename(lRecordingFileName)[0..-5], iEnv1, lCutInfo)
+          end
+        end
+      end
+
+      desc 'Clean all recorded files: remove silences, cut them, remove DC offset and apply noise gate'
+      task :CleanRecordings => lLstCleanTasks.sort.uniq
+
+      @Context[:RakeSetupFor_CleanRecordings] = true
+    end
+
+    # Generate rake targets for calibrating recorded files
+    def generateRakeFor_CalibrateRecordings
+      if (!@Context[:RakeSetupFor_CleanRecordings])
+        generateRakeFor_CleanRecordings
+      end
+
+      # List of calibrating tasks
+      # list< Symbol >
+      lLstCalibrateTasks = []
+      lRecordingsConf = @RecordConf[:Recordings]
+      if (lRecordingsConf != nil)
+        lTracksConf = lRecordingsConf[:Tracks]
+        if (lTracksConf != nil)
+          # Generate analysis files for calibration files
+          @Context[:EnvsToCalibrate].each do |iEnvToCalibratePair, iNil|
+            [
+              [ iEnvToCalibratePair[0], iEnvToCalibratePair[1] ],
+              [ iEnvToCalibratePair[1], iEnvToCalibratePair[0] ]
+            ].each do |iEnvPair|
+              iEnv1, iEnv2 = iEnvPair
+              lCalibrationFileName = getRecordedCalibrationFileName(iEnv1, iEnv2)
+              lNoiseGatedFileName = @Context[:CleanFiles][File.basename(lCalibrationFileName)[0..-5]][:NoiseGatedFileName]
+              lAnalysisFileName = getRecordedAnalysisFileName(File.basename(lNoiseGatedFileName)[0..-5])
+              @Context[:CalibrationAnalysisFiles][iEnvPair] = lAnalysisFileName
+
+              desc "Generate analysis for framed calibration file #{lNoiseGatedFileName}"
+              file lAnalysisFileName => lNoiseGatedFileName do |iTask|
+                analyzeFile(iTask.prerequisites[0], iTask.name)
+              end
+
+            end
+          end
+
+          # Generate calibrated files
+          lTracksConf.each do |iLstTracks, iRecordingConf|
+            if (iRecordingConf[:CalibrateWithEnv] != nil)
+              # Need calibration
+              lRecEnv = iRecordingConf[:Env]
+              lRefEnv = iRecordingConf[:CalibrateWithEnv]
+              lRecordedBaseName = File.basename(getRecordedFileName(lRecEnv, iLstTracks))[0..-5]
+              # Create the data target that stores the comparison of analysis files for calibration
+              lCalibrationInfoTarget = "#{lRecordedBaseName}.Calibration.info".to_sym
+
+              desc "Compare the analysis of calibration files for recording #{lRecordedBaseName}"
+              task lCalibrationInfoTarget => [
+                @Context[:CalibrationAnalysisFiles][[lRefEnv,lRecEnv]],
+                @Context[:CalibrationAnalysisFiles][[lRecEnv,lRefEnv]]
+              ] do |iTask|
+                iRecordingCalibrationAnalysisFileName, iReferenceCalibrationAnalysisFileName = iTask.prerequisites
+                # Compute the distance between the 2 average RMS values
+                lRMSReference = getRMSValue(iReferenceCalibrationAnalysisFileName)
+                lRMSRecording = getRMSValue(iRecordingCalibrationAnalysisFileName)
+                log_info "Reference environment #{lRefEnv} - RMS: #{lRMSReference}"
+                log_info "Recording environment #{lRecEnv} - RMS: #{lRMSRecording}"
+                iTask.data = {
+                  :RMSReference => lRMSReference,
+                  :RMSRecording => lRMSRecording,
+                  :MaxValue => getAnalysis(iRecordingCalibrationAnalysisFileName)[:MinPossibleValue].abs
+                }
+              end
+
+              # Create the dependency task
+              lDependenciesTask = "Dependencies_Calibration_#{lRecordedBaseName}".to_sym
+
+              desc "Compute dependencies to know if we need to calibrate tracks [#{iLstTracks.join(', ')}] recording."
+              task lDependenciesTask => lCalibrationInfoTarget do |iTask|
+                lCalibrationInfo = Rake::Task[iTask.prerequisites.first].data
+                # If the RMS values are different, we need to generate the calibrated file
+                lRecordedBaseName2 = iTask.name.match(/^Dependencies_Calibration_(.*)$/)[1]
+                lCalibrateContext = @Context[:Calibrate][lRecordedBaseName2]
+                lLstPrerequisitesFinalTask = [iTask.name]
+                if (lCalibrationInfo[:RMSRecording] != lCalibrationInfo[:RMSReference])
+                  # Make the final task depend on the calibrated file
+                  lLstPrerequisitesFinalTask << lCalibrateContext[:CalibratedFileName]
+                  # Create the target that will generate the calibrated file.
+
+                  desc "Generate calibrated recording for #{lRecordedBaseName2}"
+                  file @Context[:Calibrate][lRecordedBaseName2][:CalibratedFileName] => [
+                    @Context[:CleanFiles][lRecordedBaseName2][:NoiseGatedFileName],
+                    lCalibrationInfoTarget
+                  ] do |iTask2|
+                    iRecordedFileName, iCalibrationInfoTarget = iTask2.prerequisites
+                    lCalibrationInfo = Rake::Task[iCalibrationInfoTarget].data
+                    # If the Recording is louder, apply a volume reduction
+                    if (lCalibrationInfo[:RMSRecording] < lCalibrationInfo[:RMSReference])
+                      # Here we are loosing quality: we need to increase the recording volume.
+                      # Notify the user about it.
+                      lDBValue, lPCValue = val2db(lCalibrationInfo[:RMSReference]-lCalibrationInfo[:RMSRecording], lCalibrationInfo[:MaxValue])
+                      log_warn "Tracks [#{iLstTracks.join(', ')}] should be recorded louder (at least #{lDBValue} db <=> #{lPCValue} %)."
+                    end
+                    wsk(iRecordedFileName, iTask2.name, 'Multiply', "--coeff \"#{lCalibrationInfo[:RMSReference]}/#{lCalibrationInfo[:RMSRecording]}\"")
+                  end
+
+                end
+                Rake::Task[lCalibrateContext[:FinalTask]].prerequisites.replace(lLstPrerequisitesFinalTask)
+              end
+
+              # Make the final task depend on this dependency task
+              lCalibrateFinalTask = "Calibrate_#{iLstTracks.join('_')}".to_sym
+              lLstCalibrateTasks << lCalibrateFinalTask
+              @Context[:Calibrate][lRecordedBaseName] = {
+                :FinalTask => lCalibrateFinalTask,
+                :CalibratedFileName => getCalibratedFileName(lRecordedBaseName)
+              }
+
+              desc "Calibrate tracks [#{iLstTracks.join(', ')}] recording."
+              task lCalibrateFinalTask => lDependenciesTask
+
+            end
+          end
+
+        end
+      end
+      # Generate global task
+
+      desc 'Calibrate recordings needing it'
+      task :CalibrateRecordings => lLstCalibrateTasks
+
+      @Context[:RakeSetupFor_CalibrateRecordings] = true
+    end
+
+    # Generate rake targets for processing source files
+    def generateRakeFor_ProcessSourceFiles
+      if (!@Context[:RakeSetupFor_CalibrateRecordings])
+        generateRakeFor_CalibrateRecordings
+      end
+
+      # List of process tasks
+      # list< Symbol >
+      lLstProcessTasks = []
+
+      # 1. Handle recordings
+      lRecordingsConf = @RecordConf[:Recordings]
+      if (lRecordingsConf != nil)
+        # Read global processes and environment processes to be applied before and after recordings
+        lGlobalProcesses_Before = lRecordingsConf[:GlobalProcesses_Before] || []
+        lGlobalProcesses_After = lRecordingsConf[:GlobalProcesses_After] || []
+        lEnvProcesses_Before = lRecordingsConf[:EnvProcesses_Before] || {}
+        lEnvProcesses_After = lRecordingsConf[:EnvProcesses_After] || {}
+        lTracksConf = lRecordingsConf[:Tracks]
+        if (lTracksConf != nil)
+          lTracksConf.each do |iLstTracks, iRecordingConf|
+            lRecEnv = iRecordingConf[:Env]
+            # Compute the list of processes to apply
+            lEnvProcesses_RecordingBefore = lEnvProcesses_Before[lRecEnv] || []
+            lEnvProcesses_RecordingAfter = lEnvProcesses_After[lRecEnv] || []
+            lRecordingProcesses = iRecordingConf[:Processes] || []
+            # Optimize the list
+            lLstProcesses = optimizeProcesses(lGlobalProcesses_Before + lEnvProcesses_RecordingBefore + lRecordingProcesses + lEnvProcesses_RecordingAfter + lGlobalProcesses_After)
+            # Get the file name to apply processes to
+            lRecordedBaseName = File.basename(getRecordedFileName(lRecEnv, iLstTracks))[0..-5]
+            # Create the target that gives the name of the final wave file, and make it depend on the Calibration.Info target only if calibration might be needed
+            lPrerequisites = []
+            lPrerequisites << "#{lRecordedBaseName}.Calibration.info".to_sym if (iRecordingConf[:CalibrateWithEnv] != nil)
+            lFinalBeforeMixTarget = "FinalBeforeMix_Recording_#{lRecordedBaseName}".to_sym
+
+            desc "Get final wave file name for recording #{lRecordedBaseName}"
+            task lFinalBeforeMixTarget => lPrerequisites do |iTask|
+              lRecordedBaseName2 = iTask.name.match(/^FinalBeforeMix_Recording_(.*)$/)[1]
+              # Get the name of the file that may be processed
+              # Set the cleaned file as a default
+              lFileNameToProcess = getNoiseGateFileName(lRecordedBaseName2)
+              if (!iTask.prerequisites.empty?)
+                lCalibrationInfo = Rake::Task[iTask.prerequisites.first].data
+                if (lCalibrationInfo[:RMSReference] != lCalibrationInfo[:RMSRecording])
+                  # Apply processes on the calibrated file
+                  lFileNameToProcess = getCalibratedFileName(lRecordedBaseName2)
+                end
+              end
+              # By default, the final name is the one to be processed
+              lFinalFileName = lFileNameToProcess
+              # Get the list of processes from the context
+              if (@Context[:Processes][lRecordedBaseName2] != nil)
+                # Processing has to be performed
+                # Now generate the whole branch of targets to process the choosen file
+                lFinalFileName = generateRakeForProcesses(@Context[:Processes][lRecordedBaseName2][:LstProcesses], lFileNameToProcess, getProcessesRecordDir)
+              end
+              iTask.data = {
+                :FileName => lFinalFileName
+              }
+            end
+
+            if (!lLstProcesses.empty?)
+              # Generate the Dependencies task, and make it depend on the target creating the processing chain
+              lDependenciesTask = "Dependencies_ProcessRecord_#{lRecordedBaseName}".to_sym
