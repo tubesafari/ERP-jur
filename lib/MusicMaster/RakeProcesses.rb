@@ -713,3 +713,226 @@ module MusicMaster
         file lFramedFileName => lSilenceRemovedFileName do |iTask|
           wsk(iTask.prerequisites.first, iTask.name, 'Cut', "--begin \"#{iCutInfo[0]}\" --end \"#{iCutInfo[1]}\"")
         end
+
+      end
+      lDCRemovedFileName = getDCRemovedFileName(iBaseName)
+      # Create a target that will change the dependencies of the noise gate dynamically
+      lNoiseGatedFileName = getNoiseGateFileName(iBaseName)
+      lDependenciesNoiseGateTaskName = "Dependencies_NoiseGate_#{iBaseName}".to_sym
+
+      desc "Compute NoiseGate dependencies for file #{lNoiseGatedFileName}"
+      task lDependenciesNoiseGateTaskName => lAnalyzeRecordedFileName do |iTask|
+        # Get the basename from the task name
+        lBaseName = iTask.name.match(/^Dependencies_NoiseGate_(.*)$/)[1]
+        lRecordedAnalysisFileName = iTask.prerequisites.first
+        # Get DC offset from the recorded file
+        lOffset, lDCOffsets = getDCOffsets(lRecordedAnalysisFileName)
+        lSourceFileName = nil
+        if (lOffset)
+          log_debug "Noise gated file #{lNoiseGatedFileName} will depend on a DC shifted recording. DC offsets: #{lDCOffsets.inspect}"
+          lSourceFileName = @Context[:CleanFiles][lBaseName][:DCRemovedFileName]
+          # Create the corresponding task removing the DC offset
+
+          desc "Remove DC offset from file #{lRecordedAnalysisFileName}"
+          file lSourceFileName => [ lRecordedAnalysisFileName, @Context[:CleanFiles][lBaseName][:FramedFileName] ] do |iDCRemoveTask|
+            iRecordedAnalysisFileName, iFramedFileName = iDCRemoveTask.prerequisites
+            _, lDCOffsets2 = getDCOffsets(iRecordedAnalysisFileName)
+            wsk(iFramedFileName, iDCRemoveTask.name, 'DCShifter', "--offset \"#{lDCOffsets2.map { |iValue| -iValue }.join('|')}\"")
+          end
+
+        else
+          log_debug "Noise gated file #{lNoiseGatedFileName} does not depend on a DC shifted recording."
+          lSourceFileName = @Context[:CleanFiles][lBaseName][:FramedFileName]
+        end
+        # Set prerequisites for the task generating Noise Gate
+        Rake::Task[@Context[:CleanFiles][lBaseName][:NoiseGatedFileName]].prerequisites.replace([
+          iTask.name,
+          lSourceFileName,
+          lRecordedAnalysisFileName,
+          @Context[:CleanFiles][lBaseName][:SilenceAnalysisFileName],
+          @Context[:CleanFiles][lBaseName][:SilenceFFTProfileFileName]
+        ])
+      end
+
+      # Create the Noise Gate file generation target.
+      # By default it depends only on the corresponding dependencies task, but its execution will modify its prerequisites.
+
+      desc "Apply Noise Gate to recorded file based on #{iBaseName}"
+      file lNoiseGatedFileName => lDependenciesNoiseGateTaskName do |iTask|
+        # Prerequisites list has been setup by the first prerequisite execution
+        iSourceFileName, _, iSilenceAnalysisFileName, iSilenceFFTProfileFileName = iTask.prerequisites[1..4]
+        # Get thresholds (without DC offsets) from the silence file
+        lSilenceThresholds = getThresholds(iSilenceAnalysisFileName, :margin => @MusicMasterConf[:Clean][:MarginSilenceThresholds])
+        lLstStrSilenceThresholds = lSilenceThresholds.map { |iThreshold| iThreshold.join(',') }
+        wsk(iSourceFileName, iTask.name, 'NoiseGate', "--silencethreshold \"#{lLstStrSilenceThresholds.join('|')}\" --attack #{@MusicMasterConf[:Clean][:Attack]} --release #{@MusicMasterConf[:Clean][:Release]} --silencemin #{@MusicMasterConf[:Clean][:SilenceMin]} --noisefft \"#{iSilenceFFTProfileFileName}\"")
+      end
+
+      # Create embracing task
+      rFinalTaskName = "CleanRecord_#{iBaseName}".to_sym
+
+      desc "Clean recorded file #{iBaseName}"
+      task rFinalTaskName => lNoiseGatedFileName
+
+      # Set context for this file to be cleaned
+      @Context[:CleanFiles][iBaseName] = {
+        :SilenceAnalysisFileName => lAnalyzeSilenceFileName,
+        :SilenceFFTProfileFileName => lFFTProfileSilenceFileName,
+        :FramedFileName => lFramedFileName,
+        :DCRemovedFileName => lDCRemovedFileName,
+        :NoiseGatedFileName => lNoiseGatedFileName
+      }
+
+      return rFinalTaskName
+    end
+
+    # Generate rake rules to apply processes to a given Wave file.
+    # Return the name of the last file.
+    #
+    # Parameters::
+    # * *iProcesses* (<em>list<map<Symbol,Object>></em>): List of processes to apply
+    # * *iFileName* (_String_): File name to apply processes to
+    # * *iDir* (_String_): The directory where processed files are stored
+    def generateRakeForProcesses(iProcesses, iFileName, iDir)
+      rLastFileName = iFileName
+
+      lFileNameNoExt = File.basename(iFileName[0..-5])
+      iProcesses.each_with_index do |iProcessInfo, iIdxProcess|
+        lProcessName = iProcessInfo[:Name]
+        lProcessParams = iProcessInfo.clone.delete_if { |iKey, iValue| (iKey == :Name) }
+        access_plugin('Processes', lProcessName) do |ioActionPlugin|
+          # Set the MusicMaster configuration as an instance variable of the plugin also
+          ioActionPlugin.instance_variable_set(:@MusicMasterConf, @MusicMasterConf)
+          # Add Utils to the plugin namespace
+          ioActionPlugin.class.module_eval('include MusicMaster::Utils')
+          lCurrentFileName = rLastFileName
+          rLastFileName = getProcessedFileName(iDir, lFileNameNoExt, iIdxProcess, lProcessName, lProcessParams)
+
+          desc "Process file #{lCurrentFileName} with #{lProcessName}"
+          file rLastFileName => [lCurrentFileName] do |iTask|
+            log_info "===== Apply Process #{iProcessInfo[:Name]} to #{iTask.name} ====="
+            FileUtils::mkdir_p(File.dirname(iTask.name))
+            ioActionPlugin.execute(iTask.prerequisites.first, iTask.name, '.', lProcessParams)
+          end
+
+        end
+      end
+
+      return rLastFileName
+    end
+
+    # Generate all needed targets to produce a given mix
+    #
+    # Parameters::
+    # * *iMixName* (_String_): The name of the mix to produce targets for
+    # * *iFinalSources* (<em>map<Object,String></em>): The set of possible sources, per Track ID (can be alias, mix name, tracks list, wave name)
+    # Return::
+    # * _Symbol_: Name of the top-level target producing the mix
+    def generateRakeForMix(iMixName, iFinalSources)
+      rTarget = "Mix_#{iMixName}".to_sym
+
+      # If the target already exists, do nothing
+      if (!Rake::Task.task_defined?(rTarget))
+        lDependenciesTarget = "Dependencies_Mix_#{iMixName}".to_sym
+        lFinalMixTask = "FinalMix_#{iMixName}".to_sym
+        # Create the target being the symbolic link
+        lSymLinkFileName = get_shortcut_file_name(getFinalMixFileName(iMixName))
+
+        desc "Mix #{iMixName}"
+        task rTarget => lSymLinkFileName
+
+        desc "Symbolic link pointing to the mix file #{iMixName}"
+        file lSymLinkFileName => lDependenciesTarget do |iTask|
+          # Get the mix name from the name of the Dependencies target
+          lMixName = iTask.prerequisites[0].to_s.match(/^Dependencies_Mix_(.*)$/)[1]
+          FileUtils::mkdir_p(File.dirname(iTask.name))
+          create_shortcut(iTask.prerequisites[1], getFinalMixFileName(lMixName))
+        end
+
+        desc "Dependencies needed to mix #{iMixName}"
+        task lDependenciesTarget => lFinalMixTask do |iTask|
+          lMixName = iTask.name.match(/^Dependencies_Mix_(.*)$/)[1]
+
+          # Modify the dependencies of the symbolic link
+          Rake::Task[get_shortcut_file_name(getFinalMixFileName(lMixName))].prerequisites.replace([
+            iTask.name,
+            Rake::Task[iTask.prerequisites.first].data[:FileName]
+          ])
+        end
+
+        # Use the corresponding final mix task to create the whole processing chain
+        # First, compute dependencies of the final mix task
+        lLstDeps = []
+        @RecordConf[:Mix][iMixName][:Tracks].keys.sort.each do |iTrackID|
+          raise UnknownTrackIDError, "TrackID #{iTrackID} is not defined in the configuration for the mix." if (iFinalSources[iTrackID] == nil)
+          lLstDeps << iFinalSources[iTrackID]
+        end
+
+        desc "Create processing chain for mix #{iMixName}"
+        task lFinalMixTask => lLstDeps do |iTask|
+          # This task is responsible for creating the whole processing chain from the source files (taken from prerequisites' data), and storing the top-level file name as its data.
+          lMixName = iTask.name.match(/^FinalMix_(.*)$/)[1]
+          lMixConf = @RecordConf[:Mix][lMixName]
+          lFinalMixFileName = nil
+          if (lMixConf[:Tracks].size == 1)
+            # Just 1 source for this mix
+            lTrackID = lMixConf[:Tracks].keys.first
+            lTrackInfo = lMixConf[:Tracks][lTrackID]
+            lSourceFileName = Rake::Task[@Context[:FinalMixSources][lTrackID]].data[:FileName]
+            # Use all processes
+            lLstProcesses = []
+            lLstProcesses.concat(lTrackInfo[:Processes]) if (lTrackInfo[:Processes] != nil)
+            lLstProcesses.concat(lMixConf[:Processes]) if (lMixConf[:Processes] != nil)
+            lLstProcesses = optimizeProcesses(lLstProcesses)
+            if (lLstProcesses.empty?)
+              # Nothing to do
+              lFinalMixFileName = lSourceFileName
+            else
+              lFinalMixFileName = generateRakeForProcesses(lLstProcesses, lSourceFileName, getMixDir)
+            end
+          else
+            # Here, there will be a step of mixing files
+            # 1. Process source files if needed
+            lLstProcessedSourceFiles = []
+            lMixConf[:Tracks].keys.sort.each do |iTrackID|
+              lTrackInfo = lMixConf[:Tracks][iTrackID]
+              # Get the source file for this track ID
+              lSourceFileName = Rake::Task[@Context[:FinalMixSources][iTrackID]].data[:FileName]
+              # By default it will be the processed file name
+              lProcessedFileName = lSourceFileName
+              # Get the list of processes to apply to it
+              if (lTrackInfo[:Processes] != nil)
+                lLstProcesses = optimizeProcesses(lTrackInfo[:Processes])
+                if (!lLstProcesses.empty?)
+                  lProcessedFileName = generateRakeForProcesses(lLstProcesses, lSourceFileName, getMixDir)
+                end
+              end
+              lLstProcessedSourceFiles << lProcessedFileName
+            end
+            # 2. Mix all resulting files
+            lFinalMixFileName = getMixFileName(getMixDir, lMixName, lMixConf[:Tracks])
+
+            desc "Mix all processed sources for mix #{lMixName}"
+            file lFinalMixFileName => lLstProcessedSourceFiles do |iTask2|
+              lMixInputFile = iTask2.prerequisites.first
+              lLstMixFiles = iTask2.prerequisites[1..-1]
+              wsk(lMixInputFile, iTask2.name, 'Mix', "--files \"#{lLstMixFiles.join('|1|')}|1\" ")
+            end
+
+            # 3. Process the mix result
+            if (lMixConf[:Processes] != nil)
+              lLstProcesses = optimizeProcesses(lMixConf[:Processes])
+              if (!lLstProcesses.empty?)
+                lFinalMixFileName = generateRakeForProcesses(lLstProcesses, lFinalMixFileName, getMixDir)
+              end
+            end
+          end
+          log_info "File produced from the mix #{lMixName}: #{lFinalMixFileName}"
+          iTask.data = {
+            :FileName => lFinalMixFileName
+          }
+        end
+
+      end
+
+      return rTarget
+    end
