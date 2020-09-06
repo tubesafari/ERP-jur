@@ -936,3 +936,75 @@ module MusicMaster
 
       return rTarget
     end
+
+    # Generate all needed targets to produce a given deliverable
+    #
+    # Parameters::
+    # * *iDeliverableName* (_String_): The name of the deliverable to produce targets for
+    # Return::
+    # * _Symbol_: Name of the top-level target producing the deliverable
+    def generateRakeForDeliver(iDeliverableName)
+      rTarget = "Deliver_#{iDeliverableName}".to_sym
+
+      lDeliverableConf = @RecordConf[:Deliver][:Deliverables][iDeliverableName]
+
+      # Get metadata
+      # Default values
+      lMetadata = {
+        :FileName => 'Track'
+      }
+      lMetadata.merge!(@RecordConf[:Deliver][:Metadata]) if (@RecordConf[:Deliver][:Metadata] != nil)
+      lMetadata.merge!(lDeliverableConf[:Metadata]) if (lDeliverableConf[:Metadata] != nil)
+
+      # Get the format
+      # Default values
+      lFormatConf = {
+        :FileFormat => 'Wave'
+      }
+      lFormatConf.merge!(@RecordConf[:Deliver][:Formats][lDeliverableConf[:Format]]) if (lDeliverableConf[:Format] != nil)
+
+      # Call the format plugin
+      access_plugin('Formats', lFormatConf[:FileFormat]) do |iFormatPlugin|
+        # Set the MusicMaster configuration as an instance variable of the plugin also
+        iFormatPlugin.instance_variable_set(:@MusicMasterConf, @MusicMasterConf)
+        # Create the final filename
+        # TODO: On Windows, when the format plugin creates a symbolic link, this target has a different name. Should create a virtual target storing the real name. Otherwise it will be always invoked every time.
+        lDeliverableFileName = "#{getDeliverDir}/#{get_valid_file_name(iDeliverableName)}/#{replace_vars(lMetadata[:FileName], lMetadata)}.#{iFormatPlugin.getFileExt}"
+        # Get the name of the mix file using the target computing it
+        lFinalMixTarget = "FinalMix_#{lDeliverableConf[:Mix]}".to_sym
+        # Use a dependency target to adapt the prerequisites of our deliverable
+        lDepTarget = "Dependencies_Deliver_#{iDeliverableName}".to_sym
+
+        desc "Compute dependencies for the deliverable #{iDeliverableName}"
+        task lDepTarget => lFinalMixTarget do |iTask|
+          lDeliverableName = iTask.name.match(/^Dependencies_Deliver_(.*)$/)[1]
+          Rake::Task[@Context[:Deliverables][lDeliverableName][:FileName]].prerequisites.replace([
+            iTask.name,
+            Rake::Task[iTask.prerequisites.first].data[:FileName]
+          ])
+        end
+
+        desc "Produce file for deliverable #{iDeliverableName}"
+        file lDeliverableFileName => lDepTarget do |iTask|
+          FileUtils::mkdir_p(File.dirname(iTask.name))
+          iFormatPlugin.deliver(iTask.prerequisites[1], iTask.name, @Context[:DeliverableConf][iTask.name][0], @Context[:DeliverableConf][iTask.name][1])
+        end
+
+        desc "Deliver deliverable #{iDeliverableName}"
+        task rTarget => lDeliverableFileName
+
+        @Context[:DeliverableConf][lDeliverableFileName] = [
+          lFormatConf.delete_if { |iKey, iValue| iKey == :FileFormat },
+          lMetadata
+        ]
+        @Context[:Deliverables][iDeliverableName] = {
+          :FileName => lDeliverableFileName
+        }
+      end
+
+      return rTarget
+    end
+
+  end
+
+end
