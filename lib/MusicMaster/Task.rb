@@ -14,4 +14,11 @@ module Rake
       while (prerequisites_changed)
         # Keep original prerequisites list
         original_prerequisites = prerequisite_tasks.clone
-        # Call original method (this call might 
+        # Call original method (this call might change the prerequisites list)
+        invoke_prerequisites_ORG(task_args, invocation_chain)
+        prerequisites_changed = (prerequisite_tasks != original_prerequisites)
+      end
+    end
+
+  end
+end
