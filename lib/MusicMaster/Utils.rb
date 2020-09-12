@@ -300,3 +300,166 @@ module MusicMaster
             if (lCurrentMatchingGroups.empty?)
               # We can't do anything with this process
               rNewLstProcesses << lProcessInfo
+            else
+              # We can begin a group
+              lIdxGroupBegin = lIdxProcess
+            end
+            log_debug "[Optimize]: Set process group begin to #{lIdxGroupBegin.inspect}" if OPTIM_DEBUG
+            lIdxProcess += 1
+          else
+            # We already have some group candidates
+            # Now we remove the groups that do not fit with our current process
+            lNewGroups = lCurrentMatchingGroups.clone.delete_if { |iGroupInfo| !iGroupInfo[0].include?(lProcessInfo[:Name]) }
+            if (lNewGroups.empty?)
+              log_debug '[Optimize]: Closing current matching groups.' if OPTIM_DEBUG
+              # We are closing the group(s) we got
+              lIdxGroupEnd = lIdxProcess - 1
+              if (lIdxGroupBegin == lIdxGroupEnd)
+                # This is a group of 1 element.
+                log_debug '[Optimize]: Just 1 element to close.' if OPTIM_DEBUG
+                # Just ignore it
+                rNewLstProcesses << lLstCurrentProcesses[lIdxGroupBegin]
+              else
+                log_debug "[Optimize]: #{lIdxGroupEnd-lIdxGroupBegin+1} elements to close." if OPTIM_DEBUG
+                lOptimizedProcesses = optimizeProcessesByGroups(lLstCurrentProcesses[lIdxGroupBegin..lIdxGroupEnd], lCurrentMatchingGroups)
+                if (lOptimizedProcesses == nil)
+                  # No optimization
+                  log_debug '[Optimize]: Optimizer decided to not optimize.' if OPTIM_DEBUG
+                  rNewLstProcesses.concat(lLstCurrentProcesses[lIdxGroupBegin..lIdxGroupEnd])
+                else
+                  # Optimization
+                  log_debug "[Optimize]: Optimizer decided to optimize from #{lIdxGroupEnd-lIdxGroupBegin+1} to #{lOptimizedProcesses.size} elements." if OPTIM_DEBUG
+                  rNewLstProcesses.concat(lOptimizedProcesses)
+                  lModified = true
+                end
+              end
+              lIdxGroupBegin = nil
+              # Process again this element
+            else
+              log_debug "[Optimize]: Matching groups reduced from #{lCurrentMatchingGroups.size} to #{lNewGroups.size} elements." if OPTIM_DEBUG
+              # We just remove groups that are out due to the current process
+              lCurrentMatchingGroups = lNewGroups
+              # Go on to the next element
+              lIdxProcess += 1
+            end
+          end
+        end
+        # Last elements could have been part of a group
+        log_debug "[Optimize]: ===== Process Index: #{lIdxProcess} - End of processes list - Process group begin: #{lIdxGroupBegin.inspect} - Current matching groups: #{lCurrentMatchingGroups.inspect} - New processes list: #{rNewLstProcesses.inspect}" if OPTIM_DEBUG
+        if (lIdxGroupBegin != nil)
+          if (lIdxGroupBegin < lLstCurrentProcesses.size - 1)
+            # Indeed
+            lOptimizedProcesses = optimizeProcessesByGroups(lLstCurrentProcesses[lIdxGroupBegin..-1], lCurrentMatchingGroups)
+            if (lOptimizedProcesses == nil)
+              # No optimization
+              log_debug '[Optimize]: Optimizer decided to not optimize last group.' if OPTIM_DEBUG
+              rNewLstProcesses.concat(lLstCurrentProcesses[lIdxGroupBegin..-1])
+            else
+              # Optimization
+              log_debug "[Optimize]: Optimizer decided to optimize from #{lLstCurrentProcesses.size-lIdxGroupBegin} to #{lOptimizedProcesses.size} elements." if OPTIM_DEBUG
+              rNewLstProcesses.concat(lOptimizedProcesses)
+              lModified = true
+            end
+          else
+            # Just the last element is remaining in the group
+            log_debug '[Optimize]: Just 1 element to close at the end.' if OPTIM_DEBUG
+            rNewLstProcesses << lLstCurrentProcesses[-1]
+          end
+        end
+      end
+
+      return rNewLstProcesses
+    end
+
+    # Optimize (or choose not to) a list of processes based on a potential list of optimization groups
+    # Prerequisites:
+    # * The list of processes has a size > 1
+    # * The list of groups has a size > 0
+    # * Each optimization group has at least 1 process in each of the processes' list's elements
+    #
+    # Parameters::
+    # * *iLstProcesses* (<em>list<map<Symbol,Object>></em>): The list of processes to optimize
+    # * *iLstGroups* (<em>list< [list<String>,map<Symbol,Object>] ></em>): The list of potential optimization groups
+    # Return::
+    # * <em>list<map<Symbol,Object>></em>: The corresponding list of processes optimized. Can be empty to delete them, or nil to not optimize them
+    def optimizeProcessesByGroups(iLstProcesses, iLstGroups)
+      rOptimizedProcesses = nil
+
+      # Now we remove the groups needing several processes and that do not have all their processes among the selected group
+      lLstProcessesNames = iLstProcesses.map { |iProcessInfo| iProcessInfo[:Name] }.uniq
+      lLstMatchingGroups = iLstGroups.clone.delete_if do |iGroupInfo|
+        # All processes from iGroupKey must be present among the current processes group
+        next !(iGroupInfo[0] - lLstProcessesNames).empty?
+      end
+      # lLstMatchingGroups contain all the groups that can offer optimizations
+      log_debug "[Optimize]: #{lLstMatchingGroups.size} groups can offer optimization." if OPTIM_DEBUG
+      if (!lLstMatchingGroups.empty?)
+        # Here we can optimize for real
+        while ((rOptimizedProcesses == nil) and
+               (!lLstMatchingGroups.empty?))
+          # Choose the biggest priority group first
+          lGroupInfo = lLstMatchingGroups.first
+          # Call the relevant grouping function from the selected group on our list of processes
+          log_debug "[Optimize]: Apply optimization from group #{lGroupInfo.inspect} to processes: #{iLstProcesses.inspect}" if OPTIM_DEBUG
+          rOptimizedProcesses = lGroupInfo[1][:OptimizeProc].call(iLstProcesses)
+          if (rOptimizedProcesses == nil)
+            log_debug '[Optimize]: Group optimizer decided to not optimize.'
+            lLstMatchingGroups = lLstMatchingGroups[1..-1]
+          end
+        end
+      end
+      log_debug "Processes optimized: from\n#{iLstProcesses.pretty_inspect}\nto\n#{rOptimizedProcesses.pretty_inspect}" if (rOptimizedProcesses != nil)
+
+      return rOptimizedProcesses
+    end
+
+    # Read a ratio or db, and get back the corresponding ratio in db
+    #
+    # Parameters::
+    # * *iStrValue* (_String_): The value to read
+    # Return::
+    # * _Float_: The corresponding ratio in db
+    def self.readStrRatio(iStrValue)
+      rRatio = nil
+
+      lMatch = iStrValue.match(/^(.*)db$/)
+      if (lMatch == nil)
+        # The argument is a ratio
+        rRatio = val2db(iStrValue.to_f)
+      else
+        # The argument is already in db
+        rRatio = iStrValue.to_f
+      end
+
+      return rRatio
+    end
+
+    # Call WSK
+    #
+    # Parameters::
+    # * *iInputFile* (_String_): The input file
+    # * *iOutputFile* (_String_): The output file
+    # * *iAction* (_String_): The action
+    # * *iParams* (_String_): Action parameters [optional = '']
+    def wsk(iInputFile, iOutputFile, iAction, iParams = '')
+      log_info ''
+      log_info "========== Processing #{iInputFile} ==#{iAction}==> #{iOutputFile} | #{iParams} ..."
+      FileUtils::mkdir_p(File.dirname(iOutputFile))
+      # If the file already exists, delete it
+      File.unlink(iOutputFile) if File.exists?(iOutputFile)
+      lCmd = "#{@MusicMasterConf[:WSKCmdLine]} --input \"#{iInputFile}\" --output \"#{iOutputFile}\" --action #{iAction} -- #{iParams}"
+      log_debug "#{Dir.getwd}> #{lCmd}"
+      system(lCmd)
+      lErrorCode = $?.exitstatus
+      if (lErrorCode == 0)
+        log_info "========== Processing #{iInputFile} ==#{iAction}==> #{iOutputFile} | #{iParams} ... OK"
+      else
+        log_err "========== Processing #{iInputFile} ==#{iAction}==> #{iOutputFile} | #{iParams} ... ERROR #{lErrorCode}"
+        raise RuntimeError, "Processing #{iInputFile} ==#{iAction}==> #{iOutputFile} | #{iParams} ... ERROR #{lErrorCode}"
+      end
+      log_info ''
+    end
+
+  end
+
+end
