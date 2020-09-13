@@ -81,3 +81,22 @@ module MusicMaster
         when :SampleRate
           lTranslatedParams << "--rate #{iValue}"
         when :BitDepth
+          lTranslatedParams << "--bits #{iValue}"
+        when :Dither
+          if (iValue == true)
+            lTranslatedParams << '--dither 4'
+          end
+        when :FileFormat
+          # Nothing to do
+        else
+          log_err "Unknown Wave parameter: #{iParam} (value #{iValue.inspect}). Ignoring it."
+        end
+      end
+      FileUtils::mkdir_p(File.dirname(iDstFile))
+      lCmd = "#{@MusicMasterConf[:SRCCmdLine]} #{lTranslatedParams.join(' ')} \"#{iSrcFile}\" \"#{iDstFile}\""
+      log_info "=> #{lCmd}"
+      system(lCmd)
+    end
+  end
+
+end
