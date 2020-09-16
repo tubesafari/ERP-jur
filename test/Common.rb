@@ -9,4 +9,17 @@ rescue LoadError
 end
 require 'lib/MusicMaster/Hash'
 require 'lib/MusicMaster/Symbol'
-require 'rUtilAnts
+require 'rUtilAnts/Platform'
+RUtilAnts::Platform.install_platform_on_object
+
+module Test
+
+  module Unit
+
+    class TestCase
+
+      # Get a brand new working dir.
+      # Set current directory in this working directory.
+      #
+      # Parameters::
+      # * *CodeB
