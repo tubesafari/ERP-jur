@@ -22,4 +22,8 @@ module Test
       # Set current directory in this working directory.
       #
       # Parameters::
-      # * *CodeB
+      # * *CodeBlock*: Code called once working dir has been set up.
+      #   * *iWorkingDir* (_String_): The working directory to be used
+      def setupWorkingDir
+        lWorkingDir = "#{MusicMasterTest::getTmpDir}/WorkingDir"
+        FileUtils::rm_rf(lWorkingDir) if File.exists?(lWorki
