@@ -34,4 +34,10 @@ module Test
         FileUtils::rm_rf(lWorkingDir) if (!MusicMasterTest::debug?)
       end
 
-      # Execute a binary in the test environment with given para
+      # Execute a binary in the test environment with given parameters
+      #
+      # Parameters::
+      # * *iBinName* (_String_): Name of the binary
+      # * *iParams* (<em>list<String></em>): Parameters to give to Record
+      # * *iOptions* (<em>map<Symbol,Object></em>): Additional options [optional = {}]
+ 
