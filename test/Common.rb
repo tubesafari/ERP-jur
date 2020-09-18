@@ -26,4 +26,12 @@ module Test
       #   * *iWorkingDir* (_String_): The working directory to be used
       def setupWorkingDir
         lWorkingDir = "#{MusicMasterTest::getTmpDir}/WorkingDir"
-        FileUtils::rm_rf(lWorkingDir) if File.exists?(lWorki
+        FileUtils::rm_rf(lWorkingDir) if File.exists?(lWorkingDir)
+        FileUtils::mkdir_p(lWorkingDir)
+        change_dir(lWorkingDir) do
+          yield(lWorkingDir)
+        end
+        FileUtils::rm_rf(lWorkingDir) if (!MusicMasterTest::debug?)
+      end
+
+      # Execute a binary in the test environment with given para
