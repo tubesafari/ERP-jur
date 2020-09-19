@@ -40,4 +40,4 @@ module Test
       # * *iBinName* (_String_): Name of the binary
       # * *iParams* (<em>list<String></em>): Parameters to give to Record
       # * *iOptions* (<em>map<Symbol,Object></em>): Additional options [optional = {}]
- 
+      #   * *:RecordedFiles* (<em>list<String></em>): List of recorded files to provide to the recorder. Each file can be either the base name (without .wav extension) from a wave file from test/Wave (in this case a temporary file will be copied from th
