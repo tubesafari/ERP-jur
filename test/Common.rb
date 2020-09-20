@@ -41,4 +41,6 @@ module Test
       # * *iParams* (<em>list<String></em>): Parameters to give to Record
       # * *iOptions* (<em>map<Symbol,Object></em>): Additional options [optional = {}]
       #   * *:RecordedFiles* (<em>list<String></em>): List of recorded files to provide to the recorder. Each file can be either the base name (without .wav extension) from a wave file from test/Wave (in this case a temporary file will be copied from this wave file), or a complete wave file name (in this case the RecordedFileGetter just returns this file name) [optional = []]
-      #   * *:PrepareFiles* (<em>list< [String,String] ></em>): The list of files to copy from test/ to the test working direct
+      #   * *:PrepareFiles* (<em>list< [String,String] ></em>): The list of files to copy from test/ to the test working directory before executing the binary [optional = []]
+      #   * *:FakeWSK* (<em>list<map<String,Object>></em>): The list of fake WSK commands to receive [optional = []]:
+      #     * *:Input* (_Object_): Name of the input file expected (can be a String o
