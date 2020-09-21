@@ -46,4 +46,6 @@ module Test
       #     * *:Input* (_Object_): Name of the input file expected (can be a String or a RegExp)
       #     * *:Output* (_Object_): Name of the output file expected (can be a String or a RegExp)
       #     * *:Action* (_String_): Name of the action expected
-      #     * *:Params* (<em>list<String></em>): List of parameters for the acti
+      #     * *:Params* (<em>list<String></em>): List of parameters for the action [optional = []]
+      #     * *:UseWave* (_String_): Path to the Wave file to be used (relative to the test/Wave folder) to generate the result
+      #     * *:CopyFiles* (<em>map<String,String></em>): Additional files to be copied (source => d
