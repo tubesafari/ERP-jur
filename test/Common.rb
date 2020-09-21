@@ -43,4 +43,7 @@ module Test
       #   * *:RecordedFiles* (<em>list<String></em>): List of recorded files to provide to the recorder. Each file can be either the base name (without .wav extension) from a wave file from test/Wave (in this case a temporary file will be copied from this wave file), or a complete wave file name (in this case the RecordedFileGetter just returns this file name) [optional = []]
       #   * *:PrepareFiles* (<em>list< [String,String] ></em>): The list of files to copy from test/ to the test working directory before executing the binary [optional = []]
       #   * *:FakeWSK* (<em>list<map<String,Object>></em>): The list of fake WSK commands to receive [optional = []]:
-      #     * *:Input* (_Object_): Name of the input file expected (can be a String o
+      #     * *:Input* (_Object_): Name of the input file expected (can be a String or a RegExp)
+      #     * *:Output* (_Object_): Name of the output file expected (can be a String or a RegExp)
+      #     * *:Action* (_String_): Name of the action expected
+      #     * *:Params* (<em>list<String></em>): List of parameters for the acti
