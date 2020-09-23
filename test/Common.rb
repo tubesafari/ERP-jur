@@ -50,4 +50,7 @@ module Test
       #     * *:UseWave* (_String_): Path to the Wave file to be used (relative to the test/Wave folder) to generate the result
       #     * *:CopyFiles* (<em>map<String,String></em>): Additional files to be copied (source => destination) (source being relative to the test folder) [optional = {}]
       #   * *:FakeSSRC* (<em>list<map<String,Object>></em>): The list of fake SSRC commands to receive [optional = []]:
-      #     * *:Input* (_Object_): Name of the input file expected (can be 
+      #     * *:Input* (_Object_): Name of the input file expected (can be a String or a RegExp)
+      #     * *:Output* (_Object_): Name of the output file expected (can be a String or a RegExp)
+      #     * *:Params* (<em>list<String></em>): List of parameters [optional = []]
+      #     * *:UseWave* (_String_): Path to the Wave file to be used (relative
