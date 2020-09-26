@@ -57,4 +57,7 @@ module Test
       #   * *:PilotingCode* (_Proc_): The code called to pilot the process [optional = nil]:
       #     * *oStdIN* (_IO_): The process' STDIN
       #     * *iStdOUT* (_IO_): The process' STDOUT
-      #     * *iStd
+      #     * *iStdERR* (_IO_): The process' STDERR
+      #     * *iChildProcess* (_ChildProcessInfo_): The corresponding ChildProcessInfo
+      # * *CodeBlock*: Code called once it has been executed:
+      #   * *iStdOUTLog* (_Strin
