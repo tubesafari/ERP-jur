@@ -65,4 +65,7 @@ module Test
       #   * *iExitStatus* (_Integer_): Exit status
       def execute_binary(iBinName, iParams, iOptions = {})
         setupWorkingDir do |iWorkingDir|
-          lRoo
+          lRootPath = MusicMasterTest::getRootPath
+          # Set the MusicMaster config file
+          ENV['MUSICMASTER_CONF_PATH'] = "#{lRootPath}/test/DefaultMusicMaster.conf.rb"
+          # Set the list of files to be recorded in a f
