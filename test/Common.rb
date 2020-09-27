@@ -60,4 +60,9 @@ module Test
       #     * *iStdERR* (_IO_): The process' STDERR
       #     * *iChildProcess* (_ChildProcessInfo_): The corresponding ChildProcessInfo
       # * *CodeBlock*: Code called once it has been executed:
-      #   * *iStdOUTLog* (_Strin
+      #   * *iStdOUTLog* (_String_): Log STDOUT of the process
+      #   * *iStdERRLog* (_String_): Log STDERR of the process
+      #   * *iExitStatus* (_Integer_): Exit status
+      def execute_binary(iBinName, iParams, iOptions = {})
+        setupWorkingDir do |iWorkingDir|
+          lRoo
