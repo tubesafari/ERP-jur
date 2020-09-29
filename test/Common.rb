@@ -68,4 +68,7 @@ module Test
           lRootPath = MusicMasterTest::getRootPath
           # Set the MusicMaster config file
           ENV['MUSICMASTER_CONF_PATH'] = "#{lRootPath}/test/DefaultMusicMaster.conf.rb"
-          # Set the list of files to be recorded in a f
+          # Set the list of files to be recorded in a file.
+          # This way we can compare the file's content after performance to make sure all files were marked as recorded.
+          lLstFilesToBeRecorded = (iOptions[:RecordedFiles] || [])
+          File.open('MMT_RecordedFiles.rb', 'w') { |oFile| oFile.write(lLstFilesToBeRecord
