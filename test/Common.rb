@@ -71,4 +71,6 @@ module Test
           # Set the list of files to be recorded in a file.
           # This way we can compare the file's content after performance to make sure all files were marked as recorded.
           lLstFilesToBeRecorded = (iOptions[:RecordedFiles] || [])
-          File.open('MMT_RecordedFiles.rb', 'w') { |oFile| oFile.write(lLstFilesToBeRecord
+          File.open('MMT_RecordedFiles.rb', 'w') { |oFile| oFile.write(lLstFilesToBeRecorded.inspect) }
+          File.open('MMT_FakeWSK.rb', 'w') { |oFile| oFile.write((iOptions[:FakeWSK] || []).inspect) } if (!$MusicMasterTest_UseWSK)
+          File.open('MMT_FakeSSRC.rb', 'w') { |oFile| oFile.write((iOptions[:FakeSSRC] || []).inspect) } if (!$MusicMasterTest_
