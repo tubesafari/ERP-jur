@@ -77,4 +77,9 @@ module Test
           log_debug "Setup files to be recorded: #{eval(File.read('MMT_RecordedFiles.rb')).join(', ')}" if (MusicMasterTest::debug?) and (!lLstFilesToBeRecorded.empty?)
           # Prepare files
           lPrepareFiles = (iOptions[:PrepareFiles] || [])
-       
+          lPrepareFiles.each do |iFileInfo|
+            iSrcName, iDstName = iFileInfo
+            FileUtils::mkdir_p(File.dirname(iDstName))
+            if (iSrcName[0..0] == '*')
+              # Create a shortcut
+              log_debug "Create Shortcut #{iSrcNa
