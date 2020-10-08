@@ -73,4 +73,8 @@ module Test
           lLstFilesToBeRecorded = (iOptions[:RecordedFiles] || [])
           File.open('MMT_RecordedFiles.rb', 'w') { |oFile| oFile.write(lLstFilesToBeRecorded.inspect) }
           File.open('MMT_FakeWSK.rb', 'w') { |oFile| oFile.write((iOptions[:FakeWSK] || []).inspect) } if (!$MusicMasterTest_UseWSK)
-          File.open('MMT_FakeSSRC.rb', 'w') { |oFile| oFile.write((iOptions[:FakeSSRC] || []).inspect) } if (!$MusicMasterTest_
+          File.open('MMT_FakeSSRC.rb', 'w') { |oFile| oFile.write((iOptions[:FakeSSRC] || []).inspect) } if (!$MusicMasterTest_UseSSRC)
+          log_debug "Setup files to be recorded: #{eval(File.read('MMT_RecordedFiles.rb')).join(', ')}" if (MusicMasterTest::debug?) and (!lLstFilesToBeRecorded.empty?)
+          # Prepare files
+          lPrepareFiles = (iOptions[:PrepareFiles] || [])
+       
