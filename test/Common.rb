@@ -82,4 +82,9 @@ module Test
             FileUtils::mkdir_p(File.dirname(iDstName))
             if (iSrcName[0..0] == '*')
               # Create a shortcut
-              log_debug "Create Shortcut #{iSrcNa
+              log_debug "Create Shortcut #{iSrcName[1..-1]} => #{iDstName}"
+              create_shortcut(iSrcName[1..-1], iDstName)
+            else
+              # Copy the file
+              log_debug "Copy file #{lRootPath}/test/#{iSrcName} => #{iDstName}"
+              FileUtils::cp("#{lRo
