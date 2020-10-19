@@ -87,4 +87,9 @@ module Test
             else
               # Copy the file
               log_debug "Copy file #{lRootPath}/test/#{iSrcName} => #{iDstName}"
-              FileUtils::cp("#{lRo
+              FileUtils::cp("#{lRootPath}/test/#{iSrcName}", iDstName)
+            end
+          end
+          # Set environmnet variables that will be used to trap some behaviour
+          ENV['MMT_ROOTPATH'] = lRootPath
+          lCmd = [ "#{lRootPath}/bin/#{iBinName}.
