@@ -92,4 +92,10 @@ module Test
           end
           # Set environmnet variables that will be used to trap some behaviour
           ENV['MMT_ROOTPATH'] = lRootPath
-          lCmd = [ "#{lRootPath}/bin/#{iBinName}.
+          lCmd = [ "#{lRootPath}/bin/#{iBinName}.rb" ] + iParams
+          if (MusicMasterTest::debug?)
+            ENV['MMT_DEBUG'] = '1'
+            lCmd << '--debug'
+          end
+          lRubyCmdLine = [ 'ruby', '-w', "-I#{lRootPath}/lib" ]
+          log_debug "#{Dir.getwd}> #{lRubyCmdLine.inspect} #{lCmd.inspect
