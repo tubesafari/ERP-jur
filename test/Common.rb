@@ -98,4 +98,7 @@ module Test
             lCmd << '--debug'
           end
           lRubyCmdLine = [ 'ruby', '-w', "-I#{lRootPath}/lib" ]
-          log_debug "#{Dir.getwd}> #{lRubyCmdLine.inspect} #{lCmd.inspect
+          log_debug "#{Dir.getwd}> #{lRubyCmdLine.inspect} #{lCmd.inspect} ..." if (MusicMasterTest::debug?)
+          if (MusicMasterTest::debug?)
+            [ 'MUSICMASTER_CONF_PATH', 'MMT_ROOTPATH', 'MMT_DEBUG' ].each do |iVarName|
+              log_debug "export #{iVarName}=#{ENV[iVarNa
