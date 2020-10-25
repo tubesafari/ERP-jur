@@ -108,4 +108,6 @@ module Test
           end
           lExitStatus = nil
           lStdOUTLog = nil
-          lStdERRLo
+          lStdERRLog = nil
+          ProcessPilot::pilot(*(lCmd + [{ :force_ruby_process_sync => true, :ruby_cmd_line => lRubyCmdLine, :debug => MusicMasterTest::debug? }])) do |oStdIN, iStdOUT, iStdERR, iChildProcess|
+            if (iOptions[:Piloting
