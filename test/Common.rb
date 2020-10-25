@@ -101,4 +101,11 @@ module Test
           log_debug "#{Dir.getwd}> #{lRubyCmdLine.inspect} #{lCmd.inspect} ..." if (MusicMasterTest::debug?)
           if (MusicMasterTest::debug?)
             [ 'MUSICMASTER_CONF_PATH', 'MMT_ROOTPATH', 'MMT_DEBUG' ].each do |iVarName|
-              log_debug "export #{iVarName}=#{ENV[iVarNa
+              log_debug "export #{iVarName}=#{ENV[iVarName]}"
+            end
+            log_debug "cd #{Dir.getwd}"
+            log_debug "#{lRubyCmdLine.join(' ')} #{lCmd.join(' ')}"
+          end
+          lExitStatus = nil
+          lStdOUTLog = nil
+          lStdERRLo
