@@ -110,4 +110,11 @@ module Test
           lStdOUTLog = nil
           lStdERRLog = nil
           ProcessPilot::pilot(*(lCmd + [{ :force_ruby_process_sync => true, :ruby_cmd_line => lRubyCmdLine, :debug => MusicMasterTest::debug? }])) do |oStdIN, iStdOUT, iStdERR, iChildProcess|
-            if (iOptions[:Piloting
+            if (iOptions[:PilotingCode] != nil)
+              iOptions[:PilotingCode].call(oStdIN, iStdOUT, iStdERR, iChildProcess)
+            end
+            # Just wait for its completion
+            while (!iChildProcess.exited?)
+              sleep 0.1
+            end
+     
