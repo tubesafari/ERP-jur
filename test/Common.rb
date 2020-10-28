@@ -122,4 +122,7 @@ module Test
             lStdERRLog = iStdERR.read
             lExitStatus = (iChildProcess.exit_status == nil) ? nil : iChildProcess.exit_status.exitstatus
           end
-          log_debug "
+          log_debug "===== Process exited with status code #{lExitStatus}\n===== STDOUT:\n#{lStdOUTLog}\n===== STDERR:\n#{lStdERRLog}\n=====\n" if (MusicMasterTest::debug?)
+          yield(lStdOUTLog, lStdERRLog, lExitStatus)
+          # Assert files were all recorded
+          as
