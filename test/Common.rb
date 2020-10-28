@@ -117,4 +117,9 @@ module Test
             while (!iChildProcess.exited?)
               sleep 0.1
             end
-     
+            # Get everything out of it
+            lStdOUTLog = iStdOUT.read
+            lStdERRLog = iStdERR.read
+            lExitStatus = (iChildProcess.exit_status == nil) ? nil : iChildProcess.exit_status.exitstatus
+          end
+          log_debug "
