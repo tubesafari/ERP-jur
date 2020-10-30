@@ -125,4 +125,8 @@ module Test
           log_debug "===== Process exited with status code #{lExitStatus}\n===== STDOUT:\n#{lStdOUTLog}\n===== STDERR:\n#{lStdERRLog}\n=====\n" if (MusicMasterTest::debug?)
           yield(lStdOUTLog, lStdERRLog, lExitStatus)
           # Assert files were all recorded
-          as
+          assert_equal [], eval(File.read('MMT_RecordedFiles.rb'))
+          # Assert WSK commands were all called
+          assert_equal [], eval(File.read('MMT_FakeWSK.rb')) if (!$MusicMasterTest_UseWSK)
+          # Assert SSRC commands were all called
+          asse
