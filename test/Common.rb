@@ -136,4 +136,13 @@ module Test
             File.unlink('MMT_FakeWSK.rb') if (!$MusicMasterTest_UseWSK)
             File.unlink('MMT_FakeSSRC.rb') if (!$MusicMasterTest_UseSSRC)
             # Remove prepared Wave files
-            lPrepareFiles.each 
+            lPrepareFiles.each do |iFileInfo|
+              iSrcName, iDstName = iFileInfo
+              if (iSrcName[0..0] == '*')
+                File.unlink(get_shortcut_file_name(iDstName))
+              else
+                File.unlink(iDstName)
+              end
+            end
+          end
+  
