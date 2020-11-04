@@ -132,4 +132,8 @@ module Test
           assert_equal [], eval(File.read('MMT_FakeSSRC.rb')) if (!$MusicMasterTest_UseSSRC)
           # In case of debug, do not remove files: we want them for debugging purposes
           if (!MusicMasterTest::debug?)
-            File.unlink('MMT_Recorde
+            File.unlink('MMT_RecordedFiles.rb')
+            File.unlink('MMT_FakeWSK.rb') if (!$MusicMasterTest_UseWSK)
+            File.unlink('MMT_FakeSSRC.rb') if (!$MusicMasterTest_UseSSRC)
+            # Remove prepared Wave files
+            lPrepareFiles.each 
