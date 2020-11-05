@@ -153,4 +153,6 @@ module Test
       # Parameters::
       # * *iBinName* (_String_): Binary name
       # * *iParams* (<em>list<String></em>): Parameters to give to the binary
-      # * *
+      # * *iConf* (<em>map<Symbol,Object></em>): Configuration to run with
+      # * *iOptions* (<em>map<Symbol,Object></em>): Additional options. See execute_binary for details. [optional = {}]
+      # * *CodeBlock*: Code called once it has been 
