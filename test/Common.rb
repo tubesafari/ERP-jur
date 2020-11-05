@@ -145,4 +145,12 @@ module Test
               end
             end
           end
-  
+        end
+      end
+
+      # Execute a binary in the test environment with the given configuration
+      #
+      # Parameters::
+      # * *iBinName* (_String_): Binary name
+      # * *iParams* (<em>list<String></em>): Parameters to give to the binary
+      # * *
