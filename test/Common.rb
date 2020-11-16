@@ -159,4 +159,9 @@ module Test
       #   * *iStdOUTLog* (_String_): Log STDOUT of the process
       #   * *iStdERRLog* (_String_): Log STDERR of the process
       #   * *iExitStatus* (_Integer_): Exit status
-      def execute_binary_with_conf(iBinName, iParams, iConf, iOptions = 
+      def execute_binary_with_conf(iBinName, iParams, iConf, iOptions = {})
+        # Create the config file
+        lConfFileName = "#{MusicMasterTest::getTmpDir}/#{iBinName}.conf.rb"
+        FileUtils::mkdir_p(File.dirname(lConfFileName))
+        File.open(lConfFileName, 'w') do |oFile|
+          oFi
