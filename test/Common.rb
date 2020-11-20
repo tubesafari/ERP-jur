@@ -164,4 +164,7 @@ module Test
         lConfFileName = "#{MusicMasterTest::getTmpDir}/#{iBinName}.conf.rb"
         FileUtils::mkdir_p(File.dirname(lConfFileName))
         File.open(lConfFileName, 'w') do |oFile|
-          oFi
+          oFile << iConf.inspect
+        end
+        log_debug "Setup #{iBinName} config in #{lConfFileName}:\n#{eval(File.read(lConfFileName)).pretty_inspect}\n" if (MusicMasterTest::debug?)
+        execute_binary(iBinName, iParams + [lConfFileName], i
