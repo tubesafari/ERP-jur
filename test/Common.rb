@@ -167,4 +167,10 @@ module Test
           oFile << iConf.inspect
         end
         log_debug "Setup #{iBinName} config in #{lConfFileName}:\n#{eval(File.read(lConfFileName)).pretty_inspect}\n" if (MusicMasterTest::debug?)
-        execute_binary(iBinName, iParams + [lConfFileName], i
+        execute_binary(iBinName, iParams + [lConfFileName], iOptions) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          yield(iStdOUTLog, iStdERRLog, iExitStatus)
+        end
+        File.unlink(lConfFileName) if (!MusicMasterTest::debug?)
+      end
+
+      # Execute Record in the 
