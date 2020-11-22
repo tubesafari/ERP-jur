@@ -173,4 +173,8 @@ module Test
         File.unlink(lConfFileName) if (!MusicMasterTest::debug?)
       end
 
-      # Execute Record in the 
+      # Execute Record in the test environment with given parameters
+      #
+      # Parameters::
+      # * *iParams* (<em>list<String></em>): Parameters to give to Record
+      # * *iOptions* (<em>map<Symbol,Object></em>): Additional options. See execute_binary for details. [op
