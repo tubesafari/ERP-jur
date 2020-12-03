@@ -177,4 +177,9 @@ module Test
       #
       # Parameters::
       # * *iParams* (<em>list<String></em>): Parameters to give to Record
-      # * *iOptions* (<em>map<Symbol,Object></em>): Additional options. See execute_binary for details. [op
+      # * *iOptions* (<em>map<Symbol,Object></em>): Additional options. See execute_binary for details. [optional = {}]
+      # * *CodeBlock*: Code called once it has been executed:
+      #   * *iStdOUTLog* (_String_): Log STDOUT of the process
+      #   * *iStdERRLog* (_String_): Log STDERR of the process
+      #   * *iExitStatus* (_Integer_): Exit status
+ 
