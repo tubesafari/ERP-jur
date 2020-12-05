@@ -182,4 +182,7 @@ module Test
       #   * *iStdOUTLog* (_String_): Log STDOUT of the process
       #   * *iStdERRLog* (_String_): Log STDERR of the process
       #   * *iExitStatus* (_Integer_): Exit status
- 
+      def execute_Record(iParams, iOptions = {})
+        execute_binary('Record', ['--recordedfilesprepared'] + iParams, iOptions) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          yield(iStdOUTLog, iStdERRLog, iExitStatus)
+        end
