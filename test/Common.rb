@@ -186,3 +186,10 @@ module Test
         execute_binary('Record', ['--recordedfilesprepared'] + iParams, iOptions) do |iStdOUTLog, iStdERRLog, iExitStatus|
           yield(iStdOUTLog, iStdERRLog, iExitStatus)
         end
+      end
+
+      # Execute Record in the test environment with the given configuration
+      #
+      # Parameters::
+      # * *iConf* (<em>map<Symbol,Object></em>): Configuration to run with
+      # * *iOptions* (<em>map<Symbol,Object></em>): 
