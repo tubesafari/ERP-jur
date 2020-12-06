@@ -213,4 +213,13 @@ module Test
       #   * *iStdERRLog* (_String_): Log STDERR of the process
       #   * *iExitStatus* (_Integer_): Exit status
       def execute_Clean_WithConf(iConf, iOptions = {})
-        execute_binary_with_conf('Clean', [], iConf, iOptions) do |iStdOUTLog, iStdERR
+        execute_binary_with_conf('Clean', [], iConf, iOptions) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          yield(iStdOUTLog, iStdERRLog, iExitStatus)
+        end
+      end
+
+      # Execute Calibrate in the test environment with the given configuration
+      #
+      # Parameters::
+      # * *iConf* (<em>map<Symbol,Object></em>): Configuration to run with
+      # * *iOpt
