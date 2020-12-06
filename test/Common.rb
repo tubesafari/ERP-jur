@@ -196,4 +196,7 @@ module Test
       # * *CodeBlock*: Code called once it has been executed:
       #   * *iStdOUTLog* (_String_): Log STDOUT of the process
       #   * *iStdERRLog* (_String_): Log STDERR of the process
-      #   * *iE
+      #   * *iExitStatus* (_Integer_): Exit status
+      def execute_Record_WithConf(iConf, iOptions = {})
+        execute_binary_with_conf('Record', ['--recordedfilesprepared'], iConf, iOptions) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          yield(iSt
