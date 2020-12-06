@@ -199,4 +199,11 @@ module Test
       #   * *iExitStatus* (_Integer_): Exit status
       def execute_Record_WithConf(iConf, iOptions = {})
         execute_binary_with_conf('Record', ['--recordedfilesprepared'], iConf, iOptions) do |iStdOUTLog, iStdERRLog, iExitStatus|
-          yield(iSt
+          yield(iStdOUTLog, iStdERRLog, iExitStatus)
+        end
+      end
+
+      # Execute Clean in the test environment with the given configuration
+      #
+      # Parameters::
+      # * *iConf* (<em>map<Symbol,Object></em>): Configuration to run wit
