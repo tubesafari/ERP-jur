@@ -222,4 +222,7 @@ module Test
       #
       # Parameters::
       # * *iConf* (<em>map<Symbol,Object></em>): Configuration to run with
-      # * *iOpt
+      # * *iOptions* (<em>map<Symbol,Object></em>): Additional options. See execute_binary for details. [optional = {}]
+      # * *CodeBlock*: Code called once it has been executed:
+      #   * *iStdOUTLog* (_String_): Log STDOUT of the process
+      #   * *iStdERRLog
