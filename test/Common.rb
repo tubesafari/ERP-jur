@@ -225,4 +225,7 @@ module Test
       # * *iOptions* (<em>map<Symbol,Object></em>): Additional options. See execute_binary for details. [optional = {}]
       # * *CodeBlock*: Code called once it has been executed:
       #   * *iStdOUTLog* (_String_): Log STDOUT of the process
-      #   * *iStdERRLog
+      #   * *iStdERRLog* (_String_): Log STDERR of the process
+      #   * *iExitStatus* (_Integer_): Exit status
+      def execute_Calibrate_WithConf(iConf, iOptions = {})
+        execute_binary_with_conf('Calibrate', [], iConf, iOptions) do |iStdOUTLog, iStdERR
