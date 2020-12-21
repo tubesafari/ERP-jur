@@ -236,4 +236,7 @@ module Test
       # Execute Process in the test environment with the given configuration
       #
       # Parameters::
-      # * *iConf* (<em>map<Symbol,Object></em>): Co
+      # * *iConf* (<em>map<Symbol,Object></em>): Configuration to run with
+      # * *iOptions* (<em>map<Symbol,Object></em>): Additional options. See execute_binary for details. [optional = {}]
+      # * *CodeBlock*: Code called once it has been executed:
+      #   * *iStdOUTLog* (_Stri
