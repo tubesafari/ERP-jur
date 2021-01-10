@@ -271,4 +271,11 @@ module Test
       # * *CodeBlock*: Code called once it has been executed:
       #   * *iStdOUTLog* (_String_): Log STDOUT of the process
       #   * *iStdERRLog* (_String_): Log STDERR of the process
-      #   * *iExitStatus* (_Integer_): 
+      #   * *iExitStatus* (_Integer_): Exit status
+      def execute_Deliver_WithConf(iConf, iOptions = {})
+        execute_binary_with_conf('Deliver', [], iConf, iOptions) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          yield(iStdOUTLog, iStdERRLog, iExitStatus)
+        end
+      end
+
+  
