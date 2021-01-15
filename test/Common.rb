@@ -278,4 +278,11 @@ module Test
         end
       end
 
-  
+      # Call some code only if WSK is installed in our current environment
+      #
+      # Parameters::
+      # * _BlockCode_: Code called if WSK is installed
+      def ensure_wsk_or_skip
+        lSkip = false
+        begin
+          require 'WSK/Comm
