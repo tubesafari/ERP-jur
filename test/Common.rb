@@ -285,4 +285,14 @@ module Test
       def ensure_wsk_or_skip
         lSkip = false
         begin
-          require 'WSK/Comm
+          require 'WSK/Common'
+        rescue LoadError
+          # WSK is not installed in this environment: skip this test
+          lSkip = true
+        end
+        if (!lSkip)
+          yield
+        end
+      end
+
+      # Get the list of prepared files for the given option
