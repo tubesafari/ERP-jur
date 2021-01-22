@@ -301,4 +301,11 @@ module Test
       # * *iLstSyms* (<em>list<Symbol></em>): The list of symbols to prepare files for
       # Return::
       # * <em>list< [String,String] ></em>: The list of files to be prepared (couples [source,destination])
-      def getPrepare
+      def getPreparedFiles(*iLstSyms)
+        rLstFiles = []
+
+        iLstSyms.each do |iSym|
+          case iSym
+          when :Recorded_Env1_1
+            rLstFiles.concat([
+              [ 'Wave/01_Source/Record/Env1.Silence.wav', '01_Source/Record/Env1.Silence.
