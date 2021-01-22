@@ -314,4 +314,6 @@ module Test
           when :Cleaned_Env1_1
             rLstFiles.concat([
               [ 'Analysis/Env1.1.analyze', 'Analyze/Record/Env1.1.analyze' ],
-              [ 'Analysis/Env1.Silenc
+              [ 'Analysis/Env1.Silence.analyze', 'Analyze/Record/Env1.Silence.analyze' ],
+              [ 'FFT/Env1.Silence.fftprofile', 'Analyze/Record/Env1.Silence.fftprofile' ],
+              [ 'Wave/02_Clean/Record/Env1.1.01.SilenceRemover.wav', '02_Clean/Record/Env1.1.0
