@@ -308,4 +308,10 @@ module Test
           case iSym
           when :Recorded_Env1_1
             rLstFiles.concat([
-              [ 'Wave/01_Source/Record/Env1.Silence.wav', '01_Source/Record/Env1.Silence.
+              [ 'Wave/01_Source/Record/Env1.Silence.wav', '01_Source/Record/Env1.Silence.wav' ],
+              [ 'Wave/01_Source/Record/Env1.1.wav', '01_Source/Record/Env1.1.wav' ]
+            ])
+          when :Cleaned_Env1_1
+            rLstFiles.concat([
+              [ 'Analysis/Env1.1.analyze', 'Analyze/Record/Env1.1.analyze' ],
+              [ 'Analysis/Env1.Silenc
