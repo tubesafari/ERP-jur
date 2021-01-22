@@ -295,4 +295,10 @@ module Test
         end
       end
 
-      # Get the list of prepared files for the given option
+      # Get the list of prepared files for the given options
+      #
+      # Parameters::
+      # * *iLstSyms* (<em>list<Symbol></em>): The list of symbols to prepare files for
+      # Return::
+      # * <em>list< [String,String] ></em>: The list of files to be prepared (couples [source,destination])
+      def getPrepare
