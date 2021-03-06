@@ -316,4 +316,7 @@ module Test
               [ 'Analysis/Env1.1.analyze', 'Analyze/Record/Env1.1.analyze' ],
               [ 'Analysis/Env1.Silence.analyze', 'Analyze/Record/Env1.Silence.analyze' ],
               [ 'FFT/Env1.Silence.fftprofile', 'Analyze/Record/Env1.Silence.fftprofile' ],
-              [ 'Wave/02_Clean/Record/Env1.1.01.SilenceRemover.wav', '02_Clean/Record/Env1.1.0
+              [ 'Wave/02_Clean/Record/Env1.1.01.SilenceRemover.wav', '02_Clean/Record/Env1.1.01.SilenceRemover.wav' ],
+              [ 'Wave/02_Clean/Record/Env1.1.03.DCShifter.wav', '02_Clean/Record/Env1.1.03.DCShifter.wav' ],
+              [ 'Wave/02_Clean/Record/Env1.1.04.NoiseGate.wav', '02_Clean/Record/Env1.1.04.NoiseGate.wav' ]
+   
