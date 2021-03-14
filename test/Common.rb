@@ -319,4 +319,10 @@ module Test
               [ 'Wave/02_Clean/Record/Env1.1.01.SilenceRemover.wav', '02_Clean/Record/Env1.1.01.SilenceRemover.wav' ],
               [ 'Wave/02_Clean/Record/Env1.1.03.DCShifter.wav', '02_Clean/Record/Env1.1.03.DCShifter.wav' ],
               [ 'Wave/02_Clean/Record/Env1.1.04.NoiseGate.wav', '02_Clean/Record/Env1.1.04.NoiseGate.wav' ]
-   
+            ])
+          when :Processed_Env1_1
+            lProcessID = {
+              :Param1 => 'TestParam1'
+            }.unique_id
+            rLstFiles.concat([
+              [ 'Wave/04_Process/Record/Env1.1.04.N
