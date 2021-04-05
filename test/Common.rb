@@ -325,4 +325,8 @@ module Test
               :Param1 => 'TestParam1'
             }.unique_id
             rLstFiles.concat([
-              [ 'Wave/04_Process/Record/Env1.1.04.N
+              [ 'Wave/04_Process/Record/Env1.1.04.NoiseGate.0.Test.xxx.wav', "04_Process/Record/Env1.1.04.NoiseGate.0.Test.#{lProcessID}.wav" ]
+            ])
+          when :Recorded_Env1_2
+            rLstFiles.concat([
+              [ 'Wave/01_Source/Record/Env1.Silence.wav', '01_Source/Record/Env1.Si
