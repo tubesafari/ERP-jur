@@ -337,4 +337,9 @@ module Test
               [ 'Wave/01_Source/Record/Env1.Silence.wav', '01_Source/Record/Env1.Silence.wav' ],
               [ 'Wave/01_Source/Record/Env2.Silence.wav', '01_Source/Record/Env2.Silence.wav' ],
               [ 'Wave/01_Source/Record/Env1.1.wav', '01_Source/Record/Env1.1.wav' ],
-              [ 'Wave/01_Source/Record/Calibra
+              [ 'Wave/01_Source/Record/Calibration.Env1.Env2.wav', '01_Source/Record/Calibration.Env1.Env2.wav' ],
+              [ 'Wave/01_Source/Record/Calibration.Env2.Env1.wav', '01_Source/Record/Calibration.Env2.Env1.wav' ]
+            ])
+          when :Cleaned_Env1_1_CalibEnv2
+            rLstFiles.concat([
+    
