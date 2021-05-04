@@ -342,4 +342,7 @@ module Test
             ])
           when :Cleaned_Env1_1_CalibEnv2
             rLstFiles.concat([
-    
+              [ 'Analysis/Env1.1.analyze', 'Analyze/Record/Env1.1.analyze' ],
+              [ 'Analysis/Env1.Silence.analyze', 'Analyze/Record/Env1.Silence.analyze' ],
+              [ 'FFT/Env1.Silence.fftprofile', 'Analyze/Record/Env1.Silence.fftprofile' ],
+       
