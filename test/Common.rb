@@ -347,4 +347,6 @@ module Test
               [ 'FFT/Env1.Silence.fftprofile', 'Analyze/Record/Env1.Silence.fftprofile' ],
               [ 'Analysis/Env2.Silence.analyze', 'Analyze/Record/Env2.Silence.analyze' ],
               [ 'FFT/Env2.Silence.fftprofile', 'Analyze/Record/Env2.Silence.fftprofile' ],
-              [ 'Analysis/Calibration.Env1.Env2.analyze', 'Analyze/Record/Ca
+              [ 'Analysis/Calibration.Env1.Env2.analyze', 'Analyze/Record/Calibration.Env1.Env2.analyze' ],
+              [ 'Analysis/Calibration.Env2.Env1.analyze', 'Analyze/Record/Calibration.Env2.Env1.analyze' ],
+              [ 'Wave/02_Clean/Record/Env1.1.01.SilenceRemover.wav', '02_Clean/Record/Env1.1.01.SilenceRemover.wav' 
