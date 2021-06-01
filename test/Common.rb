@@ -352,4 +352,5 @@ module Test
               [ 'Wave/02_Clean/Record/Env1.1.01.SilenceRemover.wav', '02_Clean/Record/Env1.1.01.SilenceRemover.wav' ],
               [ 'Wave/02_Clean/Record/Env1.1.03.DCShifter.wav', '02_Clean/Record/Env1.1.03.DCShifter.wav' ],
               [ 'Wave/02_Clean/Record/Env1.1.04.NoiseGate.wav', '02_Clean/Record/Env1.1.04.NoiseGate.wav' ],
-              [ 'Wave/02_Clean/Record
+              [ 'Wave/02_Clean/Record/Calibration.Env1.Env2.01.SilenceRemover.wav', '02_Clean/Record/Calibration.Env1.Env2.01.SilenceRemover.wav' ],
+              [ 'Wave/02_Clean/Record/Calibration.Env1.Env2.02.Cut.0.01s_0.16s.wav', '02_Clean/Record/Calibration.Env1.Env2.02.Cut.0.
