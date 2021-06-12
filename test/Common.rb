@@ -363,4 +363,6 @@ module Test
             ])
           when :Calibrated_Env1_1_CalibEnv2
             rLstFiles.concat([
-              [ 'Analysis/Calibration.Env1.Env2.04
+              [ 'Analysis/Calibration.Env1.Env2.04.NoiseGate.analyze', 'Analyze/Record/Calibration.Env1.Env2.04.NoiseGate.analyze' ],
+              [ 'Analysis/Calibration.Env2.Env1.04.NoiseGate.analyze', 'Analyze/Record/Calibration.Env2.Env1.04.NoiseGate.analyze' ],
+              [ 'Wave/03_Calibrate/Re
