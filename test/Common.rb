@@ -359,4 +359,8 @@ module Test
               [ 'Wave/02_Clean/Record/Calibration.Env2.Env1.01.SilenceRemover.wav', '02_Clean/Record/Calibration.Env2.Env1.01.SilenceRemover.wav' ],
               [ 'Wave/02_Clean/Record/Calibration.Env2.Env1.02.Cut.0.01s_0.16s.wav', '02_Clean/Record/Calibration.Env2.Env1.02.Cut.0.01s_0.16s.wav' ],
               [ 'Wave/02_Clean/Record/Calibration.Env2.Env1.03.DCShifter.wav', '02_Clean/Record/Calibration.Env2.Env1.03.DCShifter.wav' ],
-      
+              [ 'Wave/02_Clean/Record/Calibration.Env2.Env1.04.NoiseGate.wav', '02_Clean/Record/Calibration.Env2.Env1.04.NoiseGate.wav' ]
+            ])
+          when :Calibrated_Env1_1_CalibEnv2
+            rLstFiles.concat([
+              [ 'Analysis/Calibration.Env1.Env2.04
