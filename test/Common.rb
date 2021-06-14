@@ -365,4 +365,8 @@ module Test
             rLstFiles.concat([
               [ 'Analysis/Calibration.Env1.Env2.04.NoiseGate.analyze', 'Analyze/Record/Calibration.Env1.Env2.04.NoiseGate.analyze' ],
               [ 'Analysis/Calibration.Env2.Env1.04.NoiseGate.analyze', 'Analyze/Record/Calibration.Env2.Env1.04.NoiseGate.analyze' ],
-              [ 'Wave/03_Calibrate/Re
+              [ 'Wave/03_Calibrate/Record/Env1.1.Calibrated.wav', '03_Calibrate/Record/Env1.1.Calibrated.wav' ]
+            ])
+          when :Recorded_Env1_1_CalibEnv3
+            rLstFiles.concat([
+              [ 'Wave/01_Source/Record/Env1.Silence.wav', '01_Source/Record/En
