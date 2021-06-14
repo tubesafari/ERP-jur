@@ -369,4 +369,7 @@ module Test
             ])
           when :Recorded_Env1_1_CalibEnv3
             rLstFiles.concat([
-              [ 'Wave/01_Source/Record/Env1.Silence.wav', '01_Source/Record/En
+              [ 'Wave/01_Source/Record/Env1.Silence.wav', '01_Source/Record/Env1.Silence.wav' ],
+              [ 'Wave/01_Source/Record/Env3.Silence.wav', '01_Source/Record/Env3.Silence.wav' ],
+              [ 'Wave/01_Source/Record/Env1.1.wav', '01_Source/Record/Env1.1.wav' ],
+              [ 'Wave/01_Source/Record/Calibration.Env1.Env3.w
