@@ -372,4 +372,7 @@ module Test
               [ 'Wave/01_Source/Record/Env1.Silence.wav', '01_Source/Record/Env1.Silence.wav' ],
               [ 'Wave/01_Source/Record/Env3.Silence.wav', '01_Source/Record/Env3.Silence.wav' ],
               [ 'Wave/01_Source/Record/Env1.1.wav', '01_Source/Record/Env1.1.wav' ],
-              [ 'Wave/01_Source/Record/Calibration.Env1.Env3.w
+              [ 'Wave/01_Source/Record/Calibration.Env1.Env3.wav', '01_Source/Record/Calibration.Env1.Env3.wav' ],
+              [ 'Wave/01_Source/Record/Calibration.Env3.Env1.wav', '01_Source/Record/Calibration.Env3.Env1.wav' ]
+            ])
+          when :Recorded_En
