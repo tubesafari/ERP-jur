@@ -379,3 +379,6 @@ module Test
             rLstFiles.concat([
               [ 'Wave/01_Source/Record/Env1.Silence.wav', '01_Source/Record/Env1.Silence.wav' ],
               [ 'Wave/01_Source/Record/Env4.Silence.wav', '01_Source/Record/Env4.Silence.wav' ],
+              [ 'Wave/01_Source/Record/Env1.1.wav', '01_Source/Record/Env1.1.wav' ],
+              [ 'Wave/01_Source/Record/Calibration.Env1.Env4.wav', '01_Source/Record/Calibration.Env1.Env4.wav' ],
+              [ 'Wave/01
