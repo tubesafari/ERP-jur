@@ -393,4 +393,6 @@ module Test
               [ 'Analysis/Calibration.Env1.Env4.analyze', 'Analyze/Record/Calibration.Env1.Env4.analyze' ],
               [ 'Analysis/Calibration.Env4.Env1.analyze', 'Analyze/Record/Calibration.Env4.Env1.analyze' ],
               [ 'Wave/02_Clean/Record/Env1.1.01.SilenceRemover.wav', '02_Clean/Record/Env1.1.01.SilenceRemover.wav' ],
-              [ '
+              [ 'Wave/02_Clean/Record/Env1.1.03.DCShifter.wav', '02_Clean/Record/Env1.1.03.DCShifter.wav' ],
+              [ 'Wave/02_Clean/Record/Env1.1.04.NoiseGate.wav', '02_Clean/Record/Env1.1.04.NoiseGate.wav' ],
+              [ 'Wa
