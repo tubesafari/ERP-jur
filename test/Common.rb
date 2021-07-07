@@ -388,4 +388,6 @@ module Test
               [ 'Analysis/Env1.1.analyze', 'Analyze/Record/Env1.1.analyze' ],
               [ 'Analysis/Env1.Silence.analyze', 'Analyze/Record/Env1.Silence.analyze' ],
               [ 'FFT/Env1.Silence.fftprofile', 'Analyze/Record/Env1.Silence.fftprofile' ],
-              [ 'Analysis/Env4.Sil
+              [ 'Analysis/Env4.Silence.analyze', 'Analyze/Record/Env4.Silence.analyze' ],
+              [ 'FFT/Env4.Silence.fftprofile', 'Analyze/Record/Env4.Silence.fftprofile' ],
+              [ 'Analysis/Calibration.Env1.Env4.analyze', 'Analyze/Record/Calibration.Env1.En
