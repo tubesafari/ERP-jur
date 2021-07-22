@@ -413,4 +413,12 @@ module Test
             rLstFiles.concat([
               [ 'Wave/01_Source/Wave/Wave1.wav', 'Wave1.wav' ],
               [ '*Wave1.wav', '05_Mix/Final/Mix1.wav' ]
+            ])
+          when :Mixed_Wave2
+            rLstFiles.concat([
+              [ 'Wave/01_Source/Wave/Wave2.wav', 'Wave2.wav' ],
+              [ '*Wave2.wav', '05_Mix/Final/Mix2.wav' ]
+            ])
+          when :Mixed_Wave3
+            rLstFiles.concat([
            
