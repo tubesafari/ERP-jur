@@ -421,4 +421,10 @@ module Test
             ])
           when :Mixed_Wave3
             rLstFiles.concat([
-           
+              [ 'Wave/01_Source/Wave/Wave3.wav', 'Wave3.wav' ],
+              [ '*Wave3.wav', '05_Mix/Final/Mix3.wav' ]
+            ])
+          else
+            raise "Unknown symbol to prepare files for: #{iSym}"
+          end
+      
