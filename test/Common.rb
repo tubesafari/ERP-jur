@@ -407,4 +407,10 @@ module Test
           when :Calibrated_Env1_1_CalibEnv4
             rLstFiles.concat([
               [ 'Analysis/Calibration.Env1.Env4.04.NoiseGate.analyze', 'Analyze/Record/Calibration.Env1.Env4.04.NoiseGate.analyze' ],
-              [ 'Analysis/Calibration.Env4.Env1.04.NoiseGate.analyze', 'Analyze/Record/Calibration.
+              [ 'Analysis/Calibration.Env4.Env1.04.NoiseGate.analyze', 'Analyze/Record/Calibration.Env4.Env1.04.NoiseGate.analyze' ]
+            ])
+          when :Mixed_Wave1
+            rLstFiles.concat([
+              [ 'Wave/01_Source/Wave/Wave1.wav', 'Wave1.wav' ],
+              [ '*Wave1.wav', '05_Mix/Final/Mix1.wav' ]
+           
