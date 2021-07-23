@@ -427,4 +427,15 @@ module Test
           else
             raise "Unknown symbol to prepare files for: #{iSym}"
           end
-      
+        end
+
+        return rLstFiles.uniq
+      end
+
+      # Get a file name based on a glob directive.
+      # Assert that the file is alone and exists.
+      #
+      # Parameters::
+      # * *iStrGlob* (_String_): The glob directive
+      # Return::
+    
