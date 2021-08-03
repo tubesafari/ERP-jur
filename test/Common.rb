@@ -438,4 +438,12 @@ module Test
       # Parameters::
       # * *iStrGlob* (_String_): The glob directive
       # Return::
-    
+      # * _String_: File name
+      def getFileFromGlob(iStrGlob)
+        lLstFiles = Dir.glob(iStrGlob)
+        assert_equal 1, lLstFiles.size, "#{lLstFiles.size} files correspond to glob \"#{iStrGlob}\""
+
+        return lLstFiles.first
+      end
+
+      # Buffer size us
