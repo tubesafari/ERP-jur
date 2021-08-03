@@ -446,4 +446,10 @@ module Test
         return lLstFiles.first
       end
 
-      # Buffer size us
+      # Buffer size used to compare Wave files
+      BUFFER_SIZE = 4096
+      # Assert that a wave file is the same as a reference one
+      #
+      # Parameters::
+      # * *iReferenceBaseName* (_String_): The reference Wave base name
+      # * *iWaveFileName* (_String_): 
