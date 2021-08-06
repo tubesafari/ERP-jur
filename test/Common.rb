@@ -455,4 +455,6 @@ module Test
       # * *iWaveFileName* (_String_): The wave file to check
       def assert_wave(iReferenceBaseName, iWaveFileName)
         assert File.exists?(iWaveFileName), "File #{iWaveFileName} does not exist"
-        lRefFileName = "#{MusicMasterTest::getRootPath}/test/Wave/#{iReferenceBaseNam
+        lRefFileName = "#{MusicMasterTest::getRootPath}/test/Wave/#{iReferenceBaseName}.wav"
+        assert_equal File.size(lRefFileName), File.size(iWaveFileName), "File #{iWaveFileName}'s size (#{File.size(iWaveFileName)}) differs from reference file's size (#{iReferenceBaseName}: #{File.size(lRefFileName)})"
+        File.open(iWaveFileName, 'r') 
