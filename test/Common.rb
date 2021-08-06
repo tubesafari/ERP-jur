@@ -452,4 +452,7 @@ module Test
       #
       # Parameters::
       # * *iReferenceBaseName* (_String_): The reference Wave base name
-      # * *iWaveFileName* (_String_): 
+      # * *iWaveFileName* (_String_): The wave file to check
+      def assert_wave(iReferenceBaseName, iWaveFileName)
+        assert File.exists?(iWaveFileName), "File #{iWaveFileName} does not exist"
+        lRefFileName = "#{MusicMasterTest::getRootPath}/test/Wave/#{iReferenceBaseNam
