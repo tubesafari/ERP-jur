@@ -457,4 +457,8 @@ module Test
         assert File.exists?(iWaveFileName), "File #{iWaveFileName} does not exist"
         lRefFileName = "#{MusicMasterTest::getRootPath}/test/Wave/#{iReferenceBaseName}.wav"
         assert_equal File.size(lRefFileName), File.size(iWaveFileName), "File #{iWaveFileName}'s size (#{File.size(iWaveFileName)}) differs from reference file's size (#{iReferenceBaseName}: #{File.size(lRefFileName)})"
-        File.open(iWaveFileName, 'r') 
+        File.open(iWaveFileName, 'r') do |iFile|
+          File.open(lRefFileName, 'r') do |iRefFile|
+            while (!iFile.eof?)
+              lOrgPos = iFile.pos
+              assert_equal iRefFile.read(BUFFER_SIZE), iFile.read(BUFFER_SIZE), "File #{iWaveFileName}
