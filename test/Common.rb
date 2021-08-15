@@ -479,4 +479,10 @@ module Test
       end
 
       # Assert the process' exit status
-      # Do the 
+      # Do the check only for Ruby >= 1.9
+      #
+      # Parameters::
+      # * *iExitStatusRef* (_Integer_): The exit status reference
+      # * *iExitStatus* (_Integer_): The real exit status
+      def assert_exitstatus(iExitStatusRef, iExitStatus)
+     
