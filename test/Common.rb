@@ -461,4 +461,12 @@ module Test
           File.open(lRefFileName, 'r') do |iRefFile|
             while (!iFile.eof?)
               lOrgPos = iFile.pos
-              assert_equal iRefFile.read(BUFFER_SIZE), iFile.read(BUFFER_SIZE), "File #{iWaveFileName}
+              assert_equal iRefFile.read(BUFFER_SIZE), iFile.read(BUFFER_SIZE), "File #{iWaveFileName} differs from reference file #{lRefFileName} at segment [#{lOrgPos}-#{iFile.pos-1}]"
+            end
+          end
+        end
+      end
+
+      # Assert that a wave file pointed by a link is the same as a reference one
+      #
+      # Parameters::
