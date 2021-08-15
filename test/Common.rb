@@ -473,4 +473,10 @@ module Test
       # * *iReferenceBaseName* (_String_): The reference Wave base name
       # * *iWaveFileName* (_String_): The wave file to check
       def assert_wave_lnk(iReferenceBaseName, iWaveFileName)
-        lRealFileName = get_shortcut_target
+        lRealFileName = get_shortcut_target(iWaveFileName)
+        assert File.exists?(lRealFileName), "File #{lRealFileName}, pointed by shortcut #{iWaveFileName}, does not exist"
+        assert_wave iReferenceBaseName, lRealFileName
+      end
+
+      # Assert the process' exit status
+      # Do the 
