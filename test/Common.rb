@@ -470,3 +470,7 @@ module Test
       # Assert that a wave file pointed by a link is the same as a reference one
       #
       # Parameters::
+      # * *iReferenceBaseName* (_String_): The reference Wave base name
+      # * *iWaveFileName* (_String_): The wave file to check
+      def assert_wave_lnk(iReferenceBaseName, iWaveFileName)
+        lRealFileName = get_shortcut_target
