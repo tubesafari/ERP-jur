@@ -485,4 +485,11 @@ module Test
       # * *iExitStatusRef* (_Integer_): The exit status reference
       # * *iExitStatus* (_Integer_): The real exit status
       def assert_exitstatus(iExitStatusRef, iExitStatus)
-     
+        assert_equal(iExitStatusRef, iExitStatus) if (RUBY_VERSION >= '1.9')
+      end
+
+      # Assert the content of an evaluated rb file
+      #
+      # Parameters::
+      # * *iExpectedContent* (_Object_): The expected content
+    
