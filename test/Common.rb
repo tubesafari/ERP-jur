@@ -492,4 +492,7 @@ module Test
       #
       # Parameters::
       # * *iExpectedContent* (_Object_): The expected content
-    
+      # * *iFileName* (_String_): The file to check content from
+      def assert_rb_content(iExpectedContent, iFileName)
+        assert File.exists?(iFileName), "File #{iFileName} does not exist"
+        assert_equal iExpectedContent, eval(File.read(
