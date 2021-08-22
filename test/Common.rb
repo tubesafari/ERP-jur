@@ -495,4 +495,25 @@ module Test
       # * *iFileName* (_String_): The file to check content from
       def assert_rb_content(iExpectedContent, iFileName)
         assert File.exists?(iFileName), "File #{iFileName} does not exist"
-        assert_equal iExpectedContent, eval(File.read(
+        assert_equal iExpectedContent, eval(File.read(iFileName))
+      end
+
+    end
+
+  end
+
+end
+
+module MusicMasterTest
+
+  # Are we debugging tests ?
+  #
+  # Return::
+  # * _Boolean_: Are we debugging tests ?
+  def self.debug?
+    return $MusicMasterTest_Debug
+  end
+
+  # Get a temporary directory
+  #
+  # Pa
