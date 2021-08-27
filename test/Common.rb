@@ -523,4 +523,9 @@ module MusicMasterTest
   def self.getTmpDir(iID = nil)
     rTmpDir = "#{Dir.tmpdir}/MusicMasterTest"
 
-    rTmpDir.concat("/#{iID
+    rTmpDir.concat("/#{iID}") if (iID != nil)
+
+    return rTmpDir
+  end
+
+end
