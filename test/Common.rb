@@ -516,4 +516,11 @@ module MusicMasterTest
 
   # Get a temporary directory
   #
-  # Pa
+  # Parameters::
+  # * *iID* (_String_): ID to be used to identify this temporary directory [optional = nil]
+  # Return::
+  # * _String_: The temporary directory
+  def self.getTmpDir(iID = nil)
+    rTmpDir = "#{Dir.tmpdir}/MusicMasterTest"
+
+    rTmpDir.concat("/#{iID
