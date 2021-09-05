@@ -25,4 +25,8 @@ lReceivedInfo = {
   :Params => (ARGV[7..-1].empty?) ? nil : ARGV[7..-1]
 }
 
-# De
+# Dequeue the name of the next WSK command
+lLstFakeWSK = eval(File.read('MMT_FakeWSK.rb'))
+fail("No more WSK calls expected. Called with:\n#{format(lReceivedInfo)}") if (lLstFakeWSK.empty?)
+lFakeWSKInfo = lLstFakeWSK.first
+File.open('MMT_FakeWSK.rb', 'w') { |oFile| oFile.
