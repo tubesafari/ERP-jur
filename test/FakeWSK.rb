@@ -29,4 +29,9 @@ lReceivedInfo = {
 lLstFakeWSK = eval(File.read('MMT_FakeWSK.rb'))
 fail("No more WSK calls expected. Called with:\n#{format(lReceivedInfo)}") if (lLstFakeWSK.empty?)
 lFakeWSKInfo = lLstFakeWSK.first
-File.open('MMT_FakeWSK.rb', 'w') { |oFile| oFile.
+File.open('MMT_FakeWSK.rb', 'w') { |oFile| oFile.write(lLstFakeWSK[1..-1].inspect) }
+
+# Check that we expected what we received
+lErrors = []
+if (lFakeWSKInfo[:Input].is_a?(Regexp))
+  lErrors << 'Wrong input file' if (lReceivedInfo[:Input].match(lFakeWSKInfo[:Input]) == nil
