@@ -34,4 +34,9 @@ File.open('MMT_FakeWSK.rb', 'w') { |oFile| oFile.write(lLstFakeWSK[1..-1].inspec
 # Check that we expected what we received
 lErrors = []
 if (lFakeWSKInfo[:Input].is_a?(Regexp))
-  lErrors << 'Wrong input file' if (lReceivedInfo[:Input].match(lFakeWSKInfo[:Input]) == nil
+  lErrors << 'Wrong input file' if (lReceivedInfo[:Input].match(lFakeWSKInfo[:Input]) == nil)
+else
+  lErrors << 'Wrong input file' if (lFakeWSKInfo[:Input] != lReceivedInfo[:Input])
+end
+if (lFakeWSKInfo[:Output].is_a?(Regexp))
+  lErrors << 'Wrong output file' if (lReceivedInfo[:Output].match(lFakeWSKInfo[:Out
