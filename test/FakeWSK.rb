@@ -45,4 +45,9 @@ else
 end
 lErrors << 'Wrong action' if (lFakeWSKInfo[:Action] != lReceivedInfo[:Action])
 if ((lFakeWSKInfo[:Params] != nil) or
-    (lReceivedInfo
+    (lReceivedInfo[:Params] != nil))
+  lParamsOK = ((lFakeWSKInfo[:Params] != nil) and
+               (lReceivedInfo[:Params] != nil) and
+               (lFakeWSKInfo[:Params].size == lReceivedInfo[:Params].size))
+  if (lParamsOK)
+    lFakeWSKInfo[:Params].each_with_index do
