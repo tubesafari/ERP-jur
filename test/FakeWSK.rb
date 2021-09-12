@@ -57,4 +57,10 @@ if ((lFakeWSKInfo[:Params] != nil) or
           lParamsOK = false
         end
       elsif (iRefParam != lReceivedParam)
-        l
+        lParamsOK = false
+      end
+    end
+  end
+  lErrors << 'Wrong parameters' if (!lParamsOK)
+end
+fail("Following errors encountered:\n* #{lErrors.join("\n* ")}\nExpecting:\n#{format(lFakeWSKInfo)}\nReceived:\n#{format(lReceivedInfo)}") if (!l
