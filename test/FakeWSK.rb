@@ -39,4 +39,10 @@ else
   lErrors << 'Wrong input file' if (lFakeWSKInfo[:Input] != lReceivedInfo[:Input])
 end
 if (lFakeWSKInfo[:Output].is_a?(Regexp))
-  lErrors << 'Wrong output file' if (lReceivedInfo[:Output].match(lFakeWSKInfo[:Out
+  lErrors << 'Wrong output file' if (lReceivedInfo[:Output].match(lFakeWSKInfo[:Output]) == nil)
+else
+  lErrors << 'Wrong output file' if (lFakeWSKInfo[:Output] != lReceivedInfo[:Output])
+end
+lErrors << 'Wrong action' if (lFakeWSKInfo[:Action] != lReceivedInfo[:Action])
+if ((lFakeWSKInfo[:Params] != nil) or
+    (lReceivedInfo
