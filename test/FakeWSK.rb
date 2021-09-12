@@ -50,4 +50,11 @@ if ((lFakeWSKInfo[:Params] != nil) or
                (lReceivedInfo[:Params] != nil) and
                (lFakeWSKInfo[:Params].size == lReceivedInfo[:Params].size))
   if (lParamsOK)
-    lFakeWSKInfo[:Params].each_with_index do
+    lFakeWSKInfo[:Params].each_with_index do |iRefParam, iIdxParam|
+      lReceivedParam = lReceivedInfo[:Params][iIdxParam]
+      if (iRefParam.is_a?(Regexp))
+        if (lReceivedParam.match(iRefParam) == nil)
+          lParamsOK = false
+        end
+      elsif (iRefParam != lReceivedParam)
+        l
