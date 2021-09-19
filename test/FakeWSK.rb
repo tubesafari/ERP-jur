@@ -63,4 +63,10 @@ if ((lFakeWSKInfo[:Params] != nil) or
   end
   lErrors << 'Wrong parameters' if (!lParamsOK)
 end
-fail("Following errors encountered:\n* #{lErrors.join("\n* ")}\nExpecting:\n#{format(lFakeWSKInfo)}\nReceived:\n#{format(lReceivedInfo)}") if (!l
+fail("Following errors encountered:\n* #{lErrors.join("\n* ")}\nExpecting:\n#{format(lFakeWSKInfo)}\nReceived:\n#{format(lReceivedInfo)}") if (!lErrors.empty?)
+
+# Copy all relevant files
+lFilesToCopy = lFakeWSKInfo[:CopyFiles] || {}
+lFilesToCopy["Wave/#{lFakeWSKInfo[:UseWave]}"] = lReceivedInfo[:Output]
+require 'fileutils'
+lFilesToCopy.each do |iSrcFileName, iDstFileName|
