@@ -70,3 +70,10 @@ lFilesToCopy = lFakeWSKInfo[:CopyFiles] || {}
 lFilesToCopy["Wave/#{lFakeWSKInfo[:UseWave]}"] = lReceivedInfo[:Output]
 require 'fileutils'
 lFilesToCopy.each do |iSrcFileName, iDstFileName|
+  begin
+    FileUtils::mkdir_p(File.dirname(iDstFileName))
+    FileUtils::cp("#{ENV['MMT_ROOTPATH']}/test/#{iSrcFileName}", iDstFileName)
+  rescue Exception
+    fail $!.to_s
+  end
+end
