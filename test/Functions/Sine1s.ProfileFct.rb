@@ -11,4 +11,4 @@
    [Rational(33075, 1), Rational(6171, 8192)],
    [Rational(37485, 1), Rational(12341, 16384)],
    [Rational(41895, 1), Rational(24683, 32768)],
-   [Rational(44099, 1), Rational(24683, 327
+   [Rational(44099, 1), Rational(24683, 32768)]]}
