@@ -10,4 +10,13 @@ module MusicMasterTest
       end
     end
 
-    # E
+    # Empty config file
+    def testEmptyConfigFile
+      execute_Record_WithConf({}) do |iStdOUTLog, iStdERRLog, iExitStatus|
+        assert_exitstatus 0, iExitStatus
+      end
+    end
+
+    # Invalid config file
+    def testInvalidConfigFile
+      execute_Record_WithC
