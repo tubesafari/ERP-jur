@@ -13,4 +13,12 @@ module MusicMasterTest
           :PrepareFiles => getPreparedFiles(:Mixed_Wave1)
         ) do |iStdOUTLog, iStdERRLog, iExitStatus|
           assert_exitstatus 0, iExitStatus
-          
+          assert !File.exists?('06_Deliver')
+        end
+      end
+
+      # Simple delivery
+      def testSimple
+        execute_Deliver_WithConf({
+            :WaveFiles => { :FilesList => [ { :Name => 'Wave1.wav' } ] },
+         
