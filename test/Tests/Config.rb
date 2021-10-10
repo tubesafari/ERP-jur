@@ -19,4 +19,11 @@ module MusicMasterTest
 
     # Invalid config file
     def testInvalidConfigFile
-      execute_Record_WithC
+      execute_Record_WithConf(42) do |iStdOUTLog, iStdERRLog, iExitStatus|
+        assert_exitstatus 1, iExitStatus
+      end
+    end
+
+  end
+
+end
