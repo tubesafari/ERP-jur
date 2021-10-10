@@ -126,3 +126,28 @@ module MusicMasterTest
               :Deliver => {
                 :Formats => {
                   'Test' => {
+                    :FileFormat => 'Wave'
+                  }
+                },
+                :Deliverables => {
+                  'Deliverable' => {
+                    :Mix => 'Mix1',
+                    :Format => 'Test'
+                  }
+                }
+              }
+            },
+            :PrepareFiles => getPreparedFiles(:Mixed_Wave1)
+          ) do |iStdOUTLog, iStdERRLog, iExitStatus|
+            assert_exitstatus 0, iExitStatus
+            assert_wave_lnk '01_Source/Wave/Wave1', '06_Deliver/Deliverable/Track.wav'
+          end
+        end
+
+      end
+
+    end
+
+  end
+
+end
