@@ -28,4 +28,12 @@ module MusicMasterTest
                   :FileFormat => 'Test'
                 }
               },
-            
+              :Deliverables => {
+                'Deliverable' => {
+                  :Mix => 'Mix1',
+                  :Format => 'Test'
+                }
+              }
+            }
+          },
+          :PrepareFiles => getPreparedFiles(:Mixed_
