@@ -43,3 +43,12 @@ module MusicMasterTest
             :SrcFileName => 'Wave1.wav',
             :DstFileName => '06_Deliver/Deliverable/Track.test.rb',
             :FormatConf => {},
+            :Metadata => { :FileName => 'Track' }
+          }, '06_Deliver/Deliverable/Track.test.rb')
+        end
+      end
+
+      # Simple delivery with a name not fitting on the file system
+      def testNotFSName
+        execute_Deliver_WithConf({
+            :WaveFiles => { :FilesList => [ {
