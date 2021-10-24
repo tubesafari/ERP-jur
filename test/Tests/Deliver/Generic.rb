@@ -72,4 +72,12 @@ module MusicMasterTest
           assert_exitstatus 0, iExitStatus
           assert_rb_content({
             :SrcFileName => 'Wave1.wav',
-            :DstFileName => '06_Deliver/Deliverable_With_Bad_Characters/Track.tes
+            :DstFileName => '06_Deliver/Deliverable_With_Bad_Characters/Track.test.rb',
+            :FormatConf => {},
+            :Metadata => { :FileName => 'Track' }
+          }, '06_Deliver/Deliverable_With_Bad_Characters/Track.test.rb')
+        end
+      end
+
+      # Check format parameters
+      def testFormatP
