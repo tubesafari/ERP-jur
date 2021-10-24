@@ -57,4 +57,14 @@ module MusicMasterTest
               :Formats => {
                 'Test' => {
                   :FileFormat => 'Test'
-                
+                }
+              },
+              :Deliverables => {
+                'Deliverable/With/Bad/Characters' => {
+                  :Mix => 'Mix1',
+                  :Format => 'Test'
+                }
+              }
+            }
+          },
+          :PrepareFiles 
