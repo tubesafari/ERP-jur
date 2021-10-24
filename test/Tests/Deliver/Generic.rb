@@ -51,4 +51,10 @@ module MusicMasterTest
       # Simple delivery with a name not fitting on the file system
       def testNotFSName
         execute_Deliver_WithConf({
-            :WaveFiles => { :FilesList => [ {
+            :WaveFiles => { :FilesList => [ { :Name => 'Wave1.wav' } ] },
+            :Mix => { 'Mix1' => { :Tracks => { 'Wave1.wav' => {} } } },
+            :Deliver => {
+              :Formats => {
+                'Test' => {
+                  :FileFormat => 'Test'
+                
