@@ -86,4 +86,11 @@ module MusicMasterTest
             :Mix => { 'Mix1' => { :Tracks => { 'Wave1.wav' => {} } } },
             :Deliver => {
               :Formats => {
-    
+                'Test' => {
+                  :FileFormat => 'Test',
+                  :Param1 => 'FormatParam1'
+                }
+              },
+              :Deliverables => {
+                'Deliverable' => {
+                  :Mix => 'Mix1
