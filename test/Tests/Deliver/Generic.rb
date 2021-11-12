@@ -109,4 +109,12 @@ module MusicMasterTest
               :Param1 => 'FormatParam1'
             },
             :Metadata => { :FileName => 'Track' }
-  
+          }, '06_Deliver/Deliverable/Track.test.rb')
+        end
+      end
+
+      # Global metadata
+      def testGlobalMetadata
+        execute_Deliver_WithConf({
+            :WaveFiles => { :FilesList => [ { :Name => 'Wave1.wav' } ] },
+       
