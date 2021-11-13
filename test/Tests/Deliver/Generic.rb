@@ -123,4 +123,13 @@ module MusicMasterTest
                 :MDParam1 => 'MDValue1'
               },
               :Formats => {
-              
+                'Test' => {
+                  :FileFormat => 'Test'
+                }
+              },
+              :Deliverables => {
+                'Deliverable' => {
+                  :Mix => 'Mix1',
+                  :Format => 'Test'
+                }
+             
