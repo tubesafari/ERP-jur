@@ -146,4 +146,12 @@ module MusicMasterTest
               :FileName => 'Track',
               :MDParam1 => 'MDValue1'
             }
-          }, '06_Delive
+          }, '06_Deliver/Deliverable/Track.test.rb')
+        end
+      end
+
+      # Local metadata
+      def testLocalMetadata
+        execute_Deliver_WithConf({
+            :WaveFiles => { :FilesList => [ { :Name => 'Wave1.wav' } ] },
+            :Mix => { 'Mi
