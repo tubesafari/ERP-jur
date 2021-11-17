@@ -154,4 +154,12 @@ module MusicMasterTest
       def testLocalMetadata
         execute_Deliver_WithConf({
             :WaveFiles => { :FilesList => [ { :Name => 'Wave1.wav' } ] },
-            :Mix => { 'Mi
+            :Mix => { 'Mix1' => { :Tracks => { 'Wave1.wav' => {} } } },
+            :Deliver => {
+              :Metadata => {
+                :MDParam1 => 'MDValue1',
+                :MDParam2 => 'MDValue2.1'
+              },
+              :Formats => {
+                'Test' => {
+                 
