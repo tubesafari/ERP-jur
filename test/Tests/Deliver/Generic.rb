@@ -162,4 +162,12 @@ module MusicMasterTest
               },
               :Formats => {
                 'Test' => {
-                 
+                  :FileFormat => 'Test'
+                }
+              },
+              :Deliverables => {
+                'Deliverable' => {
+                  :Mix => 'Mix1',
+                  :Format => 'Test',
+                  :Metadata => {
+                    :MDPa
