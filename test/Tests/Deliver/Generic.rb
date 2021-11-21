@@ -170,4 +170,12 @@ module MusicMasterTest
                   :Mix => 'Mix1',
                   :Format => 'Test',
                   :Metadata => {
-                    :MDPa
+                    :MDParam2 => 'MDValue2.2',
+                    :MDParam3 => 'MDValue3'
+                  }
+                }
+              }
+            }
+          },
+          :PrepareFiles => getPreparedFiles(:Mixed_Wave1)
+        ) do |iStdOUTLog, iS
