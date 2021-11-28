@@ -193,3 +193,10 @@ module MusicMasterTest
           }, '06_Deliver/Deliverable/Track.test.rb')
         end
       end
+
+      # Specific file name using metadata
+      def testChangeFileName
+        execute_Deliver_WithConf({
+            :WaveFiles => { :FilesList => [ { :Name => 'Wave1.wav' } ] },
+            :Mix => { 'Mix1' => { :Tracks => { 'Wave1.wav' => {} } } },
+   
