@@ -185,4 +185,11 @@ module MusicMasterTest
             :DstFileName => '06_Deliver/Deliverable/Track.test.rb',
             :FormatConf => {},
             :Metadata => {
-        
+              :FileName => 'Track',
+              :MDParam1 => 'MDValue1',
+              :MDParam2 => 'MDValue2.2',
+              :MDParam3 => 'MDValue3'
+            }
+          }, '06_Deliver/Deliverable/Track.test.rb')
+        end
+      end
