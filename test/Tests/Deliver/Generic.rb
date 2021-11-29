@@ -199,4 +199,11 @@ module MusicMasterTest
         execute_Deliver_WithConf({
             :WaveFiles => { :FilesList => [ { :Name => 'Wave1.wav' } ] },
             :Mix => { 'Mix1' => { :Tracks => { 'Wave1.wav' => {} } } },
-   
+            :Deliver => {
+              :Metadata => {
+                :MDParam1 => 'MDValue1',
+                :FileName => 'NewFileName - %{MDParam1}'
+              },
+              :Formats => {
+                'Test' => {
+                  :FileForm
