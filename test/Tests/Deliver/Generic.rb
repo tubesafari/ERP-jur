@@ -206,4 +206,15 @@ module MusicMasterTest
               },
               :Formats => {
                 'Test' => {
-                  :FileForm
+                  :FileFormat => 'Test'
+                }
+              },
+              :Deliverables => {
+                'Deliverable' => {
+                  :Mix => 'Mix1',
+                  :Format => 'Test'
+                }
+              }
+            }
+          },
+        
