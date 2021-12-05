@@ -221,4 +221,11 @@ module MusicMasterTest
         ) do |iStdOUTLog, iStdERRLog, iExitStatus|
           assert_exitstatus 0, iExitStatus
           assert_rb_content({
-            :SrcFileName => 'Wave
+            :SrcFileName => 'Wave1.wav',
+            :DstFileName => '06_Deliver/Deliverable/NewFileName - MDValue1.test.rb',
+            :FormatConf => {},
+            :Metadata => {
+              :FileName => 'NewFileName - %{MDParam1}',
+              :MDParam1 => 'MDValue1'
+            }
+       
