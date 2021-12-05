@@ -235,4 +235,9 @@ module MusicMasterTest
       # Specific file name using metadata and a variable form local metadata
       def testChangeFileNameWithVarFromLocal
         execute_Deliver_WithConf({
-       
+            :WaveFiles => { :FilesList => [ { :Name => 'Wave1.wav' } ] },
+            :Mix => { 'Mix1' => { :Tracks => { 'Wave1.wav' => {} } } },
+            :Deliver => {
+              :Metadata => {
+                :MDParam1 => 'MDValue1.1',
+     
