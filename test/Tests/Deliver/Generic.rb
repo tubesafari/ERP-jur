@@ -228,4 +228,11 @@ module MusicMasterTest
               :FileName => 'NewFileName - %{MDParam1}',
               :MDParam1 => 'MDValue1'
             }
+          }, '06_Deliver/Deliverable/NewFileName - MDValue1.test.rb')
+        end
+      end
+
+      # Specific file name using metadata and a variable form local metadata
+      def testChangeFileNameWithVarFromLocal
+        execute_Deliver_WithConf({
        
