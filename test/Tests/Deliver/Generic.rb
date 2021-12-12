@@ -256,4 +256,12 @@ module MusicMasterTest
                     :MDParam2 => 'MDValue2'
                   }
                 }
-        
+              }
+            }
+          },
+          :PrepareFiles => getPreparedFiles(:Mixed_Wave1)
+        ) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          assert_exitstatus 0, iExitStatus
+          assert_rb_content({
+            :SrcFileName => 'Wave1.wav',
+            :DstFi
