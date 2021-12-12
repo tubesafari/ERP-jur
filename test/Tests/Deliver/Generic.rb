@@ -248,3 +248,12 @@ module MusicMasterTest
                 }
               },
               :Deliverables => {
+                'Deliverable' => {
+                  :Mix => 'Mix1',
+                  :Format => 'Test',
+                  :Metadata => {
+                    :MDParam1 => 'MDValue1.2',
+                    :MDParam2 => 'MDValue2'
+                  }
+                }
+        
