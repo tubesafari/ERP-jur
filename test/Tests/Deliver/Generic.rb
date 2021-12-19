@@ -283,4 +283,12 @@ module MusicMasterTest
             :Deliver => {
               :Metadata => {
                 :MDParam1 => 'MDValue1',
-                :FileN
+                :FileName => 'NewFileName - %{MDParam1}'
+              },
+              :Formats => {
+                'Test' => {
+                  :FileFormat => 'Test'
+                }
+              },
+              :Deliverables => {
+                'Delivera
