@@ -291,4 +291,14 @@ module MusicMasterTest
                 }
               },
               :Deliverables => {
-                'Delivera
+                'Deliverable' => {
+                  :Mix => 'Mix1',
+                  :Format => 'Test',
+                  :Metadata => {
+                    :FileName => 'NewNewFileName - %{MDParam1}'
+                  }
+                }
+              }
+            }
+          },
+          :Pre
