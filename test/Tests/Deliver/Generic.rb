@@ -301,4 +301,9 @@ module MusicMasterTest
               }
             }
           },
-          :Pre
+          :PrepareFiles => getPreparedFiles(:Mixed_Wave1)
+        ) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          assert_exitstatus 0, iExitStatus
+          assert_rb_content({
+            :SrcFileName => 'Wave1.wav',
+            :DstFileName => '06_Deliver/Deli
