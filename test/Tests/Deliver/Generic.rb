@@ -306,4 +306,10 @@ module MusicMasterTest
           assert_exitstatus 0, iExitStatus
           assert_rb_content({
             :SrcFileName => 'Wave1.wav',
-            :DstFileName => '06_Deliver/Deli
+            :DstFileName => '06_Deliver/Deliverable/NewNewFileName - MDValue1.test.rb',
+            :FormatConf => {},
+            :Metadata => {
+              :FileName => 'NewNewFileName - %{MDParam1}',
+              :MDParam1 => 'MDValue1'
+            }
+          }, '06
