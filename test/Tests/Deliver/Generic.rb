@@ -312,4 +312,14 @@ module MusicMasterTest
               :FileName => 'NewNewFileName - %{MDParam1}',
               :MDParam1 => 'MDValue1'
             }
-          }, '06
+          }, '06_Deliver/Deliverable/NewNewFileName - MDValue1.test.rb')
+        end
+      end
+
+      # Test delivering several
+      def testSeveral
+        execute_Deliver_WithConf({
+            :WaveFiles => {
+              :FilesList => [
+                { :Name => 'Wave1.wav' },
+     
