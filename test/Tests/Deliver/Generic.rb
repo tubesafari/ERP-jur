@@ -329,3 +329,13 @@ module MusicMasterTest
               'Mix2' => { :Tracks => { 'Wave2.wav' => {} } }
             },
             :Deliver => {
+              :Formats => {
+                'Test' => {
+                  :FileFormat => 'Test'
+                }
+              },
+              :Deliverables => {
+                'Deliverable1' => {
+                  :Mix => 'Mix1',
+                  :Format => 'Test'
+    
