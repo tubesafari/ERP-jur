@@ -338,4 +338,13 @@ module MusicMasterTest
                 'Deliverable1' => {
                   :Mix => 'Mix1',
                   :Format => 'Test'
+                },
+                'Deliverable2' => {
+                  :Mix => 'Mix2',
+                  :Format => 'Test'
+                }
+              }
+            }
+          },
+          :PrepareFiles => getPreparedFiles(:Mixed_Wave1, :Mixed_Wave2)
     
