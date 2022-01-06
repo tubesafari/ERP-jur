@@ -353,3 +353,8 @@ module MusicMasterTest
             :SrcFileName => 'Wave1.wav',
             :DstFileName => '06_Deliver/Deliverable1/Track.test.rb',
             :FormatConf => {},
+            :Metadata => { :FileName => 'Track' }
+          }, '06_Deliver/Deliverable1/Track.test.rb')
+          assert_rb_content({
+            :SrcFileName => 'Wave2.wav',
+            :DstFileName => '06_Deliver/Deliverable2/Track.test.rb',
