@@ -358,3 +358,12 @@ module MusicMasterTest
           assert_rb_content({
             :SrcFileName => 'Wave2.wav',
             :DstFileName => '06_Deliver/Deliverable2/Track.test.rb',
+            :FormatConf => {},
+            :Metadata => { :FileName => 'Track' }
+          }, '06_Deliver/Deliverable2/Track.test.rb')
+        end
+      end
+
+      # Test delivering several with 1 --name command
+      def testSeveralWith1Specified
+ 
