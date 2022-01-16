@@ -379,4 +379,13 @@ module MusicMasterTest
             :Deliver => {
               :Formats => {
                 'Test' => {
-                  :Fi
+                  :FileFormat => 'Test'
+                }
+              },
+              :Deliverables => {
+                'Deliverable1' => {
+                  :Mix => 'Mix1',
+                  :Format => 'Test'
+                },
+                'Deliverable2' => {
+            
