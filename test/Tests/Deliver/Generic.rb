@@ -409,4 +409,9 @@ module MusicMasterTest
 
       # Test delivering several with 2 --name commands
       def testSeveralWith2Specified
- 
+        execute_binary_with_conf('Deliver', [ '--name', 'Deliverable3', '--name', 'Deliverable2' ], {
+            :WaveFiles => {
+              :FilesList => [
+                { :Name => 'Wave1.wav' },
+                { :Name => 'Wave2.wav' },
+       
