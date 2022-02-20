@@ -436,4 +436,12 @@ module MusicMasterTest
                   :Mix => 'Mix2',
                   :Format => 'Test'
                 },
-                'Deliverable3' =>
+                'Deliverable3' => {
+                  :Mix => 'Mix3',
+                  :Format => 'Test'
+                }
+              }
+            }
+          },
+          :PrepareFiles => getPreparedFiles(:Mixed_Wave1, :Mixed_Wave2, :Mixed_Wave3)
+        ) do |iStdOUTLog, iStdERRLog, iExitStat
