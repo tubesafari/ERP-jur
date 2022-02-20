@@ -420,4 +420,13 @@ module MusicMasterTest
               'Mix1' => { :Tracks => { 'Wave1.wav' => {} } },
               'Mix2' => { :Tracks => { 'Wave2.wav' => {} } },
               'Mix3' => { :Tracks => { 'Wave3.wav' => {} } }
-    
+            },
+            :Deliver => {
+              :Formats => {
+                'Test' => {
+                  :FileFormat => 'Test'
+                }
+              },
+              :Deliverables => {
+                'Deliverable1' => {
+                  :Mi
