@@ -444,4 +444,11 @@ module MusicMasterTest
             }
           },
           :PrepareFiles => getPreparedFiles(:Mixed_Wave1, :Mixed_Wave2, :Mixed_Wave3)
-        ) do |iStdOUTLog, iStdERRLog, iExitStat
+        ) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          assert_exitstatus 0, iExitStatus
+          assert !File.exists?('06_Deliver/Deliverable1')
+          assert_rb_content({
+            :SrcFileName => 'Wave2.wav',
+            :DstFileName => '06_Deliver/Deliverable2/Track.test.rb',
+            :FormatConf => {},
+ 
