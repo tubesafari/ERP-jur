@@ -429,4 +429,11 @@ module MusicMasterTest
               },
               :Deliverables => {
                 'Deliverable1' => {
-                  :Mi
+                  :Mix => 'Mix1',
+                  :Format => 'Test'
+                },
+                'Deliverable2' => {
+                  :Mix => 'Mix2',
+                  :Format => 'Test'
+                },
+                'Deliverable3' =>
