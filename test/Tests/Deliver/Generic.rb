@@ -463,4 +463,12 @@ module MusicMasterTest
       end
 
       # Test that local metadata is not shared when delivering several
-      def tes
+      def testDontShareLocalMetadata
+        execute_Deliver_WithConf({
+            :WaveFiles => {
+              :FilesList => [
+                { :Name => 'Wave1.wav' },
+                { :Name => 'Wave2.wav' }
+              ] },
+            :Mix => {
+              'Mi
