@@ -456,4 +456,11 @@ module MusicMasterTest
           assert_rb_content({
             :SrcFileName => 'Wave3.wav',
             :DstFileName => '06_Deliver/Deliverable3/Track.test.rb',
-            :FormatConf => {
+            :FormatConf => {},
+            :Metadata => { :FileName => 'Track' }
+          }, '06_Deliver/Deliverable3/Track.test.rb')
+        end
+      end
+
+      # Test that local metadata is not shared when delivering several
+      def tes
