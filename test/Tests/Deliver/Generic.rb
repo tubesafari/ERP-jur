@@ -471,4 +471,10 @@ module MusicMasterTest
                 { :Name => 'Wave2.wav' }
               ] },
             :Mix => {
-              'Mi
+              'Mix1' => { :Tracks => { 'Wave1.wav' => {} } },
+              'Mix2' => { :Tracks => { 'Wave2.wav' => {} } }
+            },
+            :Deliver => {
+              :Metadata => {
+                :MDParam1 => 'MDValue1',
+                :
