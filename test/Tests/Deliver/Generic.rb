@@ -504,4 +504,8 @@ module MusicMasterTest
               }
             }
           },
-          :PrepareF
+          :PrepareFiles => getPreparedFiles(:Mixed_Wave1, :Mixed_Wave2)
+        ) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          assert_exitstatus 0, iExitStatus
+          assert_rb_content({
+            :SrcFileName => 'Wave1.
