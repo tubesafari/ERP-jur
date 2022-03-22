@@ -1,0 +1,3 @@
+module MusicMasterTest
+
+  module Gen
