@@ -28,4 +28,12 @@ module MusicMasterTest
           },
           :PrepareFiles => [
             [ 'Wave/Empty.wav', 'Wave.wav' ]
-        ]) do |iStdOUTLog, iStdERRLog, 
+        ]) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          assert_exitstatus 0, iExitStatus
+          assert !File.exists?('01_Source/Wave/Wave.wav')
+        end
+      end
+
+      # Test generating a missing wave file
+      def testGeneratingWaveFile
+       
