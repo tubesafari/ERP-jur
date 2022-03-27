@@ -19,4 +19,13 @@ module MusicMasterTest
       def testExistingWaveFile
         execute_Record_WithConf({
             :WaveFiles => {
- 
+              :FilesList => [
+                {
+                  :Name => 'Wave.wav'
+                }
+              ]
+            }
+          },
+          :PrepareFiles => [
+            [ 'Wave/Empty.wav', 'Wave.wav' ]
+        ]) do |iStdOUTLog, iStdERRLog, 
