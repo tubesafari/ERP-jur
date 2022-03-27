@@ -36,4 +36,13 @@ module MusicMasterTest
 
       # Test generating a missing wave file
       def testGeneratingWaveFile
-       
+        execute_Record_WithConf({
+          :WaveFiles => {
+            :FilesList => [
+              {
+                :Name => 'Wave.wav'
+              }
+            ]
+          },
+        },
+        :PilotingCode => Proc.new do |oStdIN, iStdOUT,
