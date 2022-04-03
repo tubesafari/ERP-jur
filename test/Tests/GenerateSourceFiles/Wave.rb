@@ -72,4 +72,7 @@ module MusicMasterTest
           },
         },
         :PilotingCode => Proc.new do |oStdIN, iStdOUT, iStdERR, iChildProcess|
-          lWave1FileName = '
+          lWave1FileName = '01_Source/Wave/Wave1.wav'
+          iStdOUT.gets_until("Create Wave file #{lWave1FileName}, and press Enter when done.\n", :time_out_secs => 10)
+          FileUtils::mkdir_p(File.dirname(lWave1FileName))
+          FileUtils::cp("#{MusicMasterTest::getRootPath}/test/W
