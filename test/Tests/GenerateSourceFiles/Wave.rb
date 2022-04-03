@@ -62,4 +62,14 @@ module MusicMasterTest
         execute_Record_WithConf({
           :WaveFiles => {
             :FilesList => [
-              
+              {
+                :Name => 'Wave1.wav'
+              },
+              {
+                :Name => 'Wave2.wav'
+              }
+            ]
+          },
+        },
+        :PilotingCode => Proc.new do |oStdIN, iStdOUT, iStdERR, iChildProcess|
+          lWave1FileName = '
