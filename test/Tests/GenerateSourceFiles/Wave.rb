@@ -48,4 +48,9 @@ module MusicMasterTest
         :PilotingCode => Proc.new do |oStdIN, iStdOUT, iStdERR, iChildProcess|
           lWaveFileName = '01_Source/Wave/Wave.wav'
           iStdOUT.gets_until("Create Wave file #{lWaveFileName}, and press Enter when done.\n", :time_out_secs => 10)
-          FileUtils::mkdir_p(File.dirname(lWaveFileName
+          FileUtils::mkdir_p(File.dirname(lWaveFileName))
+          FileUtils::cp("#{MusicMasterTest::getRootPath}/test/Wave/Empty.wav", lWaveFileName)
+          oStdIN.write("\n")
+        end) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          assert_exitstatus 0, iExitStatus
+          assert File.exist
