@@ -53,4 +53,13 @@ module MusicMasterTest
           oStdIN.write("\n")
         end) do |iStdOUTLog, iStdERRLog, iExitStatus|
           assert_exitstatus 0, iExitStatus
-          assert File.exist
+          assert File.exists?('01_Source/Wave/Wave.wav')
+        end
+      end
+
+      # Test generating 2 missing wave files
+      def testGenerating2WaveFiles
+        execute_Record_WithConf({
+          :WaveFiles => {
+            :FilesList => [
+              
