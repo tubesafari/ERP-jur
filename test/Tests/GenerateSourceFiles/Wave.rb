@@ -75,4 +75,8 @@ module MusicMasterTest
           lWave1FileName = '01_Source/Wave/Wave1.wav'
           iStdOUT.gets_until("Create Wave file #{lWave1FileName}, and press Enter when done.\n", :time_out_secs => 10)
           FileUtils::mkdir_p(File.dirname(lWave1FileName))
-          FileUtils::cp("#{MusicMasterTest::getRootPath}/test/W
+          FileUtils::cp("#{MusicMasterTest::getRootPath}/test/Wave/Empty.wav", lWave1FileName)
+          oStdIN.write("\n")
+          lWave2FileName = '01_Source/Wave/Wave2.wav'
+          iStdOUT.gets_until("Create Wave file #{lWave2FileName}, and press Enter when done.\n", :time_out_secs => 10)
+          FileUtils::mkdir_p(File
