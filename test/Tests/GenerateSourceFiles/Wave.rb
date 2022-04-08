@@ -79,4 +79,9 @@ module MusicMasterTest
           oStdIN.write("\n")
           lWave2FileName = '01_Source/Wave/Wave2.wav'
           iStdOUT.gets_until("Create Wave file #{lWave2FileName}, and press Enter when done.\n", :time_out_secs => 10)
-          FileUtils::mkdir_p(File
+          FileUtils::mkdir_p(File.dirname(lWave2FileName))
+          FileUtils::cp("#{MusicMasterTest::getRootPath}/test/Wave/Sine1s.wav", lWave2FileName)
+          oStdIN.write("\n")
+        end) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          assert_exitstatus 0, iExitStatus
+          assert File.e
