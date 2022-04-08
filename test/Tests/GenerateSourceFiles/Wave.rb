@@ -84,4 +84,13 @@ module MusicMasterTest
           oStdIN.write("\n")
         end) do |iStdOUTLog, iStdERRLog, iExitStatus|
           assert_exitstatus 0, iExitStatus
-          assert File.e
+          assert File.exists?('01_Source/Wave/Wave1.wav')
+          assert File.exists?('01_Source/Wave/Wave2.wav')
+        end
+      end
+
+    end
+
+  end
+
+end
