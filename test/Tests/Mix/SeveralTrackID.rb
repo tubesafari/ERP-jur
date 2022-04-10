@@ -14,4 +14,14 @@ module MusicMasterTest
                 },
                 {
                   :Name => 'Wave2.wav'
-         
+                }
+              ]
+            },
+            :Mix => {
+              'Final' => {
+                :Tracks => {
+                  'Wave1.wav' => {},
+                  'Wave2.wav' => {}
+                }
+              }
+            }
