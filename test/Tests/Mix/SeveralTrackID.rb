@@ -31,4 +31,10 @@ module MusicMasterTest
             [ 'Wave/01_Source/Wave/Wave2.wav', 'Wave2.wav' ]
           ],
           :FakeWSK => [
-       
+            {
+              :Input => 'Wave1.wav',
+              :Output => /05_Mix\/Final\.[[:xdigit:]]{32,32}\.wav/,
+              :Action => 'Mix',
+              :Params => [ '--files', 'Wave2.wav|1' ],
+              :UseWave => '05_Mix/Wave1.Wave2.wav'
+            
