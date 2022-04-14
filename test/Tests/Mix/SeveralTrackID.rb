@@ -37,4 +37,10 @@ module MusicMasterTest
               :Action => 'Mix',
               :Params => [ '--files', 'Wave2.wav|1' ],
               :UseWave => '05_Mix/Wave1.Wave2.wav'
-            
+            }
+        ]) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          assert_exitstatus 0, iExitStatus
+          getFileFromGlob('05_Mix/Final.????????????????????????????????.wav')
+          assert_wave_lnk '05_Mix/Wave1.Wave2', '05_Mix/Final/Final.wav'
+        end
+      end
