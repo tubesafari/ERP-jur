@@ -44,3 +44,14 @@ module MusicMasterTest
           assert_wave_lnk '05_Mix/Wave1.Wave2', '05_Mix/Final/Final.wav'
         end
       end
+
+      # Respect processing order
+      def testProcessOrder
+        execute_Mix_WithConf({
+            :WaveFiles => {
+              :FilesList => [
+                {
+                  :Name => 'Wave1.wav'
+                },
+                {
+ 
