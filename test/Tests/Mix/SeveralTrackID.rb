@@ -107,4 +107,12 @@ module MusicMasterTest
           lWave3FileName = getFileFromGlob('05_Mix/Final.0.Test.????????????????????????????????.wav')
           assert_rb_content [
             {
-              :I
+              :InputFileName => 'Wave1.wav',
+              :OutputFileName => lWave0FileName,
+              :Params => {
+                :Param1 => 'TestParam1'
+              }
+            },
+            {
+              :InputFileName => 'Wave2.wav',
+           
