@@ -132,4 +132,15 @@ module MusicMasterTest
         end
       end
 
-      # Respect proce
+      # Respect processing order with a tree
+      # Here is the mix tree:
+      # Final
+      # +-Mix1
+      # | +-Wave1
+      # | +-Wave2
+      # +-Mix2
+      #   +-Wave3
+      #   +-Wave4
+      def testProcessOrderTree
+        execute_Mix_WithConf({
+            :
