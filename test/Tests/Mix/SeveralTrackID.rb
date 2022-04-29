@@ -143,4 +143,13 @@ module MusicMasterTest
       #   +-Wave4
       def testProcessOrderTree
         execute_Mix_WithConf({
-            :
+            :WaveFiles => {
+              :FilesList => [
+                {
+                  :Name => 'Wave1.wav'
+                },
+                {
+                  :Name => 'Wave2.wav'
+                },
+                {
+                  :Name => 'Wave3.wav'
