@@ -162,4 +162,12 @@ module MusicMasterTest
             :Mix => {
               'Mix1' => {
                 :Tracks => {
-         
+                  'Wave1.wav' => {
+                    :Processes => [
+                      {
+                        :Name => 'Test',
+                        :Param1 => 'TestParam_Wave1'
+                      }
+                    ]
+                  },
+    
