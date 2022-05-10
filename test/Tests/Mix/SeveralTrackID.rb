@@ -210,4 +210,12 @@ module MusicMasterTest
                     :Name => 'Test',
                     :Param1 => 'TestParam_Mix2'
                   }
-      
+                ]
+              },
+              'Final' => {
+                :Tracks => {
+                  'Mix1' => {
+                    :Processes => [
+                      {
+                        :Name => 'Test',
+                        :Param1 => 'TestParam_Mix1_
