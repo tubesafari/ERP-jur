@@ -201,4 +201,13 @@ module MusicMasterTest
                       {
                         :Name => 'Test',
                         :Param1 => 'TestParam_Wave4'
-                
+                      }
+                    ]
+                  }
+                },
+                :Processes => [
+                  {
+                    :Name => 'Test',
+                    :Param1 => 'TestParam_Mix2'
+                  }
+      
