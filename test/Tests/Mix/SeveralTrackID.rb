@@ -218,4 +218,12 @@ module MusicMasterTest
                     :Processes => [
                       {
                         :Name => 'Test',
-                        :Param1 => 'TestParam_Mix1_
+                        :Param1 => 'TestParam_Mix1_2'
+                      }
+                    ]
+                  },
+                  'Mix2' => {
+                    :Processes => [
+                      {
+                        :Name => 'Test',
+                        :Param1 => 'Te
