@@ -234,4 +234,13 @@ module MusicMasterTest
                 :Processes => [
                   {
                     :Name => 'Test',
-                    :Param1 => 'TestParam_Final
+                    :Param1 => 'TestParam_Final'
+                  }
+                ]
+              }
+            }
+          },
+          :PrepareFiles => [
+            [ 'Wave/01_Source/Wave/Wave1.wav', 'Wave1.wav' ],
+            [ 'Wave/01_Source/Wave/Wave2.wav', 'Wave2.wav' ],
+            [ 'Wave/
