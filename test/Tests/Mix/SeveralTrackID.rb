@@ -252,4 +252,10 @@ module MusicMasterTest
               :Output => /05_Mix\/Mix1\.[[:xdigit:]]{32,32}\.wav/,
               :Action => 'Mix',
               :Params => [ '--files', /05_Mix\/Wave2\.0\.Test\.[[:xdigit:]]{32,32}\.wav\|1/ ],
-              :UseWave =
+              :UseWave => '05_Mix/Wave1.Wave2.wav'
+            },
+            {
+              :Input => /05_Mix\/Wave3\.0\.Test\.[[:xdigit:]]{32,32}\.wav/,
+              :Output => /05_Mix\/Mix2\.[[:xdigit:]]{32,32}\.wav/,
+              :Action => 'Mix',
+             
