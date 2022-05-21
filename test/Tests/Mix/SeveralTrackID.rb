@@ -248,4 +248,8 @@ module MusicMasterTest
           ],
           :FakeWSK => [
             {
-              :Input => /05_Mix\/Wave1\.0\.Test\.[[:xdi
+              :Input => /05_Mix\/Wave1\.0\.Test\.[[:xdigit:]]{32,32}\.wav/,
+              :Output => /05_Mix\/Mix1\.[[:xdigit:]]{32,32}\.wav/,
+              :Action => 'Mix',
+              :Params => [ '--files', /05_Mix\/Wave2\.0\.Test\.[[:xdigit:]]{32,32}\.wav\|1/ ],
+              :UseWave =
