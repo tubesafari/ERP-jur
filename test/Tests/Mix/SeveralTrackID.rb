@@ -293,4 +293,12 @@ module MusicMasterTest
             {
               :InputFileName => 'Wave2.wav',
               :OutputFileName => lWave2ProcessedFileName,
-            
+              :Params => {
+                :Param1 => 'TestParam_Wave2'
+              }
+            },
+            {
+              :InputFileName => lMix1FileName,
+              :OutputFileName => lMix1MixFileName,
+              :Params => {
+       
