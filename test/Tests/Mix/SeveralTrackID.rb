@@ -285,4 +285,12 @@ module MusicMasterTest
           assert_rb_content [
             {
               :InputFileName => 'Wave1.wav',
-              :OutputFileName => lWave1ProcessedF
+              :OutputFileName => lWave1ProcessedFileName,
+              :Params => {
+                :Param1 => 'TestParam_Wave1'
+              }
+            },
+            {
+              :InputFileName => 'Wave2.wav',
+              :OutputFileName => lWave2ProcessedFileName,
+            
