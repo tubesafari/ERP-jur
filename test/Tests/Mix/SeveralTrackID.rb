@@ -301,4 +301,11 @@ module MusicMasterTest
               :InputFileName => lMix1FileName,
               :OutputFileName => lMix1MixFileName,
               :Params => {
-       
+                :Param1 => 'TestParam_Mix1'
+              }
+            },
+            {
+              :InputFileName => lMix1MixFileName,
+              :OutputFileName => lMix1ProcessedFileName,
+              :Params => {
+                :Param1 => 'TestParam_Mix1_
