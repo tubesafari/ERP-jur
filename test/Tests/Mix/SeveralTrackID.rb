@@ -308,4 +308,15 @@ module MusicMasterTest
               :InputFileName => lMix1MixFileName,
               :OutputFileName => lMix1ProcessedFileName,
               :Params => {
-                :Param1 => 'TestParam_Mix1_
+                :Param1 => 'TestParam_Mix1_2'
+              }
+            },
+            {
+              :InputFileName => 'Wave3.wav',
+              :OutputFileName => lWave3ProcessedFileName,
+              :Params => {
+                :Param1 => 'TestParam_Wave3'
+              }
+            },
+            {
+              :InputFile
