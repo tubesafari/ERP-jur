@@ -334,4 +334,13 @@ module MusicMasterTest
             },
             {
               :InputFileName => lMix2MixFileName,
-              :OutputFileName => lMix2Process
+              :OutputFileName => lMix2ProcessedFileName,
+              :Params => {
+                :Param1 => 'TestParam_Mix2_2'
+              }
+            },
+            {
+              :InputFileName => lFinalFileName,
+              :OutputFileName => lFinalMixFileName,
+              :Params => {
+ 
