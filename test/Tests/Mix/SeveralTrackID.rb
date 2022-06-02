@@ -343,4 +343,10 @@ module MusicMasterTest
               :InputFileName => lFinalFileName,
               :OutputFileName => lFinalMixFileName,
               :Params => {
- 
+                :Param1 => 'TestParam_Final'
+              }
+            }
+          ], 'Process_Test.rb'
+          assert_wave_lnk '05_Mix/Wave1.Wave2', '05_Mix/Final/Mix1.wav'
+          assert_wave_lnk '05_Mix/Wave3.Wave4', '05_Mix/Final/Mix2.wav'
+   
