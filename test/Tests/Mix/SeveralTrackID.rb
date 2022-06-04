@@ -360,4 +360,14 @@ module MusicMasterTest
       # | +-Wave1
       # | +-Wave2
       # +-Mix2
-      #  
+      #   +-Wave3
+      #   +-Wave4
+      def testUselessProcessOrderTree
+        execute_Mix_WithConf({
+            :WaveFiles => {
+              :FilesList => [
+                {
+                  :Name => 'Wave1.wav'
+                },
+                {
+                  :N
