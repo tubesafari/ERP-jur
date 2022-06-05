@@ -370,4 +370,16 @@ module MusicMasterTest
                   :Name => 'Wave1.wav'
                 },
                 {
-                  :N
+                  :Name => 'Wave2.wav'
+                },
+                {
+                  :Name => 'Wave3.wav'
+                },
+                {
+                  :Name => 'Wave4.wav'
+                }
+              ]
+            },
+            :Mix => {
+              'Mix1' => {
+                
