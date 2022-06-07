@@ -390,4 +390,11 @@ module MusicMasterTest
                         :Factor => '1db'
                       },
                       {
-    
+                        :Name => 'VolCorrection',
+                        :Factor => '-1db'
+                      }
+                    ]
+                  },
+                  'Wave2.wav' => {
+                    :Processes => [
+           
