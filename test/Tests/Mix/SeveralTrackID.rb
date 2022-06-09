@@ -405,4 +405,13 @@ module MusicMasterTest
                         :Name => 'VolCorrection',
                         :Factor => '-2db'
                       }
-   
+                    ]
+                  }
+                },
+                :Processes => [
+                  {
+                    :Name => 'VolCorrection',
+                    :Factor => '3db'
+                  },
+                  {
+               
