@@ -414,4 +414,12 @@ module MusicMasterTest
                     :Factor => '3db'
                   },
                   {
-               
+                    :Name => 'VolCorrection',
+                    :Factor => '-3db'
+                  }
+                ]
+              },
+              'Mix2' => {
+                :Tracks => {
+                  'Wave3.wav' => {
+                    :
