@@ -422,4 +422,11 @@ module MusicMasterTest
               'Mix2' => {
                 :Tracks => {
                   'Wave3.wav' => {
-                    :
+                    :Processes => [
+                      {
+                        :Name => 'VolCorrection',
+                        :Factor => '4db'
+                      },
+                      {
+                        :Name => 'VolCorrection',
+                        :
