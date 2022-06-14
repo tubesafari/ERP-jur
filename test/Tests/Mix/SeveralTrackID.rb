@@ -455,4 +455,12 @@ module MusicMasterTest
                     :Name => 'VolCorrection',
                     :Factor => '-6db'
                   }
-              
+                ]
+              },
+              'Final' => {
+                :Tracks => {
+                  'Mix1' => {
+                    :Processes => [
+                      {
+                        :Name => 'VolCorrection',
+                        :Factor => '7
