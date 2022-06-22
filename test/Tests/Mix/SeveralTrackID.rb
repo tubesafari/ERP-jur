@@ -472,4 +472,11 @@ module MusicMasterTest
                     ]
                   },
                   'Mix2' => {
-            
+                    :Processes => [
+                      {
+                        :Name => 'VolCorrection',
+                        :Factor => '8db'
+                      },
+                      {
+                        :Name => 'VolCorrection',
+   
