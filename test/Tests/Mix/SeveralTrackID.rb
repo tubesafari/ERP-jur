@@ -488,4 +488,14 @@ module MusicMasterTest
                       {
                         :Name => 'VolCorrection',
                         :Factor => '9db'
-     
+                      },
+                      {
+                        :Name => 'VolCorrection',
+                        :Factor => '-9db'
+                      }
+                ]
+              }
+            }
+          },
+          :PrepareFiles => [
+    
