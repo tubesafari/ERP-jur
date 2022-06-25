@@ -498,4 +498,7 @@ module MusicMasterTest
             }
           },
           :PrepareFiles => [
-    
+            [ 'Wave/01_Source/Wave/Wave1.wav', 'Wave1.wav' ],
+            [ 'Wave/01_Source/Wave/Wave2.wav', 'Wave2.wav' ],
+            [ 'Wave/01_Source/Wave/Wave3.wav', 'Wave3.wav' ],
+            [ 'Wave/01_Source/Wave/Wave4.wav', 'W
