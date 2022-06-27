@@ -521,4 +521,9 @@ module MusicMasterTest
             {
               :Input => /05_Mix\/Mix1\.[[:xdigit:]]{32,32}\.wav/,
               :Output => /05_Mix\/Final\.[[:xdigit:]]{32,32}\.wav/,
-              :Act
+              :Action => 'Mix',
+              :Params => [ '--files', /05_Mix\/Mix2\.[[:xdigit:]]{32,32}\.wav\|1/ ],
+              :UseWave => '05_Mix/Wave1.Wave2.Wave3.Wave4.wav'
+            }
+        ]) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          assert_exitstatus 0, 
