@@ -541,4 +541,14 @@ module MusicMasterTest
           assert Dir.glob('05_Mix/Final.0.Test.????????????????????????????????.wav').empty?
           assert_wave_lnk '05_Mix/Wave1.Wave2', '05_Mix/Final/Mix1.wav'
           assert_wave_lnk '05_Mix/Wave3.Wave4', '05_Mix/Final/Mix2.wav'
-          assert_wave
+          assert_wave_lnk '05_Mix/Wave1.Wave2.Wave3.Wave4', '05_Mix/Final/Final.wav'
+        end
+      end
+
+      # Simple cycle
+      def testSimpleCycle
+        execute_Mix_WithConf({
+            :WaveFiles => {
+              :FilesList => [
+                {
+       
