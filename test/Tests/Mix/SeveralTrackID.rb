@@ -571,3 +571,14 @@ module MusicMasterTest
 
       # A twisted cycle:
       # Final
+      # +-Mix1
+      # | +-Wave1
+      # | +-Mix2
+      # +-Mix2
+      #   +-Wave2
+      #   +-Mix1
+      def testTwistedCycle
+        execute_Mix_WithConf({
+            :WaveFiles => {
+              :FilesList => [
+    
