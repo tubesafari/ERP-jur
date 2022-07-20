@@ -581,4 +581,14 @@ module MusicMasterTest
         execute_Mix_WithConf({
             :WaveFiles => {
               :FilesList => [
-    
+                {
+                  :Name => 'Wave1.wav'
+                },
+                {
+                  :Name => 'Wave2.wav'
+                }
+              ]
+            },
+            :Mix => {
+              'Final' => {
+                :Tracks => {
