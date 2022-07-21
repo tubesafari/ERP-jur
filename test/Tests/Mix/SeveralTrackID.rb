@@ -592,3 +592,14 @@ module MusicMasterTest
             :Mix => {
               'Final' => {
                 :Tracks => {
+                  'Mix1' => {},
+                  'Mix2' => {}
+                }
+              },
+              'Mix1' => {
+                :Tracks => {
+                  'Wave1.wav' => {},
+                  'Mix2' => {}
+                }
+              },
+              'M
