@@ -602,4 +602,13 @@ module MusicMasterTest
                   'Mix2' => {}
                 }
               },
-              'M
+              'Mix2' => {
+                :Tracks => {
+                  'Wave2.wav' => {},
+                  'Mix1' => {}
+                }
+              }
+            }
+        }) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          assert_exitstatus 1, iExitStatus
+   
