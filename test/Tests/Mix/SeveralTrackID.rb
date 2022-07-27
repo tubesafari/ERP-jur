@@ -611,4 +611,13 @@ module MusicMasterTest
             }
         }) do |iStdOUTLog, iStdERRLog, iExitStatus|
           assert_exitstatus 1, iExitStatus
-   
+          assert !File.exists?('05_Mix')
+        end
+      end
+
+      # Specify 1 mix on command line
+      def testCommandLine1Mix
+        execute_binary_with_conf('Mix', [ '--name', 'Mix2' ], {
+            :WaveFiles => {
+              :FilesList => [
+            
