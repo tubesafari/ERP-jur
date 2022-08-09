@@ -620,4 +620,15 @@ module MusicMasterTest
         execute_binary_with_conf('Mix', [ '--name', 'Mix2' ], {
             :WaveFiles => {
               :FilesList => [
-            
+                {
+                  :Name => 'Wave1.wav'
+                },
+                {
+                  :Name => 'Wave2.wav'
+                },
+                {
+                  :Name => 'Wave3.wav'
+                },
+                {
+                  :Name => 'Wave4.wav'
+    
