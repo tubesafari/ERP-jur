@@ -641,4 +641,13 @@ module MusicMasterTest
                   'Wave2.wav' => {}
                 }
               },
-             
+              'Mix2' => {
+                :Tracks => {
+                  'Wave3.wav' => {},
+                  'Wave4.wav' => {}
+                }
+              }
+            }
+          },
+          :PrepareFiles => [
+            [ 'Wave/01_Source/Wave/Wave3.wav', 'Wave3.wav'
