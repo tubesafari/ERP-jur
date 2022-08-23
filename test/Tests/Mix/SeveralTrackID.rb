@@ -669,4 +669,11 @@ module MusicMasterTest
         end
       end
 
-      # Specify 2 mixes on 
+      # Specify 2 mixes on command line
+      def testCommandLine2Mixes
+        execute_binary_with_conf('Mix', [ '--name', 'Mix3', '--name', 'Mix2' ], {
+            :WaveFiles => {
+              :FilesList => [
+                {
+                  :Name => 'Wave1.wav'
+       
