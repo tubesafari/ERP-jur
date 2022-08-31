@@ -716,4 +716,10 @@ module MusicMasterTest
             }
           },
           :PrepareFiles => [
-            [ 'Wave/01_Source/Wave/Wave3.wav'
+            [ 'Wave/01_Source/Wave/Wave3.wav', 'Wave3.wav' ],
+            [ 'Wave/01_Source/Wave/Wave4.wav', 'Wave4.wav' ],
+            [ 'Wave/01_Source/Wave/Wave1.wav', 'Wave5.wav' ],
+            [ 'Wave/01_Source/Wave/Wave2.wav', 'Wave6.wav' ]
+          ],
+          :FakeWSK => [
+    
