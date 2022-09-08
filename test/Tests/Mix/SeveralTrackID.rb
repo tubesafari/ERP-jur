@@ -727,4 +727,10 @@ module MusicMasterTest
               :Output => /05_Mix\/Mix2\.[[:xdigit:]]{32,32}\.wav/,
               :Action => 'Mix',
               :Params => [ '--files', 'Wave4.wav|1' ],
-              :UseW
+              :UseWave => '05_Mix/Wave3.Wave4.wav'
+            },
+            {
+              :Input => 'Wave5.wav',
+              :Output => /05_Mix\/Mix3\.[[:xdigit:]]{32,32}\.wav/,
+              :Action => 'Mix',
+              :Params => [ 
