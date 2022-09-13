@@ -758,4 +758,14 @@ module MusicMasterTest
                   :Name => 'Wave2.wav'
                 }
               ]
-            }
+            },
+            :Mix => {
+              'Mix1' => {
+                :Tracks => {
+                  'Mix1' => {}
+                }
+              },
+              'Mix2' => {
+                :Tracks => {
+                  'Wave1.wav' => {},
+        
