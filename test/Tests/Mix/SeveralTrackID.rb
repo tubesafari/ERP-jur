@@ -748,4 +748,14 @@ module MusicMasterTest
 
       # Specify 1 mix on command line with a cycle on another mix
       def testCommandLine1MixWithOtherCycle
-        execute_binary_with_conf('M
+        execute_binary_with_conf('Mix', [ '--name', 'Mix2' ], {
+            :WaveFiles => {
+              :FilesList => [
+                {
+                  :Name => 'Wave1.wav'
+                },
+                {
+                  :Name => 'Wave2.wav'
+                }
+              ]
+            }
