@@ -782,4 +782,9 @@ module MusicMasterTest
               :Input => 'Wave1.wav',
               :Output => /05_Mix\/Mix2\.[[:xdigit:]]{32,32}\.wav/,
               :Action => 'Mix',
-              :Params => [ '--files', '
+              :Params => [ '--files', 'Wave2.wav|1' ],
+              :UseWave => '05_Mix/Wave1.Wave2.wav'
+            }
+        ]) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          assert_exitstatus 0, iExitStatus
+          getFileFromGlob('05_Mix/Mix2.???????????????????????????
