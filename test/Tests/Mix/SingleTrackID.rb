@@ -12,4 +12,15 @@ module MusicMasterTest
                 {
                   :Name => 'Wave.wav'
                 }
-       
+              ]
+            },
+            :Mix => {
+              'Final' => {
+                :Tracks => {
+                  'Wave.wav' => {}
+                }
+              }
+            }
+          },
+          :PrepareFiles => [
+            [ 
