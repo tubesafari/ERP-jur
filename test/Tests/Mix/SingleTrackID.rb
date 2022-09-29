@@ -29,4 +29,14 @@ module MusicMasterTest
           assert Dir.glob('05_Mix/*.wav').empty?
           assert_wave_lnk 'Empty', '05_Mix/Final/Final.wav'
         end
-   
+      end
+
+      # Apply a process at the source track
+      def testProcessSource
+        execute_Mix_WithConf({
+            :WaveFiles => {
+              :FilesList => [
+                {
+                  :Name => 'Wave.wav'
+                }
+             
