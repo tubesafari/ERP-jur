@@ -48,4 +48,13 @@ module MusicMasterTest
                     :Processes => [
                       {
                         :Name => 'Test',
-     
+                        :Param1 => 'TestParam1'
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          :PrepareFiles => [
+            [ 'Wave/Empty.wav', 
