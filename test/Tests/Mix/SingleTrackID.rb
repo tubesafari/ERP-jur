@@ -69,4 +69,14 @@ module MusicMasterTest
                 :Param1 => 'TestParam1'
               }
             }
-          ], 'Process_Test.r
+          ], 'Process_Test.rb'
+          assert_wave_lnk 'Empty', '05_Mix/Final/Final.wav'
+        end
+      end
+
+      # Apply a process on the mix
+      def testProcessMix
+        execute_Mix_WithConf({
+            :WaveFiles => {
+              :FilesList => [
+            
