@@ -90,4 +90,13 @@ module MusicMasterTest
                   'Wave.wav' => {}
                 },
                 :Processes => [
- 
+                  {
+                    :Name => 'Test',
+                    :Param1 => 'TestParam1'
+                  }
+                ]
+              }
+            }
+          },
+          :PrepareFiles => [
+          
