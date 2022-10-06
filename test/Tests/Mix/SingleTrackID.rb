@@ -111,4 +111,13 @@ module MusicMasterTest
                 :Param1 => 'TestParam1'
               }
             }
-       
+          ], 'Process_Test.rb'
+          assert_wave_lnk 'Empty', '05_Mix/Final/Final.wav'
+        end
+      end
+
+      # Processes order on 1 track
+      def testProcessesOrder1Track
+        execute_Mix_WithConf({
+            :WaveFiles => {
+              :File
