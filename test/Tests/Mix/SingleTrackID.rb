@@ -130,4 +130,14 @@ module MusicMasterTest
               'Final' => {
                 :Tracks => {
                   'Wave.wav' => {
-                    :Processes 
+                    :Processes => [
+                      {
+                        :Name => 'Test',
+                        :Param1 => 'TestParam1'
+                      }
+                    ]
+                  }
+                },
+                :Processes => [
+                  {
+    
