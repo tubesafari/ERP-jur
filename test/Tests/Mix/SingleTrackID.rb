@@ -120,4 +120,14 @@ module MusicMasterTest
       def testProcessesOrder1Track
         execute_Mix_WithConf({
             :WaveFiles => {
-              :File
+              :FilesList => [
+                {
+                  :Name => 'Wave.wav'
+                }
+              ]
+            },
+            :Mix => {
+              'Final' => {
+                :Tracks => {
+                  'Wave.wav' => {
+                    :Processes 
