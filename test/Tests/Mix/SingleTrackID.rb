@@ -140,4 +140,12 @@ module MusicMasterTest
                 },
                 :Processes => [
                   {
-    
+                    :Name => 'Test',
+                    :Param1 => 'TestParam2'
+                  }
+                ]
+              }
+            }
+          },
+          :PrepareFiles => [
+            [ 'Wave/Emp
