@@ -165,4 +165,12 @@ module MusicMasterTest
               :InputFileName => lWave0FileName,
               :OutputFileName => lWave1FileName,
               :Params => {
-                :Param1 =>
+                :Param1 => 'TestParam2'
+              }
+            }
+          ], 'Process_Test.rb'
+          assert_wave_lnk 'Empty', '05_Mix/Final/Final.wav'
+        end
+      end
+
+      # Processes are optimized between source processes and mix processes when there is just 1 track
