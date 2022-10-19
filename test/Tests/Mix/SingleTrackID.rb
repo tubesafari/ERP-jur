@@ -182,4 +182,12 @@ module MusicMasterTest
                   :Name => 'Wave1.wav'
                 }
               ]
- 
+            },
+            :Mix => {
+              'Final' => {
+                :Tracks => {
+                  'Wave1.wav' => {
+                    :Processes => [
+                      {
+                        :Name => 'VolCorrection',
+                
