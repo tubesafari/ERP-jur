@@ -174,3 +174,12 @@ module MusicMasterTest
       end
 
       # Processes are optimized between source processes and mix processes when there is just 1 track
+      def testOptimizeProcessesOn1Track
+        execute_Mix_WithConf({
+            :WaveFiles => {
+              :FilesList => [
+                {
+                  :Name => 'Wave1.wav'
+                }
+              ]
+ 
