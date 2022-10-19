@@ -199,3 +199,14 @@ module MusicMasterTest
                   {
                     :Name => 'VolCorrection',
                     :Factor => '2db'
+                  }
+                ]
+              }
+            }
+          },
+          :PrepareFiles => [
+            [ 'Wave/01_Source/Wave/Wave1.wav', 'Wave1.wav' ]
+          ],
+          :FakeWSK => [
+            {
+              :Input => '
