@@ -209,4 +209,10 @@ module MusicMasterTest
           ],
           :FakeWSK => [
             {
-              :Input => '
+              :Input => 'Wave1.wav',
+              :Output => /05_Mix\/Wave1\.0\.VolCorrection\.[[:xdigit:]]{32,32}\.wav/,
+              :Action => 'Multiply',
+              :Params => [ '--coeff', '3.0db' ],
+              :UseWave => '05_Mix/Wave1.0.VolCorrection.3db.wav'
+            }
+  
