@@ -215,4 +215,7 @@ module MusicMasterTest
               :Params => [ '--coeff', '3.0db' ],
               :UseWave => '05_Mix/Wave1.0.VolCorrection.3db.wav'
             }
-  
+        ]) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          assert_exitstatus 0, iExitStatus
+          getFileFromGlob('05_Mix/Wave1.0.VolCorrection.????????????????????????????????.wav')
+          assert_wave_lnk '05_Mix/Wave1.0.VolC
