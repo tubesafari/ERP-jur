@@ -218,4 +218,10 @@ module MusicMasterTest
         ]) do |iStdOUTLog, iStdERRLog, iExitStatus|
           assert_exitstatus 0, iExitStatus
           getFileFromGlob('05_Mix/Wave1.0.VolCorrection.????????????????????????????????.wav')
-          assert_wave_lnk '05_Mix/Wave1.0.VolC
+          assert_wave_lnk '05_Mix/Wave1.0.VolCorrection.3db', '05_Mix/Final/Final.wav'
+        end
+      end
+
+      # Processes are not optimized between source processes and mix processes when there is more than 1 track
+      def testDontOptimizeProcessesOn2Tracks
+        exe
