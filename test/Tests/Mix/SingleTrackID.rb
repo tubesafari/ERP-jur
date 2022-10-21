@@ -224,4 +224,13 @@ module MusicMasterTest
 
       # Processes are not optimized between source processes and mix processes when there is more than 1 track
       def testDontOptimizeProcessesOn2Tracks
-        exe
+        execute_Mix_WithConf({
+            :WaveFiles => {
+              :FilesList => [
+                {
+                  :Name => 'Wave1.wav'
+                },
+                {
+                  :Name => 'Wave2.wav'
+                }
+      
