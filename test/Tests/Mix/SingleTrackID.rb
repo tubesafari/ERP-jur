@@ -242,4 +242,12 @@ module MusicMasterTest
                     :Processes => [
                       {
                         :Name => 'VolCorrection',
-         
+                        :Factor => '1db'
+                      }
+                    ]
+                  },
+                  'Wave2.wav' => {
+                    :Processes => [
+                      {
+                        :Name => 'VolCorrection',
+   
