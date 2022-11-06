@@ -290,4 +290,8 @@ module MusicMasterTest
               :Params => [ '--files', /05_Mix\/Wave2\.0\.VolCorrection\.[[:xdigit:]]{32,32}\.wav\|1/ ],
               :UseWave => '05_Mix/Wave1.1db.Wave2.2db.wav'
             },
-  
+            {
+              :Input => /05_Mix\/Final\.[[:xdigit:]]{32,32}\.wav/,
+              :Output => /05_Mix\/Final\.0\.VolCorrection\.[[:xdigit:]]{32,32}\.wav/,
+              :Action => 'Multiply',
+              :Params => [ '--coeff'
