@@ -274,4 +274,9 @@ module MusicMasterTest
               :Output => /05_Mix\/Wave1\.0\.VolCorrection\.[[:xdigit:]]{32,32}\.wav/,
               :Action => 'Multiply',
               :Params => [ '--coeff', '1db' ],
-           
+              :UseWave => '05_Mix/Wave1.0.VolCorrection.1db.wav'
+            },
+            {
+              :Input => 'Wave2.wav',
+              :Output => /05_Mix\/Wave2\.0\.VolCorrection\.[[:xdigit:]]{32,32}\.wav/,
+              :Action => 'Mult
