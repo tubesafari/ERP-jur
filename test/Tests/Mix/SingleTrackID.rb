@@ -294,4 +294,9 @@ module MusicMasterTest
               :Input => /05_Mix\/Final\.[[:xdigit:]]{32,32}\.wav/,
               :Output => /05_Mix\/Final\.0\.VolCorrection\.[[:xdigit:]]{32,32}\.wav/,
               :Action => 'Multiply',
-              :Params => [ '--coeff'
+              :Params => [ '--coeff', '3db' ],
+              :UseWave => '05_Mix/Wave1.1db.Wave2.2db.3db.wav'
+            }
+        ]) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          assert_exitstatus 0, iExitStatus
+          getFileFromGlob('05_Mix/Wave1.0.VolCorrection.??????????????????
