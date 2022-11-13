@@ -309,4 +309,14 @@ module MusicMasterTest
 
       # Useless processes on source files
       def testUselessProcessesSourceFiles
-        execu
+        execute_Mix_WithConf({
+            :WaveFiles => {
+              :FilesList => [
+                {
+                  :Name => 'Wave.wav'
+                }
+              ]
+            },
+            :Mix => {
+              'Final' => {
+                :Tr
