@@ -319,4 +319,11 @@ module MusicMasterTest
             },
             :Mix => {
               'Final' => {
-                :Tr
+                :Tracks => {
+                  'Wave.wav' => {
+                    :Processes => [
+                      {
+                        :Name => 'VolCorrection',
+                        :Factor => '2db'
+                      },
+          
