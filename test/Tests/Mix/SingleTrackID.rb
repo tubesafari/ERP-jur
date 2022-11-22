@@ -341,4 +341,14 @@ module MusicMasterTest
         ]) do |iStdOUTLog, iStdERRLog, iExitStatus|
           assert_exitstatus 0, iExitStatus
           assert Dir.glob('05_Mix/*.wav').empty?
-          assert_wave_lnk 'Empty', '05
+          assert_wave_lnk 'Empty', '05_Mix/Final/Final.wav'
+        end
+      end
+
+      # Useless processes on mix
+      def testUselessProcessesMix
+        execute_Mix_WithConf({
+            :WaveFiles => {
+              :FilesList => [
+                {
+  
