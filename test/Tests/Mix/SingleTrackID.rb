@@ -370,4 +370,11 @@ module MusicMasterTest
                     :Factor => '-2db'
                   }
                 ]
-      
+              }
+            }
+          },
+          :PrepareFiles => [
+            [ 'Wave/Empty.wav', 'Wave.wav' ]
+        ]) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          assert_exitstatus 0, iExitStatus
+          assert Dir.glob('
