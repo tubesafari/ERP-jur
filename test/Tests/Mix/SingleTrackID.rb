@@ -386,4 +386,16 @@ module MusicMasterTest
       def testReuseMix
         execute_Mix_WithConf({
             :WaveFiles => {
-              :FilesList =
+              :FilesList => [
+                {
+                  :Name => 'Wave.wav'
+                }
+              ]
+            },
+            :Mix => {
+              'Mix1' => {
+                :Tracks => {
+                  'Wave.wav' => {}
+                }
+              },
+        
