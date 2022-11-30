@@ -398,4 +398,11 @@ module MusicMasterTest
                   'Wave.wav' => {}
                 }
               },
-        
+              'Final' => {
+                :Tracks => {
+                  'Mix1' => {
+                    :Processes => [
+                      {
+                        :Name => 'Test',
+                        :Param1 => 'TestParam1'
+          
