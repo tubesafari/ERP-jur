@@ -414,4 +414,10 @@ module MusicMasterTest
           },
           :PrepareFiles => [
             [ 'Wave/Empty.wav', 'Wave.wav' ]
-        ]) do |iStdOUTLog, iStdERRLog, iExitStatus
+        ]) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          assert_exitstatus 0, iExitStatus
+          lWave0FileName = getFileFromGlob('05_Mix/Wave.0.Test.????????????????????????????????.wav')
+          assert_rb_content [
+            {
+              :InputFileName => 'Wave.wav',
+ 
