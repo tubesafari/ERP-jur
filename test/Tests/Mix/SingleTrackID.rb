@@ -438,4 +438,14 @@ module MusicMasterTest
               :FilesList => [
                 {
                   :Name => 'Wave.wav'
-    
+                }
+              ]
+            },
+            :Mix => {
+              'Mix1' => {
+                :Tracks => {
+                  'Wave.wav' => {}
+                },
+                :Alias => 'First mix'
+              },
+              'Final' =
