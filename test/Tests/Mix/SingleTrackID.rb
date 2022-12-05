@@ -448,4 +448,12 @@ module MusicMasterTest
                 },
                 :Alias => 'First mix'
               },
-              'Final' =
+              'Final' => {
+                :Tracks => {
+                  'First mix' => {
+                    :Processes => [
+                      {
+                        :Name => 'Test',
+                        :Param1 => 'TestParam1'
+                      }
+                
