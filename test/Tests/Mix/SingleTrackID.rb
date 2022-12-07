@@ -456,4 +456,13 @@ module MusicMasterTest
                         :Name => 'Test',
                         :Param1 => 'TestParam1'
                       }
-                
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          :PrepareFiles => [
+            [ 'Wave/Empty.wav', 'Wave.wav' ]
+        ]) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          assert_e
