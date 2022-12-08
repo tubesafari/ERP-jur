@@ -470,4 +470,11 @@ module MusicMasterTest
           assert_rb_content [
             {
               :InputFileName => 'Wave.wav',
-   
+              :OutputFileName => lWave0FileName,
+              :Params => {
+                :Param1 => 'TestParam1'
+              }
+            }
+          ], 'Process_Test.rb'
+          assert_wave_lnk 'Empty', '05_Mix/Final/Mix1.wav'
+          assert_
