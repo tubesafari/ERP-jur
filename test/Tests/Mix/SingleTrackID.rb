@@ -477,4 +477,13 @@ module MusicMasterTest
             }
           ], 'Process_Test.rb'
           assert_wave_lnk 'Empty', '05_Mix/Final/Mix1.wav'
-          assert_
+          assert_wave_lnk 'Empty', '05_Mix/Final/Final.wav'
+        end
+      end
+
+      # Reuse a mix with an alias list
+      def testReuseMixWithAliasList
+        execute_Mix_WithConf({
+            :WaveFiles => {
+              :FilesList => [
+                {
