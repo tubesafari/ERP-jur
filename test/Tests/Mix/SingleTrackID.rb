@@ -487,3 +487,13 @@ module MusicMasterTest
             :WaveFiles => {
               :FilesList => [
                 {
+                  :Name => 'Wave.wav'
+                }
+              ]
+            },
+            :Mix => {
+              'Mix1' => {
+                :Tracks => {
+                  'Wave.wav' => {}
+                },
+                :A
