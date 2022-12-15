@@ -496,4 +496,12 @@ module MusicMasterTest
                 :Tracks => {
                   'Wave.wav' => {}
                 },
-                :A
+                :Alias => [ 'First mix', 'Second mix' ]
+              },
+              'Final' => {
+                :Tracks => {
+                  'Second mix' => {
+                    :Processes => [
+                      {
+                        :Name => 'Test',
+                    
