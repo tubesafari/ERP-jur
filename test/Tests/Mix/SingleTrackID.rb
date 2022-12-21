@@ -534,4 +534,14 @@ module MusicMasterTest
       # Reuse a mix that had a process on source files
       def testReuseMixWithSourceFilesProcessed
         lProcessID = {
-   
+          :Param1 => 'TestParam1'
+        }.unique_id
+        execute_Mix_WithConf({
+            :WaveFiles => {
+              :FilesList => [
+                {
+                  :Name => 'Wave.wav'
+                }
+              ]
+            },
+  
