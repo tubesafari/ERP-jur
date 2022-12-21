@@ -526,4 +526,12 @@ module MusicMasterTest
               }
             }
           ], 'Process_Test.rb'
-          assert_wave_lnk '
+          assert_wave_lnk 'Empty', '05_Mix/Final/Mix1.wav'
+          assert_wave_lnk 'Empty', '05_Mix/Final/Final.wav'
+        end
+      end
+
+      # Reuse a mix that had a process on source files
+      def testReuseMixWithSourceFilesProcessed
+        lProcessID = {
+   
