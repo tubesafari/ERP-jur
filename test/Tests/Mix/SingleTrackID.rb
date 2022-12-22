@@ -544,4 +544,11 @@ module MusicMasterTest
                 }
               ]
             },
-  
+            :Mix => {
+              'Mix1' => {
+                :Tracks => {
+                  'Wave.wav' => {
+                    :Processes => [
+                      {
+                        :Name => 'Test',
+                        :Param1 => 'TestParam
