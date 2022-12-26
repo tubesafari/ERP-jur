@@ -562,4 +562,14 @@ module MusicMasterTest
                   'Mix1' => {
                     :Processes => [
                       {
-   
+                        :Name => 'Test',
+                        :Param1 => 'TestParam2'
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          :PrepareFiles => [
+            [
