@@ -572,4 +572,8 @@ module MusicMasterTest
             }
           },
           :PrepareFiles => [
-            [
+            [ 'Wave/Empty.wav', 'Wave.wav' ],
+            [ 'Wave/Noise1s.wav', "05_Mix/Wave.0.Test.#{lProcessID}.wav" ]
+        ]) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          assert_exitstatus 0, iExitStatus
+          lWave0FileName = get
