@@ -581,4 +581,10 @@ module MusicMasterTest
             {
               :InputFileName => "05_Mix/Wave.0.Test.#{lProcessID}.wav",
               :OutputFileName => lWave0FileName,
-    
+              :Params => {
+                :Param1 => 'TestParam2'
+              }
+            }
+          ], 'Process_Test.rb'
+          assert_wave_lnk 'Noise1s', '05_Mix/Final/Mix1.wav'
+          assert_wave_lnk 'Noise1s', '05_Mix/F
