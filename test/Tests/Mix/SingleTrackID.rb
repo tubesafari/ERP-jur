@@ -587,4 +587,14 @@ module MusicMasterTest
             }
           ], 'Process_Test.rb'
           assert_wave_lnk 'Noise1s', '05_Mix/Final/Mix1.wav'
-          assert_wave_lnk 'Noise1s', '05_Mix/F
+          assert_wave_lnk 'Noise1s', '05_Mix/Final/Final.wav'
+        end
+      end
+
+      # Reuse a mix that had a process on the mix
+      def testReuseMixWithMixProcessed
+        lProcessID = {
+          :Param1 => 'TestParam1'
+        }.unique_id
+        execute_Mix_WithConf({
+            :Wav
