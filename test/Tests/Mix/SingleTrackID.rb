@@ -597,4 +597,15 @@ module MusicMasterTest
           :Param1 => 'TestParam1'
         }.unique_id
         execute_Mix_WithConf({
-            :Wav
+            :WaveFiles => {
+              :FilesList => [
+                {
+                  :Name => 'Wave.wav'
+                }
+              ]
+            },
+            :Mix => {
+              'Mix1' => {
+                :Tracks => {
+                  'Wave.wav' => {}
+             
