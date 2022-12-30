@@ -625,4 +625,13 @@ module MusicMasterTest
                         :Param1 => 'TestParam2'
                       }
                     ]
-        
+                  }
+                }
+              }
+            }
+          },
+          :PrepareFiles => [
+            [ 'Wave/Empty.wav', 'Wave.wav' ],
+            [ 'Wave/Noise1s.wav', "05_Mix/Wave.0.Test.#{lProcessID}.wav" ]
+        ]) do |iStdOUTLog, iStdERRLog, iExitStatus|
+    
