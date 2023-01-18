@@ -645,4 +645,14 @@ module MusicMasterTest
               }
             }
           ], 'Process_Test.rb'
-          assert_wave_lnk 'Noise1s', '05_Mix/Final/Mix
+          assert_wave_lnk 'Noise1s', '05_Mix/Final/Mix1.wav'
+          assert_wave_lnk 'Noise1s', '05_Mix/Final/Final.wav'
+        end
+      end
+
+      # Test missing TrackID
+      def testMissingTrackID
+        execute_Mix_WithConf({
+            :Mix => {
+              'Final' => {
+                :T
