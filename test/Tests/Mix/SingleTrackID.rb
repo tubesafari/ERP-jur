@@ -655,4 +655,15 @@ module MusicMasterTest
         execute_Mix_WithConf({
             :Mix => {
               'Final' => {
-                :T
+                :Tracks => {
+                  'MissingTrackID' => {}
+                }
+              }
+            }
+        }) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          assert_exitstatus 1, iExitStatus
+          assert !File.exists?('05_Mix')
+        end
+      end
+
+   
