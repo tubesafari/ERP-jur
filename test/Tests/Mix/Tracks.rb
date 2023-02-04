@@ -241,3 +241,65 @@ module MusicMasterTest
               :Params => {
                 :Param1 => 'TestParam1'
               }
+            }
+          ], 'Process_Test.rb'
+          assert Dir.glob('05_Mix/Env1.1.Calibrated.0.Test.????????????????????????????????.wav').empty?
+          assert_wave_lnk '02_Clean/Record/Env1.1.04.NoiseGate', '05_Mix/Final/Final.wav'
+        end
+      end
+
+      # Test mixing a single recorded file with processing
+      def testProcessedTrack
+        lProcessID = {
+          :Param1 => 'TestParam1'
+        }.unique_id
+        execute_Mix_WithConf({
+            :Recordings => {
+              :Tracks => {
+                [1] => {
+                  :Env => :Env1,
+                  :Processes => [
+                    {
+                      :Name => 'Test',
+                      :Param1 => 'TestParam1'
+                    }
+                  ]
+                }
+              }
+            },
+            :Mix => {
+              'Final' => {
+                :Tracks => {
+                  [1] => {}
+                },
+                :Processes => [
+                  {
+                    :Name => 'Test',
+                    :Param1 => 'TestParam2'
+                  }
+                ]
+              }
+            }
+          },
+          :PrepareFiles => getPreparedFiles(:Recorded_Env1_1, :Cleaned_Env1_1, :Processed_Env1_1)
+        ) do |iStdOUTLog, iStdERRLog, iExitStatus|
+          assert_exitstatus 0, iExitStatus
+          lWave0FileName = getFileFromGlob('05_Mix/Env1.1.04.NoiseGate.0.Test.0.Test.????????????????????????????????.wav')
+          assert_rb_content [
+            {
+              :InputFileName => "04_Process/Record/Env1.1.04.NoiseGate.0.Test.#{lProcessID}.wav",
+              :OutputFileName => lWave0FileName,
+              :Params => {
+                :Param1 => 'TestParam2'
+              }
+            }
+          ], 'Process_Test.rb'
+          assert_wave_lnk '02_Clean/Record/Env1.1.04.NoiseGate', '05_Mix/Final/Final.wav'
+        end
+      end
+
+    end
+
+  end
+
+end
