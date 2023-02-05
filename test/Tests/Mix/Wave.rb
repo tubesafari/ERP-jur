@@ -193,3 +193,20 @@ module MusicMasterTest
           assert_exitstatus 0, iExitStatus
           lWave0FileName = getFileFromGlob('05_Mix/Wave.0.Test.0.Test.????????????????????????????????.wav')
           assert_rb_content [
+            {
+              :InputFileName => "04_Process/Wave/Wave.0.Test.#{lProcessID}.wav",
+              :OutputFileName => lWave0FileName,
+              :Params => {
+                :Param1 => 'TestParam2'
+              }
+            }
+          ], 'Process_Test.rb'
+          assert_wave_lnk 'Empty', '05_Mix/Final/Final.wav'
+        end
+      end
+
+    end
+
+  end
+
+end
