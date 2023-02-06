@@ -17,4 +17,9 @@ module MusicMasterTest
                       :Processes => [
                         {
                           :Name => 'ApplyVolumeFct',
-                    
+                          :Function => {
+                            :FunctionType => WSK::Functions::FCTTYPE_PIECEWISE_LINEAR,
+                            :MinValue => 0,
+                            :MaxValue => 1,
+                            :Points => {
+                        
