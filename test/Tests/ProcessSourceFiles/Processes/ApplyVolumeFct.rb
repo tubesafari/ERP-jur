@@ -10,4 +10,11 @@ module MusicMasterTest
         def testNormalUsage
           ensure_wsk_or_skip do
             execute_Process_WithConf({
-               
+                :WaveFiles => {
+                  :FilesList => [
+                    {
+                      :Name => 'Wave.wav',
+                      :Processes => [
+                        {
+                          :Name => 'ApplyVolumeFct',
+                    
