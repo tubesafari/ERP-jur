@@ -22,4 +22,10 @@ module MusicMasterTest
                             :MinValue => 0,
                             :MaxValue => 1,
                             :Points => {
-                        
+                              0 => 0,
+                              1 => 1
+                            }
+                          },
+                          :Begin => '0.1s',
+                          :End => '0.9s',
+                          :DBUnits => fa
