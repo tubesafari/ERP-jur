@@ -28,4 +28,14 @@ module MusicMasterTest
                           },
                           :Begin => '0.1s',
                           :End => '0.9s',
-                          :DBUnits => fa
+                          :DBUnits => false
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              :PrepareFiles => [
+                [ 'Wave/Sine1s.wav', 'Wave.wav' ]
+              ],
+            
