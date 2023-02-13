@@ -38,4 +38,9 @@ module MusicMasterTest
               :PrepareFiles => [
                 [ 'Wave/Sine1s.wav', 'Wave.wav' ]
               ],
-            
+              :FakeWSK => [
+                {
+                  :Input => 'Wave.wav',
+                  :Output => /04_Process\/Wave\/Wave\.0\.ApplyVolumeFct\.[[:xdigit:]]{32,32}\.wav/,
+                  :Action => 'ApplyVolumeFct',
+                  :Params =
