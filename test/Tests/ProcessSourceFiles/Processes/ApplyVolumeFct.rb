@@ -43,4 +43,8 @@ module MusicMasterTest
                   :Input => 'Wave.wav',
                   :Output => /04_Process\/Wave\/Wave\.0\.ApplyVolumeFct\.[[:xdigit:]]{32,32}\.wav/,
                   :Action => 'ApplyVolumeFct',
-                  :Params =
+                  :Params => [ '--function', './Wave.fct.rb', '--begin', '0.1s', '--end', '0.9s', '--unitdb', '0' ],
+                  :UseWave => 'Sine1s.wav'
+                }
+            ]) do |iStdOUTLog, iStdERRLog, iExitStatus|
+              assert_exitstat
