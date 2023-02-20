@@ -47,4 +47,9 @@ module MusicMasterTest
                   :UseWave => 'Sine1s.wav'
                 }
             ]) do |iStdOUTLog, iStdERRLog, iExitStatus|
-              assert_exitstat
+              assert_exitstatus 0, iExitStatus
+              getFileFromGlob('04_Process/Wave/Wave.0.ApplyVolumeFct.????????????????????????????????.wav')
+              assert_rb_content({
+                :MinValue => 0,
+                :MaxValue => 1,
+        
