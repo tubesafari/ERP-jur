@@ -52,4 +52,9 @@ module MusicMasterTest
               assert_rb_content({
                 :MinValue => 0,
                 :MaxValue => 1,
-        
+                :FunctionType => WSK::Functions::FCTTYPE_PIECEWISE_LINEAR,
+                :Points => [
+                  [ Rational(0, 1), Rational(0, 1) ],
+                  [ Rational(1, 1), Rational(1, 1) ]
+                ]
+              }, 'Wave.f
