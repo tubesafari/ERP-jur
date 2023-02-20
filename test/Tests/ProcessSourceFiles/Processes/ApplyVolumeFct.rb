@@ -57,4 +57,15 @@ module MusicMasterTest
                   [ Rational(0, 1), Rational(0, 1) ],
                   [ Rational(1, 1), Rational(1, 1) ]
                 ]
-              }, 'Wave.f
+              }, 'Wave.fct.rb')
+            end
+          end
+        end
+
+      end
+
+    end
+
+  end
+
+end
