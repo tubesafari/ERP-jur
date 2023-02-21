@@ -11,4 +11,11 @@ module MusicMasterTest
           lProcessID = {
             :CustomParam1 => 'Param1Value'
           }.unique_id
-          execute_Process_Wit
+          execute_Process_WithConf({
+              :WaveFiles => {
+                :FilesList => [
+                  {
+                    :Name => 'Wave.wav',
+                    :Processes => [
+                      {
+                        :Name => 'Custo
