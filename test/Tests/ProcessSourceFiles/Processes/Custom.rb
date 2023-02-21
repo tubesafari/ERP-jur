@@ -18,4 +18,13 @@ module MusicMasterTest
                     :Name => 'Wave.wav',
                     :Processes => [
                       {
-                        :Name => 'Custo
+                        :Name => 'Custom',
+                        :CustomParam1 => 'Param1Value'
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            :PrepareFiles => [
+              [ 'Wave/Empty.wav',
