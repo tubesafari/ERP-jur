@@ -27,4 +27,8 @@ module MusicMasterTest
               }
             },
             :PrepareFiles => [
-              [ 'Wave/Empty.wav',
+              [ 'Wave/Empty.wav', 'Wave.wav' ]
+            ],
+            :PilotingCode => Proc.new do |oStdIN, iStdOUT, iStdERR, iChildProcess|
+              lLstLines = iStdOUT.gets_until("Press Enter when done ...\n", :time_out_secs => 10)
+              assert_equal "Apply custom proce
