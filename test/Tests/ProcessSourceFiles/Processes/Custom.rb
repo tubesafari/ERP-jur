@@ -31,4 +31,8 @@ module MusicMasterTest
             ],
             :PilotingCode => Proc.new do |oStdIN, iStdOUT, iStdERR, iChildProcess|
               lLstLines = iStdOUT.gets_until("Press Enter when done ...\n", :time_out_secs => 10)
-              assert_equal "Apply custom proce
+              assert_equal "Apply custom process on file 04_Process/Wave/Wave.0.Custom.#{lProcessID}.wav. Parameters: {:CustomParam1=>\"Param1Value\"}\n", lLstLines[-2]
+              assert_raise(Timeout::Error) do
+                iStdOUT.gets(:time_out_secs => 2)
+              end
+              oStdIN
