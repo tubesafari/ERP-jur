@@ -39,4 +39,14 @@ module MusicMasterTest
               iStdOUT.gets_until("Processed finished successfully.\n", :time_out_secs => 10)
             end) do |iStdOUTLog, iStdERRLog, iExitStatus|
             assert_exitstatus 0, iExitStatus
-            getFileFromGlob('04_Process/Wave/Wa
+            getFileFromGlob('04_Process/Wave/Wave.0.Custom.????????????????????????????????.wav')
+          end
+        end
+
+      end
+
+    end
+
+  end
+
+end
