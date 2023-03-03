@@ -35,4 +35,8 @@ module MusicMasterTest
               assert_raise(Timeout::Error) do
                 iStdOUT.gets(:time_out_secs => 2)
               end
-              oStdIN
+              oStdIN.write("\n")
+              iStdOUT.gets_until("Processed finished successfully.\n", :time_out_secs => 10)
+            end) do |iStdOUTLog, iStdERRLog, iExitStatus|
+            assert_exitstatus 0, iExitStatus
+            getFileFromGlob('04_Process/Wave/Wa
