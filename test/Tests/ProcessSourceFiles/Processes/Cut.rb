@@ -13,4 +13,13 @@ module MusicMasterTest
                 :FilesList => [
                   {
                     :Name => 'Wave.wav',
-                 
+                    :Processes => [
+                      {
+                        :Name => 'Cut',
+                        :Begin => '0.1s',
+                        :End => '0.9s'
+                      }
+                    ]
+                  }
+                ]
+          
