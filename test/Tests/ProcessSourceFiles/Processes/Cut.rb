@@ -37,4 +37,14 @@ module MusicMasterTest
               }
           ]) do |iStdOUTLog, iStdERRLog, iExitStatus|
             assert_exitstatus 0, iExitStatus
-            getFi
+            getFileFromGlob('04_Process/Wave/Wave.0.Cut.????????????????????????????????.wav')
+          end
+        end
+
+      end
+
+    end
+
+  end
+
+end
