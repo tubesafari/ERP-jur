@@ -30,4 +30,11 @@ module MusicMasterTest
             :FakeWSK => [
               {
                 :Input => 'Wave.wav',
-                :Output => /04_Process\/Wave\/Wave\.0\.Cut\.[[:xdigit:]]{32,3
+                :Output => /04_Process\/Wave\/Wave\.0\.Cut\.[[:xdigit:]]{32,32}\.wav/,
+                :Action => 'Cut',
+                :Params => [ '--begin', '0.1s', '--end', '0.9s' ],
+                :UseWave => 'Empty.wav'
+              }
+          ]) do |iStdOUTLog, iStdERRLog, iExitStatus|
+            assert_exitstatus 0, iExitStatus
+            getFi
