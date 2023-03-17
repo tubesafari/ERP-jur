@@ -4,4 +4,13 @@ module MusicMasterTest
 
     module Processes
 
-      class CutFirstSignal < ::Test::Unit::Tes
+      class CutFirstSignal < ::Test::Unit::TestCase
+
+        # Normal invocation
+        def testNormalUsage
+          execute_Process_WithConf({
+              :WaveFiles => {
+                :FilesList => [
+                  {
+                    :Name => 'Wave.wav',
+           
