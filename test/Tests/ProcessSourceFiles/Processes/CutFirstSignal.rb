@@ -13,4 +13,12 @@ module MusicMasterTest
                 :FilesList => [
                   {
                     :Name => 'Wave.wav',
-           
+                    :Processes => [
+                      {
+                        :Name => 'CutFirstSignal',
+                        :SilenceMin => '1s'
+                      }
+                    ]
+                  }
+                ]
+  
