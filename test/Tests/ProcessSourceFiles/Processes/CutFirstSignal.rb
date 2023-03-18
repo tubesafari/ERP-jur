@@ -21,4 +21,12 @@ module MusicMasterTest
                     ]
                   }
                 ]
-  
+              }
+            },
+            :PrepareFiles => [
+              [ 'Wave/Empty.wav', 'Wave.wav' ]
+            ],
+            :FakeWSK => [
+              {
+                :Input => 'Wave.wav',
+                :Output => /04_Pr
