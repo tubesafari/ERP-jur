@@ -32,4 +32,8 @@ module MusicMasterTest
                 :Output => /04_Process\/Wave\/Wave\.0\.CutFirstSignal\.[[:xdigit:]]{32,32}\.wav/,
                 :Action => 'CutFirstSignal',
                 :Params => [ '--silencethreshold', '0', '--noisefft', 'none', '--silencemin', '1s' ],
-                :UseW
+                :UseWave => 'Empty.wav'
+              }
+          ]) do |iStdOUTLog, iStdERRLog, iExitStatus|
+            assert_exitstatus 0, iExitStatus
+            getFileFromGlob('04_Process/Wave/Wave.0.CutFirstSignal.????????????????????????????????.wav')
