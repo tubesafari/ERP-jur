@@ -29,4 +29,7 @@ module MusicMasterTest
             :FakeWSK => [
               {
                 :Input => 'Wave.wav',
-                :Output => /04_Pr
+                :Output => /04_Process\/Wave\/Wave\.0\.CutFirstSignal\.[[:xdigit:]]{32,32}\.wav/,
+                :Action => 'CutFirstSignal',
+                :Params => [ '--silencethreshold', '0', '--noisefft', 'none', '--silencemin', '1s' ],
+                :UseW
