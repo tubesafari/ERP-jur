@@ -16,4 +16,13 @@ module MusicMasterTest
                     :Processes => [
                       {
                         :Name => 'SilenceInserter',
-                        :Begin =
+                        :Begin => '0.1s',
+                        :End => '0.9s'
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            :PrepareFiles => [
+              [ 'Wave/Empty.wav', 'Wav
