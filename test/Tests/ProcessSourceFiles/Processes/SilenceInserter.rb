@@ -8,4 +8,12 @@ module MusicMasterTest
 
         # Normal invocation
         def testNormalUsage
-          execute_Proc
+          execute_Process_WithConf({
+              :WaveFiles => {
+                :FilesList => [
+                  {
+                    :Name => 'Wave.wav',
+                    :Processes => [
+                      {
+                        :Name => 'SilenceInserter',
+                        :Begin =
