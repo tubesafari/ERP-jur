@@ -122,3 +122,5 @@ module MusicMasterTest
     end
 
   end
+
+end
