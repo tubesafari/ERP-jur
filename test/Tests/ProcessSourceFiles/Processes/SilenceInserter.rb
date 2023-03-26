@@ -37,4 +37,14 @@ module MusicMasterTest
               }
           ]) do |iStdOUTLog, iStdERRLog, iExitStatus|
             assert_exitstatus 0, iExitStatus
-            getFileFromGlob('04_Process/Wave/Wave.0.
+            getFileFromGlob('04_Process/Wave/Wave.0.SilenceInserter.????????????????????????????????.wav')
+          end
+        end
+
+      end
+
+    end
+
+  end
+
+end
