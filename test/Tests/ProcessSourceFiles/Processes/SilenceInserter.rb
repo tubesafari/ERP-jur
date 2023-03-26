@@ -25,4 +25,10 @@ module MusicMasterTest
               }
             },
             :PrepareFiles => [
-              [ 'Wave/Empty.wav', 'Wav
+              [ 'Wave/Empty.wav', 'Wave.wav' ]
+            ],
+            :FakeWSK => [
+              {
+                :Input => 'Wave.wav',
+                :Output => /04_Process\/Wave\/Wave\.0\.SilenceInserter\.[[:xdigit:]]{32,32}\.wav/,
+                :Action => 'SilenceInserter',
